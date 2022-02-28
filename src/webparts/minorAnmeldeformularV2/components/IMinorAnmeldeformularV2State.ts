@@ -10,7 +10,7 @@ export interface IMinorAnmeldeformularV2State {
     minor2DataState: IMinor2State;
     requiredDataState: {
         contactDataState: IContactDataState;
-        isTheFirstMaster: boolean;
+        isTheFirstMaster: string;
         studyProgram: string;
         studyYear: string;
         jazzOrClassic: string;

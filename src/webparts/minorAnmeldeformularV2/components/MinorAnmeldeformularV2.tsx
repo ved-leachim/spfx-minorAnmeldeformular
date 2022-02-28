@@ -10,6 +10,7 @@ import { FormInteraction } from './FormInteraction';
 import { IContactDataState } from './IContactDataState';
 import { IMinorAnmeldeformularV2State } from './IMinorAnmeldeformularV2State';
 import * as strings from 'MinorAnmeldeformularV2WebPartStrings';
+import { IGeneralDataState } from './IGeneralDataState';
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
 
@@ -22,12 +23,13 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         contactEMail: ""
       },
       generalDataState: {
-        isTheFirstMinor: null,
+        isTheFirstMaster: null,
         studyProgram: "",
         jazzOrClassic: "",
         studyYear: "",
         mainInstrument: "",
-        favoriteLecturer: ""
+        favoriteLecturerId: "",
+        favoritLecturerName: ""
       },
       minor1DataState: {
         minor1: "",
@@ -91,7 +93,22 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             }}>
           </ContactData>
           <br></br>
-          <GeneralData />
+          <GeneralData
+          context={this.props.context}
+          handleUpdateGeneralData={(updatedGeneralData: IGeneralDataState) => {
+            this.setState({
+              generalDataState: updatedGeneralData,
+              requiredDataState: {
+                ...this.state.requiredDataState,
+                isTheFirstMaster: updatedGeneralData.isTheFirstMaster,
+                studyProgram: updatedGeneralData.studyProgram,
+                studyYear: updatedGeneralData.studyYear,
+                jazzOrClassic: updatedGeneralData.jazzOrClassic,
+                mainInstrument: updatedGeneralData.mainInstrument
+              }
+            });
+          }}>
+          </GeneralData>
           <br></br>
           <Minor1
           selectedMinor='this.state.minor1'></Minor1>

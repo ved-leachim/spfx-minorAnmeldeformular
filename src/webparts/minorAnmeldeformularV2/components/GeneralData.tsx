@@ -1,11 +1,17 @@
-import { FontSizes, IStackProps, IStackStyles, Stack, TextField } from 'office-ui-fabric-react';
+import { BaseComponent, Dropdown, FontSizes, IStackProps, IStackStyles, rgb2hex, Stack, TextField } from 'office-ui-fabric-react';
 import * as React from 'react';
+import { IGeneralDataState } from './IGeneralDataState';
+import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
+import { WebPartContext } from '@microsoft/sp-webpart-base';
 
-export interface IGeneralDataProps {}
+export interface IGeneralDataProps {
+    context: any;
+    handleUpdateGeneralData(updatedGeneralData: IGeneralDataState): void;
+}
 
 export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: React.PropsWithChildren<IGeneralDataProps>) => {
-  const [value, setValue] = React.useState('');
 
+  // Styling of Stack-Layout
   const stackTokens = {childrenGap: 50};
   const stackStyles: Partial<IStackStyles> = { root: {width: 650}};
   const columnProps: Partial<IStackProps> = {
@@ -13,42 +19,92 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
       styles: {root: {width: 300}}
   };
 
+  // Managing FC-State
+  const [generalData, setGeneralData] = React.useState<IGeneralDataState>({
+    isTheFirstMaster: "",
+    studyProgram: "",
+    studyYear: "",
+    jazzOrClassic: "",
+    mainInstrument: "",
+    favoriteLecturerId: "",
+    favoritLecturerName: ""
+});
+
+  // Update Parent Component
+  React.useEffect(() => {
+    props.handleUpdateGeneralData(generalData);
+},[generalData]);
+
   return (
     <div>
         <span style={{fontSize: FontSizes.size20}}>Allgemeine Informationen</span>
         <br></br><br></br>
         <Stack horizontal tokens={stackTokens} styles={stackStyles}>
             <Stack {...columnProps}>
-                <TextField 
-                label='Erster Master'
+                <Dropdown
+                label='Erster Master?'
+                options={[
+                    {key: 'ja', text: 'Ja'},
+                    {key: 'nein', text: 'Nein'}
+                ]}
+                onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {setGeneralData({...generalData, isTheFirstMaster: options.text});}}
                 required>
-                </TextField>
-                <TextField 
+                </Dropdown>
+                <Dropdown
                 label='Studienjahr'
+                options={[
+                    {key: '1. studienjahr', text: '1. Studienjahr'},
+                    {key: '2. studienjahr', text: '2. Studienjahr'}
+                ]}
+                onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {setGeneralData({...generalData, studyYear: options.text});}}
                 required>
-                </TextField>
-                <TextField 
+                </Dropdown>
+                <Dropdown
                 label='Instrument'
+                options={[
+                    {key: 'import', text: 'Import'}
+                ]}
+                onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {setGeneralData({...generalData, mainInstrument: options.text});}}
                 required>
-                </TextField>
-                <TextField 
-                label='Dozierende*r - Tastatureingabe, falls nicht gefunden'
-                >
+                </Dropdown>
+                <TextField
+                label='Dozierende*r - Tastatureingabe, falls nicht im Verzeichnis gefunden'
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setGeneralData({...generalData, favoritLecturerName: e.target.value});}}
+                disabled={generalData.favoriteLecturerId != ""}
+                value={generalData.favoritLecturerName}>
                 </TextField>
             </Stack>
             <Stack {...columnProps}>
-            <TextField 
+                <Dropdown
                 label='Studiengang'
+                options={[
+                    {key: 'import', text: 'Import'}
+                ]}
+                onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {setGeneralData({...generalData, studyProgram: options.text});}}
                 required>
-                </TextField>
-                <TextField 
+                </Dropdown>
+                <Dropdown
                 label='Jazz oder Klassik'
+                options={[
+                    {key: 'Jazz', text: 'Jazz'},
+                    {key: 'Klassik', text: 'Klassik'}
+                ]}
+                onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {setGeneralData({...generalData, jazzOrClassic: options.text});}}
                 required>
-                </TextField>
-                <TextField 
-                label='Dozierende*r Benutzersuche'
-                >
-                </TextField>
+                </Dropdown>
+                <label style={{marginBottom: -10, fontSize: FontSizes.size14, fontWeight: 600, color: rgb2hex(50, 49, 48), paddingTop: 5}}>Favorisierter Dozierender</label>
+                <PeoplePicker
+                context={props.context}
+                ensureUser
+                principalTypes={[PrincipalType.User]}
+                onChange={(selectedPerson) => {
+                    if (selectedPerson !== null && selectedPerson.length > 0) {setGeneralData({...generalData, favoriteLecturerId: selectedPerson[0].id, favoritLecturerName: ""});}
+                    else {setGeneralData({...generalData, favoriteLecturerId: ""});}
+                }}
+                placeholder={"Im Verzeichnis suchen..."}
+                personSelectionLimit={1}
+                resolveDelay={1000}>
+                </PeoplePicker>
             </Stack>
         </Stack>
         <br></br><br></br>

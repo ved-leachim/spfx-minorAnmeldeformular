@@ -35,6 +35,7 @@ export default class MinorAnmeldeformularV2WebPart extends BaseClientSideWebPart
     const element: React.ReactElement<IMinorAnmeldeformularV2Props> = React.createElement(
       MinorAnmeldeformularV2,
       {
+        context: this.context,
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,

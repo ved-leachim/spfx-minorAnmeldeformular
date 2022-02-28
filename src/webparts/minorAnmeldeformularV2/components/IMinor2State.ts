@@ -1,5 +1,5 @@
 export interface IMinor2State {
-    minor1: string;
+    minor2: string;
     hasBADegree: boolean;
     hasAudioProof: boolean;
     preferredLecturer1: string;

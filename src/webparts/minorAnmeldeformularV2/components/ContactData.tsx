@@ -4,7 +4,9 @@ import { FontSizes } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { IContactDataState } from './IContactDataState';
 
-export interface IContactDataProps {}
+export interface IContactDataProps {
+    handleUpdateContactData(updatedContactData: IContactDataState): void;
+}
 
 export const ContactData: React.FunctionComponent<IContactDataProps> = (props: React.PropsWithChildren<IContactDataProps>) => {
 
@@ -17,12 +19,17 @@ export const ContactData: React.FunctionComponent<IContactDataProps> = (props: R
       styles: {root: {width: 300}}
   };
 
-  // Managing State
+  // Managing FC-State
   const [contactData, setContactData] = React.useState<IContactDataState>({
       givenName: "",
       surname: "",
       contactEMail: ""
   });
+
+  // Update Parent Component
+  React.useEffect(() => {
+      props.handleUpdateContactData(contactData);
+  },[contactData]);
 
   return (
     <div>

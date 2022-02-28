@@ -1,0 +1,16 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "version": "1.14.0",
+    "libraryName": "minorform-anmeldung-2",
+    "libraryId": "569affd4-9424-49fe-a178-985f27161959",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "minorform-anmeldung-2",
+    "solutionShortDescription": "minorform-anmeldung-2 description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

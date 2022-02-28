@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "minorform-anmeldung-2-client-side-solution",
+    "id": "569affd4-9424-49fe-a178-985f27161959",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.14.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "minorform-anmeldung-2 description"
+      },
+      "longDescription": {
+        "default": "minorform-anmeldung-2 description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "minorform-anmeldung-2 Feature",
+        "description": "The feature that activates elements of the minorform-anmeldung-2 solution.",
+        "id": "51968403-b392-4900-a23e-a7153d317000",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/minorform-anmeldung-2.sppkg"
+  }
+}

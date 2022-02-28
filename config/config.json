@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "minor-anmeldeformular-v-2-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/minorAnmeldeformularV2/MinorAnmeldeformularV2WebPart.js",
+          "manifest": "./src/webparts/minorAnmeldeformularV2/MinorAnmeldeformularV2WebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "MinorAnmeldeformularV2WebPartStrings": "lib/webparts/minorAnmeldeformularV2/loc/{locale}.js"
+  }
+}

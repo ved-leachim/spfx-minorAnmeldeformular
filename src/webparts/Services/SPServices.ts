@@ -23,7 +23,7 @@ export class SPServices {
                 .then((spResponseJson: ISPList) => {
                     spResponseJson.value.map((spListItem) => {
                         listOfSPListItems.push({
-                            key: spListItem.Title.toLowerCase(), text: spListItem.Title
+                            key: spListItem.Title.toLowerCase(), text: spListItem.Title, id: spListItem.TemplateID
                         });
                     });
                     resolve(listOfSPListItems);

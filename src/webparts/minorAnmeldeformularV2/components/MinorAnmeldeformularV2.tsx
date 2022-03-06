@@ -13,7 +13,8 @@ import * as strings from 'MinorAnmeldeformularV2WebPartStrings';
 import { IGeneralDataState } from './IGeneralDataState';
 import { SPServices } from '../../Services/SPServices';
 import { IDropdownOption, Spinner } from 'office-ui-fabric-react';
-import { ISPList } from '../../Services/ISPList';
+import { IMinor1State } from './IMinor1State';
+import { IMinor2State } from './IMinor2State';
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
 
@@ -43,27 +44,37 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
       },
       minor1DataState: {
         minor1: "",
-        hasBADegree: null,
-        hasAudioProof: null,
-        preferredLecturer1: null,
-        preferredLecturer2: null,
+        templateId: "",
+        hasBADegree: "",
+        hasAudioProof: "",
+        preferredLecturer1Id: "",
+        preferredLecturer1Name: "",
+        preferredLecturer2Id: "",
+        preferredLecturer2Name: "",
         jazzOrClassic: "",
-        hasOrchestraInternship: null,
+        hasOrchestraInternship: "",
         desiredNumberOfSemesters: "",
         preferredSecondaryInstrument1: "",
-        preferredSecondaryInstrument2: ""
+        preferredSecondaryInstrument1Special: "",
+        preferredSecondaryInstrument2: "",
+        preferredSecondaryInstrument2Special: ""
       },
       minor2DataState: {
         minor2: "",
-        hasBADegree: null,
-        hasAudioProof: null,
-        preferredLecturer1: null,
-        preferredLecturer2: null,
+        templateId: "",
+        hasBADegree: "",
+        hasAudioProof: "",
+        preferredLecturer1Id: "",
+        preferredLecturer1Name: "",
+        preferredLecturer2Id: "",
+        preferredLecturer2Name: "",
         jazzOrClassic: "",
-        hasOrchestraInternship: null,
+        hasOrchestraInternship: "",
         desiredNumberOfSemesters: "",
         preferredSecondaryInstrument1: "",
-        preferredSecondaryInstrument2: ""
+        preferredSecondaryInstrument1Special: "",
+        preferredSecondaryInstrument2: "",
+        preferredSecondaryInstrument2Special: ""
       },
       requiredDataState: {
         contactDataState: {
@@ -90,18 +101,19 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
     Promise.all([this.SPServices.getFormData(this.props.configStudyPrograms),
       this.SPServices.getFormData(this.props.configInstruments),
       this.SPServices.getFormData(this.props.configMinors)])
-        .then((allNeededFormDataResonse) => {
+        .then((allNeededFormDataResponse) => {
           // General Data: Study Programm Data
-          this.studyProgrammData = allNeededFormDataResonse[0],
+          this.studyProgrammData = allNeededFormDataResponse[0],
           // General Data: Main Instrument Data
-          this.mainInstrumentData = allNeededFormDataResonse[1],
+          this.mainInstrumentData = allNeededFormDataResponse[1],
           // Minor 1 & 2: Minor Data
-          this.minorData = allNeededFormDataResonse[2];
+          this.minorData = allNeededFormDataResponse[2];
         })
           .then(() => {
             this.setState({
               dataLoaded: true
             });
+            console.log(this.minorData);
           });
   }
 
@@ -149,10 +161,20 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           </GeneralData>
           <br></br>
           <Minor1
-          selectedMinor='this.state.minor1'></Minor1>
+          minorData={this.minorData}
+          handleUpdateMinor1Data={(updatedMinor1Data: IMinor1State) => {
+            this.setState({
+              minor1DataState: updatedMinor1Data
+            });
+          }}></Minor1>
           <br></br>
           <Minor2
-          selectedMinor='this.state.minor2'></Minor2>
+          minorData={this.minorData}
+          handleUpdateMinor2Data={(updatedMinor2Data: IMinor2State) => {
+            this.setState({
+              minor2DataState: updatedMinor2Data
+            });
+          }}></Minor2>
           <br></br>
           <FormInteraction></FormInteraction>
         </div>

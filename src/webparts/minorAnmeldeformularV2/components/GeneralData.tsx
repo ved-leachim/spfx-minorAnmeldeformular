@@ -1,10 +1,7 @@
-import { BaseComponent, Dropdown, FontSizes, IDropdownOption, IStackProps, IStackStyles, rgb2hex, Stack, TextField } from 'office-ui-fabric-react';
+import { Dropdown, FontSizes, IDropdownOption, IStackProps, IStackStyles, rgb2hex, Stack, TextField } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { IGeneralDataState } from './IGeneralDataState';
 import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
-import { WebPartContext } from '@microsoft/sp-webpart-base';
-import { SPServices } from '../../Services/SPServices';
-import MinorAnmeldeformularV2 from './MinorAnmeldeformularV2';
 
 export interface IGeneralDataProps {
     context: any;
@@ -39,11 +36,6 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
     props.handleUpdateGeneralData(generalData);
   },[generalData]);
 
-  // Set initial State for the GeneralData Form
-  // React.useEffect(() => {
-      
-  // })
-
   return (
     <div>
         <span style={{fontSize: FontSizes.size20}}>Allgemeine Informationen</span>
@@ -70,9 +62,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                 </Dropdown>
                 <Dropdown
                 label='Instrument'
-                options={[
-                    {key: 'import', text: 'Import'}
-                ]}
+                options={props.mainInstrumentData}
                 onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {setGeneralData({...generalData, mainInstrument: options.text});}}
                 required>
                 </Dropdown>

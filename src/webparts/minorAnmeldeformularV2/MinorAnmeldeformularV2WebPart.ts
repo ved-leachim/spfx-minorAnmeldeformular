@@ -16,8 +16,8 @@ export interface IMinorAnmeldeformularV2WebPartProps {
   configStudyPrograms: string;
   configMinors: string;
   configInstruments: string;
-  configSaveToListUrl: string;
-  configUploadToDocumentLibraryUrl: string;
+  configSaveToList: string;
+  configUploadToDocumentLibrary: string;
 }
 
 export default class MinorAnmeldeformularV2WebPart extends BaseClientSideWebPart<IMinorAnmeldeformularV2WebPartProps> {
@@ -40,8 +40,11 @@ export default class MinorAnmeldeformularV2WebPart extends BaseClientSideWebPart
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
         userDisplayName: this.context.pageContext.user.displayName,
-        configSaveToListUrl: this.properties.configSaveToListUrl,
-        configUploadToDocumentLibraryUrl: this.properties.configUploadToDocumentLibraryUrl
+        configStudyPrograms: this.properties.configStudyPrograms,
+        configMinors: this.properties.configMinors,
+        configInstruments: this.properties.configInstruments,
+        configSaveToList: this.properties.configSaveToList,
+        configUploadToDocumentLibrary: this.properties.configUploadToDocumentLibrary
       }
     );
 
@@ -104,10 +107,10 @@ export default class MinorAnmeldeformularV2WebPart extends BaseClientSideWebPart
             {
               groupName: strings.GroupNameSaveData,
               groupFields: [
-                  PropertyPaneTextField('configSaveToListUrl', {
+                  PropertyPaneTextField('configSaveToList', {
                     label: strings.configSaveToListUrlLabel
                   }),
-                  PropertyPaneTextField('configUploadToDocumentLibraryUrl', {
+                  PropertyPaneTextField('configUploadToDocumentLibrary', {
                     label: strings.configUploadToDocumentLibraryUrlLabel
                   })
               ]

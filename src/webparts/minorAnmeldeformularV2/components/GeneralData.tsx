@@ -1,12 +1,16 @@
-import { BaseComponent, Dropdown, FontSizes, IStackProps, IStackStyles, rgb2hex, Stack, TextField } from 'office-ui-fabric-react';
+import { BaseComponent, Dropdown, FontSizes, IDropdownOption, IStackProps, IStackStyles, rgb2hex, Stack, TextField } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { IGeneralDataState } from './IGeneralDataState';
 import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
 import { WebPartContext } from '@microsoft/sp-webpart-base';
+import { SPServices } from '../../Services/SPServices';
+import MinorAnmeldeformularV2 from './MinorAnmeldeformularV2';
 
 export interface IGeneralDataProps {
     context: any;
     handleUpdateGeneralData(updatedGeneralData: IGeneralDataState): void;
+    studyProgrammData: IDropdownOption[];
+    mainInstrumentData: IDropdownOption[];
 }
 
 export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: React.PropsWithChildren<IGeneralDataProps>) => {
@@ -33,7 +37,12 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
   // Update Parent Component
   React.useEffect(() => {
     props.handleUpdateGeneralData(generalData);
-},[generalData]);
+  },[generalData]);
+
+  // Set initial State for the GeneralData Form
+  // React.useEffect(() => {
+      
+  // })
 
   return (
     <div>
@@ -77,9 +86,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
             <Stack {...columnProps}>
                 <Dropdown
                 label='Studiengang'
-                options={[
-                    {key: 'import', text: 'Import'}
-                ]}
+                options={props.studyProgrammData}
                 onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {setGeneralData({...generalData, studyProgram: options.text});}}
                 required>
                 </Dropdown>

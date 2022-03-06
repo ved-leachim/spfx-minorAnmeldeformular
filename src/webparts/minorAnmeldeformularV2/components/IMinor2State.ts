@@ -1,3 +1,5 @@
+import { IDropdownOption } from "office-ui-fabric-react";
+
 export interface IMinor2State {
     minor2: string;
     hasBADegree: boolean;

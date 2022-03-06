@@ -11,8 +11,18 @@ import { IContactDataState } from './IContactDataState';
 import { IMinorAnmeldeformularV2State } from './IMinorAnmeldeformularV2State';
 import * as strings from 'MinorAnmeldeformularV2WebPartStrings';
 import { IGeneralDataState } from './IGeneralDataState';
+import { SPServices } from '../../Services/SPServices';
+import { IDropdownOption, Spinner } from 'office-ui-fabric-react';
+import { ISPList } from '../../Services/ISPList';
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
+
+  private SPServices: SPServices;
+  // Props for functional Components
+  private studyProgrammData: IDropdownOption[];
+  private mainInstrumentData: IDropdownOption[];
+  private minorData: IDropdownOption[];
+
 
   constructor(probs: IMinorAnmeldeformularV2Props, state: IMinorAnmeldeformularV2State) {
     super(probs);
@@ -68,10 +78,32 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         mainInstrument: "",
         minor1: "",
         minor2: ""
-      }
+      },
+      dataLoaded: false,
     };
+
+    // Instantiate SPServices to interact with SP-APIS
+    this.SPServices = new SPServices(this.props.context);
   }
 
+  public componentDidMount(): void {
+    Promise.all([this.SPServices.getFormData(this.props.configStudyPrograms),
+      this.SPServices.getFormData(this.props.configInstruments),
+      this.SPServices.getFormData(this.props.configMinors)])
+        .then((allNeededFormDataResonse) => {
+          // General Data: Study Programm Data
+          this.studyProgrammData = allNeededFormDataResonse[0],
+          // General Data: Main Instrument Data
+          this.mainInstrumentData = allNeededFormDataResonse[1],
+          // Minor 1 & 2: Minor Data
+          this.minorData = allNeededFormDataResonse[2];
+        })
+          .then(() => {
+            this.setState({
+              dataLoaded: true
+            });
+          });
+  }
 
   public render(): React.ReactElement<IMinorAnmeldeformularV2Props> {
     const {
@@ -82,6 +114,10 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
     } = this.props;
 
     return (
+      
+      // Wait for Data from initial fetching in ComponentDidMount()
+      !this.state.dataLoaded ? <Spinner label='Wait, wait...' ariaLive='assertive' labelPosition='right'></Spinner> :
+
       <section className={`${styles.minorAnmeldeformularV2} ${hasTeamsContext ? styles.teams : ''}`}>
         <div className={styles.welcome}>
           <ContactData
@@ -95,6 +131,8 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           <br></br>
           <GeneralData
           context={this.props.context}
+          studyProgrammData={this.studyProgrammData}
+          mainInstrumentData={this.mainInstrumentData}
           handleUpdateGeneralData={(updatedGeneralData: IGeneralDataState) => {
             this.setState({
               generalDataState: updatedGeneralData,
@@ -104,7 +142,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
                 studyProgram: updatedGeneralData.studyProgram,
                 studyYear: updatedGeneralData.studyYear,
                 jazzOrClassic: updatedGeneralData.jazzOrClassic,
-                mainInstrument: updatedGeneralData.mainInstrument
+                mainInstrument: updatedGeneralData.mainInstrument,
               }
             });
           }}>

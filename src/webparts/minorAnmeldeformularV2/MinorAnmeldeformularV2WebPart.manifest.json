@@ -23,7 +23,11 @@
     "description": { "default": "Minor Anmeldeformular V2 description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "Minor Anmeldeformular V2"
+      "configStudyPrograms": "App Minor MA Studiengänge",
+      "configMinors": "App Minor Studiengänge",
+      "configInstruments": "App Minor Instrumente",
+      "configSaveToList": "Minoranmeldungen neu",
+      "configUploadToDocumentLibrary": "-"
     }
   }]
 }

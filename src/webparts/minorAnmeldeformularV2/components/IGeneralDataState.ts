@@ -1,3 +1,5 @@
+import { IDropdownOption } from "office-ui-fabric-react";
+
 export interface IGeneralDataState {
     isTheFirstMaster: string;
     studyProgram: string;

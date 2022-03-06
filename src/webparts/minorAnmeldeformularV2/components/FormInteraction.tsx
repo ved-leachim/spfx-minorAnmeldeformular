@@ -16,6 +16,14 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
 
   return (
       <div>
+          <MessageBar
+            messageBarType={MessageBarType.info}
+            isMultiline={true}
+            dismissButtonAriaLabel="Schliessen"
+            styles={messageBarStyles}>
+              Hier Kommuniziert das Formular mit dem Benutzer...
+          </MessageBar>
+          <br></br>
           <Stack horizontal tokens={stackTokens} styles={stackStyles}>
               <Stack {...columnProps}>
                 <PrimaryButton
@@ -28,14 +36,6 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
                   </PrimaryButton>
               </Stack>
           </Stack>
-          <br></br>
-            <MessageBar
-            messageBarType={MessageBarType.info}
-            isMultiline={true}
-            dismissButtonAriaLabel="Schliessen"
-            styles={messageBarStyles}>
-                 Hier Kommuniziert das Formular mit dem Benutzer...
-            </MessageBar>
       </div>
   );
 };

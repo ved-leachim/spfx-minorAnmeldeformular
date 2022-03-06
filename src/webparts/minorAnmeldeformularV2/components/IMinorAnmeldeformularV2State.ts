@@ -18,4 +18,5 @@ export interface IMinorAnmeldeformularV2State {
         minor1: string;
         minor2: string;
     };
+    dataLoaded: boolean;
 }

@@ -6,6 +6,9 @@ export interface IMinorAnmeldeformularV2Props {
   environmentMessage: string;
   hasTeamsContext: boolean;
   userDisplayName: string;
-  configSaveToListUrl: string;
-  configUploadToDocumentLibraryUrl: string;
+  configStudyPrograms: string;
+  configMinors: string;
+  configInstruments: string;
+  configSaveToList: string;
+  configUploadToDocumentLibrary: string;
 }

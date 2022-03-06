@@ -45,8 +45,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
       minor1DataState: {
         minor1: "",
         templateId: "",
-        hasBADegree: "",
-        hasAudioProof: "",
+        proofOfExperience: "",
         preferredLecturer1Id: "",
         preferredLecturer1Name: "",
         preferredLecturer2Id: "",
@@ -62,8 +61,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
       minor2DataState: {
         minor2: "",
         templateId: "",
-        hasBADegree: "",
-        hasAudioProof: "",
+        proofOfExperience: "",
         preferredLecturer1Id: "",
         preferredLecturer1Name: "",
         preferredLecturer2Id: "",
@@ -161,6 +159,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           </GeneralData>
           <br></br>
           <Minor1
+          context={this.props.context}
           minorData={this.minorData}
           handleUpdateMinor1Data={(updatedMinor1Data: IMinor1State) => {
             this.setState({
@@ -169,6 +168,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           }}></Minor1>
           <br></br>
           <Minor2
+          context={this.props.context}
           minorData={this.minorData}
           handleUpdateMinor2Data={(updatedMinor2Data: IMinor2State) => {
             this.setState({

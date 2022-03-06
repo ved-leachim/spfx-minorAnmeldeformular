@@ -2,6 +2,8 @@ import { Dropdown, FontSizes, IStackProps, IStackStyles, Stack, TextField } from
 import * as React from 'react';
 import { IMinor1Props } from './IMinor1Props';
 import { IMinor1State } from './IMinor1State';
+import { AdvancedPerformanceJazz } from './templates/AdvancedPerformanceJazz';
+import { IAdvancedPerformanceJazzState } from './templates/IAdvancedPerformanceJazzState';
 
 export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.PropsWithChildren<IMinor1Props>) => {
 
@@ -17,8 +19,7 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
   const [minor1Data, setMinor1Data] = React.useState<IMinor1State>({
     minor1: "",
     templateId: "",
-    hasBADegree: "",
-    hasAudioProof: "",
+    proofOfExperience: "",
     preferredLecturer1Id: "",
     preferredLecturer1Name: "",
     preferredLecturer2Id: "",
@@ -51,6 +52,23 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
                 </Dropdown>
             </Stack>
             <Stack {...columnProps}>
+              {
+                (minor1Data.templateId == "1") ?
+                <AdvancedPerformanceJazz
+                context={props.context}
+                handleUpdateAdvancedPerformanceJazzData={(updatedAdvancedPerformanceJazzData: IAdvancedPerformanceJazzState) => {
+                  setMinor1Data({
+                    ...minor1Data,
+                    proofOfExperience: updatedAdvancedPerformanceJazzData.proofOfExperience,
+                    preferredLecturer1Id: updatedAdvancedPerformanceJazzData.preferredLecturer1Id,
+                    preferredLecturer1Name: updatedAdvancedPerformanceJazzData.preferredLecturer1Name,
+                    preferredLecturer2Id: updatedAdvancedPerformanceJazzData.preferredLecturer2Id,
+                    preferredLecturer2Name: updatedAdvancedPerformanceJazzData.preferredLecturer2Name
+                  });
+                }}>
+                </AdvancedPerformanceJazz> :
+                <></>
+              }
             </Stack>
         </Stack>
         <br></br><br></br>

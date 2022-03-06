@@ -3,8 +3,7 @@ import { IDropdownOption } from "office-ui-fabric-react";
 export interface IMinor1State {
     minor1: string;
     templateId: string;
-    hasBADegree: string;
-    hasAudioProof: string;
+    proofOfExperience: string;
     preferredLecturer1Id: string;
     preferredLecturer1Name: string;
     preferredLecturer2Id: string;

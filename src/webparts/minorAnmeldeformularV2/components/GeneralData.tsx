@@ -29,7 +29,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
     mainInstrument: "",
     favoriteLecturerId: "",
     favoritLecturerName: ""
-});
+  });
 
   // Update Parent Component
   React.useEffect(() => {

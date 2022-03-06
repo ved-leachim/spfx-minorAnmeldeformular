@@ -17,8 +17,7 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
   const [minor2Data, setMinor2Data] = React.useState<IMinor2State>({
     minor2: "",
     templateId: "",
-    hasBADegree: "",
-    hasAudioProof: "",
+    proofOfExperience: "",
     preferredLecturer1Id: "",
     preferredLecturer1Name: "",
     preferredLecturer2Id: "",

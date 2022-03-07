@@ -2,8 +2,13 @@ import { Dropdown, FontSizes, IStackProps, IStackStyles, Stack, TextField } from
 import * as React from 'react';
 import { IMinor2Props } from './IMinor2Props';
 import { IMinor2State } from './IMinor2State';
-import {AdvancedPerformanceJazz} from "../templates/AdvancedPerformanceJazz";
-import {IAdvancedPerformanceJazzState} from "../templates/IAdvancedPerformanceJazzState";
+import {AdvancedPerformanceJazz} from "../templates/01 advancedPerformanceJazz/AdvancedPerformanceJazz";
+import {IAdvancedPerformanceJazzState} from "../templates/01 advancedPerformanceJazz/IAdvancedPerformanceJazzState";
+import {ErweiterteMusikpraxis} from "../templates/02 erweiterteMusikpraxis/ErweiterteMusikpraxis";
+import {IErweiterteMusikpraxisState} from "../templates/02 erweiterteMusikpraxis/IErweiterteMusikpraxisState";
+import {PreferredLecturer} from "../templates/07 preferredLecturer/PreferredLecturer";
+import {Orchestra} from "../templates/04 orchestra/Orchestra";
+import {RequestedSemesters} from "../templates/05 requestedNumbersOfSemesters/RequestedSemesters";
 
 export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.PropsWithChildren<IMinor2Props>) => {
 
@@ -86,6 +91,53 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
                                 });
                             }}>
                         </AdvancedPerformanceJazz> :
+                        <></>
+                }
+                {
+                    (minor2Data.templateId == "2") ?
+                        <ErweiterteMusikpraxis handleUpdateErweiterteMusikpraxisData={(updatedErweiterteMusikpraxisData: IErweiterteMusikpraxisState) => {
+                            setMinor2Data({
+                                ...minor2Data,
+                                jazzOrClassic: updatedErweiterteMusikpraxisData.jazzOrClassic
+                            });
+                        }}>
+                        </ErweiterteMusikpraxis> :
+                        <></>
+                }
+                {
+                    (minor2Data.templateId == "4") ?
+                        <Orchestra handleUpdateOrchestraData={(updatedOrchestraData) => {
+                            setMinor2Data({
+                                ...minor2Data,
+                                hasOrchestraInternship: updatedOrchestraData.hasOrchestraInternship
+                            });
+                        }}>
+                        </Orchestra> :
+                        <></>
+                }
+                {
+                    (minor2Data.templateId == "5") ?
+                        <RequestedSemesters handleUpdateRequestedSemestersData={(updatedRequestedSemestersData) => {
+                            setMinor2Data({
+                                ...minor2Data,
+                                desiredNumberOfSemesters: updatedRequestedSemestersData.desiredNumberOfSemesters
+                            });
+                        }}>
+                        </RequestedSemesters> :
+                        <></>
+                }
+                {
+                    (minor2Data.templateId == "7") ?
+                        <PreferredLecturer context={props.context} handleUpdatePreferredLecturerData={(updatedPreferredLecturerData) => {
+                            setMinor2Data({
+                                ...minor2Data,
+                                preferredLecturer1Id: updatedPreferredLecturerData.preferredLecturer1Id,
+                                preferredLecturer1Name: updatedPreferredLecturerData.preferredLecturer1Name,
+                                preferredLecturer2Id: updatedPreferredLecturerData.preferredLecturer2Id,
+                                preferredLecturer2Name: updatedPreferredLecturerData.preferredLecturer2Name
+                            });
+                        }}>
+                        </PreferredLecturer> :
                         <></>
                 }
             </Stack>

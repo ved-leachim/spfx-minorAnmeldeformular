@@ -2,8 +2,13 @@ import { Dropdown, FontSizes, IStackProps, IStackStyles, Stack, TextField } from
 import * as React from 'react';
 import { IMinor1Props } from './IMinor1Props';
 import { IMinor1State } from './IMinor1State';
-import { AdvancedPerformanceJazz } from '../templates/AdvancedPerformanceJazz';
-import { IAdvancedPerformanceJazzState } from '../templates/IAdvancedPerformanceJazzState';
+import { AdvancedPerformanceJazz } from '../templates/01 advancedPerformanceJazz/AdvancedPerformanceJazz';
+import { IAdvancedPerformanceJazzState } from '../templates/01 advancedPerformanceJazz/IAdvancedPerformanceJazzState';
+import {ErweiterteMusikpraxis} from "../templates/02 erweiterteMusikpraxis/ErweiterteMusikpraxis";
+import {IErweiterteMusikpraxisState} from "../templates/02 erweiterteMusikpraxis/IErweiterteMusikpraxisState";
+import {PreferredLecturer} from "../templates/07 preferredLecturer/PreferredLecturer";
+import {Orchestra} from "../templates/04 orchestra/Orchestra";
+import {RequestedSemesters} from "../templates/05 requestedNumbersOfSemesters/RequestedSemesters";
 
 export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.PropsWithChildren<IMinor1Props>) => {
 
@@ -71,23 +76,71 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
                 </Dropdown>
             </Stack>
             <Stack {...columnProps}>
-              {
-                (minor1Data.templateId == "1") ?
-                <AdvancedPerformanceJazz
-                context={props.context}
-                handleUpdateAdvancedPerformanceJazzData={(updatedAdvancedPerformanceJazzData: IAdvancedPerformanceJazzState) => {
-                  setMinor1Data({
-                    ...minor1Data,
-                    proofOfExperience: updatedAdvancedPerformanceJazzData.proofOfExperience,
-                    preferredLecturer1Id: updatedAdvancedPerformanceJazzData.preferredLecturer1Id,
-                    preferredLecturer1Name: updatedAdvancedPerformanceJazzData.preferredLecturer1Name,
-                    preferredLecturer2Id: updatedAdvancedPerformanceJazzData.preferredLecturer2Id,
-                    preferredLecturer2Name: updatedAdvancedPerformanceJazzData.preferredLecturer2Name
-                  });
-                }}>
-                </AdvancedPerformanceJazz> :
-                <></>
-              }
+                {
+                    (minor1Data.templateId == "1") ?
+                        <AdvancedPerformanceJazz
+                        context={props.context}
+                        handleUpdateAdvancedPerformanceJazzData={(updatedAdvancedPerformanceJazzData: IAdvancedPerformanceJazzState) => {
+                            setMinor1Data({
+                                ...minor1Data,
+                                proofOfExperience: updatedAdvancedPerformanceJazzData.proofOfExperience,
+                                preferredLecturer1Id: updatedAdvancedPerformanceJazzData.preferredLecturer1Id,
+                                preferredLecturer1Name: updatedAdvancedPerformanceJazzData.preferredLecturer1Name,
+                                preferredLecturer2Id: updatedAdvancedPerformanceJazzData.preferredLecturer2Id,
+                                preferredLecturer2Name: updatedAdvancedPerformanceJazzData.preferredLecturer2Name
+                          });
+                        }}>
+                        </AdvancedPerformanceJazz> :
+                        <></>
+                }
+                {
+                    (minor1Data.templateId == "2") ?
+                        <ErweiterteMusikpraxis handleUpdateErweiterteMusikpraxisData={(updatedErweiterteMusikpraxisData: IErweiterteMusikpraxisState) => {
+                            setMinor1Data({
+                                ...minor1Data,
+                                jazzOrClassic: updatedErweiterteMusikpraxisData.jazzOrClassic
+                            });
+                        }}>
+                        </ErweiterteMusikpraxis> :
+                        <></>
+                }
+                {
+                    (minor1Data.templateId == "4") ?
+                        <Orchestra handleUpdateOrchestraData={(updatedOrchestraData) => {
+                            setMinor1Data({
+                                ...minor1Data,
+                                hasOrchestraInternship: updatedOrchestraData.hasOrchestraInternship
+                            });
+                        }}>
+                        </Orchestra> :
+                        <></>
+                }
+                {
+                    (minor1Data.templateId == "5") ?
+                        <RequestedSemesters handleUpdateRequestedSemestersData={(updatedRequestedSemestersData) => {
+                            setMinor1Data({
+                                ...minor1Data,
+                                desiredNumberOfSemesters: updatedRequestedSemestersData.desiredNumberOfSemesters
+                            });
+                        }}>
+                        </RequestedSemesters> :
+                        <></>
+                }
+                {
+                    (minor1Data.templateId == "7") ?
+                        <PreferredLecturer context={props.context} handleUpdatePreferredLecturerData={(updatedPreferredLecturerData) => {
+                            setMinor1Data({
+                                ...minor1Data,
+                                preferredLecturer1Id: updatedPreferredLecturerData.preferredLecturer1Id,
+                                preferredLecturer1Name: updatedPreferredLecturerData.preferredLecturer1Name,
+                                preferredLecturer2Id: updatedPreferredLecturerData.preferredLecturer2Id,
+                                preferredLecturer2Name: updatedPreferredLecturerData.preferredLecturer2Name
+                            });
+                        }}>
+                        </PreferredLecturer> :
+                        <></>
+                }
+
             </Stack>
         </Stack>
         <br /><br />

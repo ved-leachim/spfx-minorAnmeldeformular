@@ -1,20 +1,20 @@
 import * as React from 'react';
 import styles from './MinorAnmeldeformularV2.module.scss';
 import { IMinorAnmeldeformularV2Props } from './IMinorAnmeldeformularV2Props';
-import { ContactData } from './ContactData';
+import { ContactData } from './contactData/ContactData';
 import { escape } from '@microsoft/sp-lodash-subset';
-import { GeneralData } from './GeneralData';
-import { Minor1 } from './Minor1';
-import { Minor2 } from './Minor2';
-import { FormInteraction } from './FormInteraction';
-import { IContactDataState } from './IContactDataState';
+import { GeneralData } from './generalData/GeneralData';
+import { Minor1 } from './minor1/Minor1';
+import { Minor2 } from './minor2/Minor2';
+import { FormInteraction } from './formInteraction/FormInteraction';
+import { IContactDataState } from './contactData/IContactDataState';
 import { IMinorAnmeldeformularV2State } from './IMinorAnmeldeformularV2State';
 import * as strings from 'MinorAnmeldeformularV2WebPartStrings';
-import { IGeneralDataState } from './IGeneralDataState';
+import { IGeneralDataState } from './generalData/IGeneralDataState';
 import { SPServices } from '../../Services/SPServices';
 import { IDropdownOption, Spinner } from 'office-ui-fabric-react';
-import { IMinor1State } from './IMinor1State';
-import { IMinor2State } from './IMinor2State';
+import { IMinor1State } from './minor1/IMinor1State';
+import { IMinor2State } from './minor2/IMinor2State';
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
 
@@ -100,7 +100,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
       this.SPServices.getFormData(this.props.configInstruments),
       this.SPServices.getFormData(this.props.configMinors)])
         .then((allNeededFormDataResponse) => {
-          // General Data: Study Programm Data
+          // General Data: Study Program Data
           this.studyProgrammData = allNeededFormDataResponse[0],
           // General Data: Main Instrument Data
           this.mainInstrumentData = allNeededFormDataResponse[1],
@@ -111,7 +111,6 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             this.setState({
               dataLoaded: true
             });
-            console.log(this.minorData);
           });
   }
 

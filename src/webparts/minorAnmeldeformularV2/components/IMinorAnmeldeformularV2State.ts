@@ -1,7 +1,7 @@
-import {IContactDataState} from "./IContactDataState";
-import {IGeneralDataState} from "./IGeneralDataState";
-import {IMinor1State} from "./IMinor1State";
-import {IMinor2State} from "./IMinor2State";
+import {IContactDataState} from "./contactData/IContactDataState";
+import {IGeneralDataState} from "./generalData/IGeneralDataState";
+import {IMinor1State} from "./minor1/IMinor1State";
+import {IMinor2State} from "./minor2/IMinor2State";
 
 export interface IMinorAnmeldeformularV2State {
     contactDataState: IContactDataState;

@@ -2,6 +2,7 @@ import { PeoplePicker, PrincipalType } from '@pnp/spfx-controls-react/lib/People
 import { Dropdown, FontSizes, PeoplePickerItem, rgb2hex, TextField } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { IAdvancedPerformanceJazzState } from './IAdvancedPerformanceJazzState';
+import {useEffect} from "react";
 
 export interface IAdvancedPerformanceJazzProps {
     context: any;
@@ -19,9 +20,10 @@ export const AdvancedPerformanceJazz: React.FunctionComponent<IAdvancedPerforman
         preferredLecturer2Name: ""
     });
 
-    // Update Parent Component
+    // Update Parent Component & Unmount Cleanup
     React.useEffect(() => {
         props.handleUpdateAdvancedPerformanceJazzData(advancedPerformanceJazzData);
+        // the function the effect callback function returns is used for cleanup
     },[advancedPerformanceJazzData]);
 
   return (

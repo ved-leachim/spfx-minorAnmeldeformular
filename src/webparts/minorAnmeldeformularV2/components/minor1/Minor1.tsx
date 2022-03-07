@@ -2,8 +2,8 @@ import { Dropdown, FontSizes, IStackProps, IStackStyles, Stack, TextField } from
 import * as React from 'react';
 import { IMinor1Props } from './IMinor1Props';
 import { IMinor1State } from './IMinor1State';
-import { AdvancedPerformanceJazz } from './templates/AdvancedPerformanceJazz';
-import { IAdvancedPerformanceJazzState } from './templates/IAdvancedPerformanceJazzState';
+import { AdvancedPerformanceJazz } from '../templates/AdvancedPerformanceJazz';
+import { IAdvancedPerformanceJazzState } from '../templates/IAdvancedPerformanceJazzState';
 
 export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.PropsWithChildren<IMinor1Props>) => {
 
@@ -47,7 +47,26 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
                 <Dropdown
                 label='Auswahl Minor 1. Priorität'
                 options={props.minorData}
-                onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {setMinor1Data({...minor1Data, minor1: options.text, templateId: options.id});}}
+                onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
+                    setMinor1Data({
+                        ...minor1Data,
+                        minor1: options.text,
+                        templateId: options.id,
+                        // Resetting the upgiven state from template-components
+                        proofOfExperience: "",
+                        preferredLecturer1Id: "",
+                        preferredLecturer1Name: "",
+                        preferredLecturer2Id: "",
+                        preferredLecturer2Name: "",
+                        jazzOrClassic: "",
+                        hasOrchestraInternship: "",
+                        desiredNumberOfSemesters: "",
+                        preferredSecondaryInstrument1: "",
+                        preferredSecondaryInstrument1Special: "",
+                        preferredSecondaryInstrument2: "",
+                        preferredSecondaryInstrument2Special: ""
+                    });
+                }}
                 required>
                 </Dropdown>
             </Stack>
@@ -71,8 +90,8 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
               }
             </Stack>
         </Stack>
-        <br></br><br></br>
-        <hr></hr>
+        <br /><br />
+        <hr />
     </div>
   );
 };

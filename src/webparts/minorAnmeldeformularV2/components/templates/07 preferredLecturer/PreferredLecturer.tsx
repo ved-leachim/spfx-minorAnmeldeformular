@@ -3,6 +3,7 @@ import {Dropdown, FontSizes, PeoplePickerItem, rgb2hex, TextField} from 'office-
 import * as React from 'react';
 import {IPreferredLecturerState} from './IPreferredLecturerState';
 import {useEffect} from "react";
+import {labelStyle} from "../../../styles/styles";
 
 export interface IPreferredLecturerProps {
     context: any;
@@ -28,13 +29,7 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
     return (
         <div>
             <br/>
-            <label style={{
-                marginBottom: -10,
-                fontSize: FontSizes.size14,
-                fontWeight: 600,
-                color: rgb2hex(50, 49, 48),
-                paddingTop: 5
-            }}>1. Wahl Dozierende Einzelunterricht</label>
+            <label style={labelStyle}>1. Wahl Dozierende Einzelunterricht</label>
             <PeoplePicker
                 context={props.context}
                 ensureUser
@@ -68,13 +63,7 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
                 value={preferredLecturerData.preferredLecturer1Name}>
             </TextField>
             <br/>
-            <label style={{
-                marginBottom: -10,
-                fontSize: FontSizes.size14,
-                fontWeight: 600,
-                color: rgb2hex(50, 49, 48),
-                paddingTop: 5
-            }}>2. Wahl Dozierende Einzelunterricht</label>
+            <label style={labelStyle}>2. Wahl Dozierende Einzelunterricht</label>
             <PeoplePicker
                 context={props.context}
                 ensureUser

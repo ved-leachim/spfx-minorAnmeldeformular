@@ -1,7 +1,15 @@
 import { PeoplePicker, PrincipalType } from '@pnp/spfx-controls-react/lib/PeoplePicker';
-import {Dropdown, FontSizes, IDropdownOption, PeoplePickerItem, rgb2hex, TextField} from 'office-ui-fabric-react';
+import {
+    Dropdown,
+    FontSizes,
+    IDropdownOption,
+    rgb2hex,
+    TextField
+} from 'office-ui-fabric-react';
 import * as React from 'react';
 import { ISecondaryInstrumentsState } from './ISecondaryInstrumentsState';
+import {CSSProperties} from "react";
+import {labelStyle} from "../../../styles/styles";
 
 export interface ISecondaryInstrumentsProps {
     context: any;
@@ -32,15 +40,17 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
   return (
     <div>
         <Dropdown
-        label='1. Wahl Zweitinstrument'
-        options={props.secondaryInstrumentData}
-        onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
-            setSecondaryInstrumentsData({
-                ...SecondaryInstrumentsData,
-                preferredSecondaryInstrument1: options.text,
-                preferredSecondaryInstrument1Special: ""
-            });
-        }}>
+            label='1. Wahl Zweit-Instrument'
+            options={props.secondaryInstrumentData}
+            onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
+                setSecondaryInstrumentsData({
+                    ...SecondaryInstrumentsData,
+                    preferredSecondaryInstrument1: options.text,
+                    preferredSecondaryInstrument1Special: ""
+                });
+            }}
+            required
+        >
         </Dropdown>
         <br />
         <TextField
@@ -51,11 +61,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
                     preferredSecondaryInstrument1Special: e.target.value
                 });
             }}
-            disabled={SecondaryInstrumentsData.preferredSecondaryInstrument1Special != "andere"}
-            hidden={SecondaryInstrumentsData.preferredSecondaryInstrument2Special != "andere"}>
+            disabled={SecondaryInstrumentsData.preferredSecondaryInstrument1 != "andere"}
+            hidden={SecondaryInstrumentsData.preferredSecondaryInstrument1 != "andere"}
+            required={SecondaryInstrumentsData.preferredSecondaryInstrument1 == "andere"}
+        >
         </TextField>
         <Dropdown
-            label='2. Wahl Zweitinstrument'
+            label='2. Wahl Zweit-Instrument'
             options={props.secondaryInstrumentData}
             onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
                 setSecondaryInstrumentsData({
@@ -63,7 +75,9 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
                     preferredSecondaryInstrument2: options.text,
                     preferredSecondaryInstrument2Special: ""
                 });
-            }}>
+            }}
+            required
+        >
         </Dropdown>
         <br />
         <TextField
@@ -74,16 +88,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
                     preferredSecondaryInstrument2Special: e.target.value
                 });
             }}
-            disabled={SecondaryInstrumentsData.preferredSecondaryInstrument2Special != "andere"}
-            hidden={SecondaryInstrumentsData.preferredSecondaryInstrument2Special != "andere"}>
+            disabled={SecondaryInstrumentsData.preferredSecondaryInstrument2 != "andere"}
+            hidden={SecondaryInstrumentsData.preferredSecondaryInstrument2 != "andere"}
+            required={SecondaryInstrumentsData.preferredSecondaryInstrument2 == "andere"}
+        >
         </TextField>
         <br />
-        <label style={{
-            marginBottom: -10,
-            fontSize: FontSizes.size14,
-            fontWeight: 600, color: rgb2hex(50, 49, 48),
-            paddingTop: 5
-        }}>1. Wahl Dozierende Einzelunterricht</label>
+        <label style={labelStyle}>1. Wahl Dozierende</label>
         <PeoplePicker
             context={props.context}
             ensureUser
@@ -94,7 +105,9 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
             }}
             placeholder={"Im Verzeichnis suchen..."}
             personSelectionLimit={1}
-            resolveDelay={1000}>
+            resolveDelay={1000}
+            required={SecondaryInstrumentsData.preferredLecturer1Name == ""}
+        >
         </PeoplePicker>
         <br />
         <TextField
@@ -102,10 +115,12 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer1Name: e.target.value});}}
             disabled={SecondaryInstrumentsData.preferredLecturer1Id != ""}
             hidden={SecondaryInstrumentsData.preferredLecturer1Id != ""}
-            value={SecondaryInstrumentsData.preferredLecturer1Name}>
+            required={SecondaryInstrumentsData.preferredLecturer1Id == ""}
+            value={SecondaryInstrumentsData.preferredLecturer1Name}
+        >
         </TextField>
         <br />
-        <label style={{marginBottom: -10, fontSize: FontSizes.size14, fontWeight: 600, color: rgb2hex(50, 49, 48), paddingTop: 5}}>2. Wahl Dozierende Einzelunterricht</label>
+        <label style={labelStyle}>2. Wahl Dozierende</label>
         <PeoplePicker
             context={props.context}
             ensureUser
@@ -116,7 +131,9 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
             }}
             placeholder={"Im Verzeichnis suchen..."}
             personSelectionLimit={1}
-            resolveDelay={1000}>
+            resolveDelay={1000}
+            required={SecondaryInstrumentsData.preferredLecturer2Name == ""}
+        >
         </PeoplePicker>
         <br />
         <TextField
@@ -124,7 +141,9 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer2Name: e.target.value});}}
             disabled= {SecondaryInstrumentsData.preferredLecturer2Id != ""}
             hidden={SecondaryInstrumentsData.preferredLecturer2Id != ""}
-            value={SecondaryInstrumentsData.preferredLecturer2Name}>
+            required={SecondaryInstrumentsData.preferredLecturer2Id == ""}
+            value={SecondaryInstrumentsData.preferredLecturer2Name}
+        >
         </TextField>
     </div>
   );

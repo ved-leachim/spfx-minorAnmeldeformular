@@ -12,7 +12,7 @@ export interface IPreferredLecturerProps {
 export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps> = (props: React.PropsWithChildren<IPreferredLecturerProps>) => {
 
     // Managing FC-State
-    const [advancedPerformanceJazzData, setAdvancedPerformanceJazzData] = React.useState<IPreferredLecturerState>({
+    const [preferredLecturerData, setPreferredLecturerData] = React.useState<IPreferredLecturerState>({
         preferredLecturer1Id: "",
         preferredLecturer1Name: "",
         preferredLecturer2Id: "",
@@ -21,9 +21,9 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
 
     // Update Parent Component & Unmount Cleanup
     React.useEffect(() => {
-        props.handleUpdatePreferredLecturerData(advancedPerformanceJazzData);
+        props.handleUpdatePreferredLecturerData(preferredLecturerData);
         // the function the effect callback function returns is used for cleanup
-    }, [advancedPerformanceJazzData]);
+    }, [preferredLecturerData]);
 
     return (
         <div>
@@ -41,13 +41,13 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
                 principalTypes={[PrincipalType.User]}
                 onChange={(selectedPerson) => {
                     if (selectedPerson !== null && selectedPerson.length > 0) {
-                        setAdvancedPerformanceJazzData({
-                            ...advancedPerformanceJazzData,
+                        setPreferredLecturerData({
+                            ...preferredLecturerData,
                             preferredLecturer1Id: selectedPerson[0].id,
                             preferredLecturer1Name: ""
                         });
                     } else {
-                        setAdvancedPerformanceJazzData({...advancedPerformanceJazzData, preferredLecturer1Id: ""});
+                        setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: ""});
                     }
                 }}
                 placeholder={"Im Verzeichnis suchen..."}
@@ -58,13 +58,14 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
             <TextField
                 label="1. Wahl Dozierende*r - Tastatureingabe, falls nicht im Verzeichnis gefunden"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setAdvancedPerformanceJazzData({
-                        ...advancedPerformanceJazzData,
+                    setPreferredLecturerData({
+                        ...preferredLecturerData,
                         preferredLecturer1Name: e.target.value
                     });
                 }}
-                disabled={advancedPerformanceJazzData.preferredLecturer1Id != ""}
-                value={advancedPerformanceJazzData.preferredLecturer1Name}>
+                disabled={preferredLecturerData.preferredLecturer1Id != ""}
+                hidden={preferredLecturerData.preferredLecturer1Id != ""}
+                value={preferredLecturerData.preferredLecturer1Name}>
             </TextField>
             <br/>
             <label style={{
@@ -80,13 +81,13 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
                 principalTypes={[PrincipalType.User]}
                 onChange={(selectedPerson) => {
                     if (selectedPerson !== null && selectedPerson.length > 0) {
-                        setAdvancedPerformanceJazzData({
-                            ...advancedPerformanceJazzData,
+                        setPreferredLecturerData({
+                            ...preferredLecturerData,
                             preferredLecturer2Id: selectedPerson[0].id,
                             preferredLecturer2Name: ""
                         });
                     } else {
-                        setAdvancedPerformanceJazzData({...advancedPerformanceJazzData, preferredLecturer2Id: ""});
+                        setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: ""});
                     }
                 }}
                 placeholder={"Im Verzeichnis suchen..."}
@@ -97,13 +98,14 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
             <TextField
                 label="2. Wahl Dozierende*r - Tastatureingabe, falls nicht im Verzeichnis gefunden"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setAdvancedPerformanceJazzData({
-                        ...advancedPerformanceJazzData,
+                    setPreferredLecturerData({
+                        ...preferredLecturerData,
                         preferredLecturer2Name: e.target.value
                     });
                 }}
-                disabled={advancedPerformanceJazzData.preferredLecturer2Id != ""}
-                value={advancedPerformanceJazzData.preferredLecturer2Name}>
+                disabled={preferredLecturerData.preferredLecturer2Id != ""}
+                hidden={preferredLecturerData.preferredLecturer2Id != ""}
+                value={preferredLecturerData.preferredLecturer2Name}>
             </TextField>
         </div>
     );

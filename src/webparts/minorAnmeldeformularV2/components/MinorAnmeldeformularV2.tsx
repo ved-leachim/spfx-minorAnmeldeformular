@@ -160,6 +160,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           <Minor1
           context={this.props.context}
           minorData={this.minorData}
+          secondaryInstrumentData={this.mainInstrumentData}
           handleUpdateMinor1Data={(updatedMinor1Data: IMinor1State) => {
             this.setState({
               minor1DataState: updatedMinor1Data
@@ -169,6 +170,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           <Minor2
           context={this.props.context}
           minorData={this.minorData}
+          secondaryInstrumentData={this.mainInstrumentData}
           handleUpdateMinor2Data={(updatedMinor2Data: IMinor2State) => {
             this.setState({
               minor2DataState: updatedMinor2Data

@@ -9,6 +9,7 @@ import {IErweiterteMusikpraxisState} from "../templates/02 erweiterteMusikpraxis
 import {PreferredLecturer} from "../templates/07 preferredLecturer/PreferredLecturer";
 import {Orchestra} from "../templates/04 orchestra/Orchestra";
 import {RequestedSemesters} from "../templates/05 requestedNumbersOfSemesters/RequestedSemesters";
+import {SecondaryInstruments} from "../templates/06 secondaryInstruments/SecondaryInstruments";
 
 export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.PropsWithChildren<IMinor1Props>) => {
 
@@ -124,6 +125,26 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
                             });
                         }}>
                         </RequestedSemesters> :
+                        <></>
+                }
+                {
+                    (minor1Data.templateId == "6") ?
+                        <SecondaryInstruments context={props.context} secondaryInstrumentData={
+                            props.secondaryInstrumentData} handleUpdateSecondaryInstrumentsData={(updatedSecondaryInstrumentData) => {
+                            setMinor1Data({
+                                ...minor1Data,
+                                preferredSecondaryInstrument1: updatedSecondaryInstrumentData.preferredSecondaryInstrument1,
+                                preferredSecondaryInstrument1Special: updatedSecondaryInstrumentData.preferredSecondaryInstrument1Special,
+                                preferredSecondaryInstrument2: updatedSecondaryInstrumentData.preferredSecondaryInstrument2,
+                                preferredSecondaryInstrument2Special: updatedSecondaryInstrumentData.preferredSecondaryInstrument2Special,
+                                preferredLecturer1Id: updatedSecondaryInstrumentData.preferredLecturer1Id,
+                                preferredLecturer1Name: updatedSecondaryInstrumentData.preferredLecturer1Name,
+                                preferredLecturer2Id: updatedSecondaryInstrumentData.preferredLecturer2Id,
+                                preferredLecturer2Name: updatedSecondaryInstrumentData.preferredLecturer2Name
+                            });
+                        }
+                        }>
+                        </SecondaryInstruments> :
                         <></>
                 }
                 {

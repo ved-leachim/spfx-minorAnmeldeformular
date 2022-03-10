@@ -66,6 +66,7 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
             required={SecondaryInstrumentsData.preferredSecondaryInstrument1 == "andere"}
         >
         </TextField>
+        <br />
         <Dropdown
             label='2. Wahl Zweit-Instrument'
             options={props.secondaryInstrumentData}

@@ -17,6 +17,7 @@ export interface IMinorAnmeldeformularV2State {
         mainInstrument: string;
         minor1: string;
         minor2: string;
+        [key: string]: any;
     };
     dataLoaded: boolean;
 }

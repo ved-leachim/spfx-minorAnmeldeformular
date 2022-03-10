@@ -80,7 +80,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           surname: "",
           contactEMail: ""
         },
-        isTheFirstMaster: null,
+        isTheFirstMaster: "",
         studyProgram: "",
         studyYear: "",
         jazzOrClassic: "",
@@ -114,6 +114,79 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           });
   }
 
+  // Add or remove additional required fields depending on templateId state
+  public componentDidUpdate(prevProps: Readonly<IMinorAnmeldeformularV2Props>, prevState: Readonly<IMinorAnmeldeformularV2State>, snapshot?: any) {
+    if (prevState.minor1DataState.templateId != this.state.minor1DataState.templateId) {
+      switch (this.state.minor1DataState.templateId) {
+        case "6": {
+          this._resetRequiredFields(1);
+          this.state.requiredDataState.minor1AdditionalRequiredFields = {
+            preferredLecturer1Id: "",
+            preferredLecturer1Name: "",
+            preferredLecturer2Id: "",
+            preferredLecturer2Name: "",
+            preferredSecondaryInstrument1: "",
+            preferredSecondaryInstrument1Special: "",
+            preferredSecondaryInstrument2: "",
+            preferredSecondaryInstrument2Special: ""
+          };
+          break;
+        }
+        case "7": {
+          this._resetRequiredFields(1);
+          this.state.requiredDataState.minor1AdditionalRequiredFields = {
+            preferredLecturer1Id: "",
+            preferredLecturer1Name: "",
+            preferredLecturer2Id: "",
+            preferredLecturer2Name: "",
+          };
+          break;
+        }
+      }
+    }
+    if (prevState.minor2DataState.templateId != this.state.minor2DataState.templateId) {
+      switch (this.state.minor2DataState.templateId) {
+        case "6": {
+          this._resetRequiredFields(2);
+          this.state.requiredDataState.minor2AdditionalRequiredFields = {
+            preferredLecturer1Id: "",
+            preferredLecturer1Name: "",
+            preferredLecturer2Id: "",
+            preferredLecturer2Name: "",
+            preferredSecondaryInstrument1: "",
+            preferredSecondaryInstrument1Special: "",
+            preferredSecondaryInstrument2: "",
+            preferredSecondaryInstrument2Special: ""
+          };
+          break;
+        }
+        case "7": {
+          this._resetRequiredFields(2);
+          this.state.requiredDataState.minor2AdditionalRequiredFields = {
+            preferredLecturer1Id: "",
+            preferredLecturer1Name: "",
+            preferredLecturer2Id: "",
+            preferredLecturer2Name: "",
+          };
+          break;
+        }
+      }
+    }
+  }
+
+  private _resetRequiredFields(minor: number): void {
+    switch (minor) {
+      case 1: {
+        if (this.state.requiredDataState.hasOwnProperty('minor1AdditionalRequiredFields')) {delete this.state.requiredDataState.minor1AdditionalRequiredFields;}
+        break;
+      }
+      case 2: {
+        if (this.state.requiredDataState.hasOwnProperty('minor2AdditionalRequiredFields')) {delete this.state.requiredDataState.minor1AdditionalRequiredFields;}
+        break;
+      }
+    }
+}
+
   public render(): React.ReactElement<IMinorAnmeldeformularV2Props> {
     const {
       isDarkTheme,
@@ -127,8 +200,8 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
       // Wait for Data from initial fetching in ComponentDidMount()
       !this.state.dataLoaded ? <Spinner label='Wait, wait...' ariaLive='assertive' labelPosition='right'></Spinner> :
 
-      <section className={`${styles.minorAnmeldeformularV2} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div className={styles.welcome}>
+      <section>
+        <div>
           <ContactData
           handleUpdateContactData={(updatedContactData: IContactDataState) => {
             this.setState({

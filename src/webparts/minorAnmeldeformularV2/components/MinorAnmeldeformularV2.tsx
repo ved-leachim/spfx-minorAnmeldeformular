@@ -142,6 +142,10 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           };
           break;
         }
+        default: {
+          this._resetRequiredFields(1);
+          break;
+        }
       }
     }
     if (prevState.minor2DataState.templateId != this.state.minor2DataState.templateId) {
@@ -170,8 +174,13 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           };
           break;
         }
+        default: {
+          this._resetRequiredFields(2);
+          break;
+        }
       }
     }
+    // After the props have been added it's time to fill them with the information from the minor1 & 2 state
   }
 
   private _resetRequiredFields(minor: number): void {
@@ -238,7 +247,8 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             this.setState({
               minor1DataState: updatedMinor1Data
             });
-          }}></Minor1>
+          }}>
+          </Minor1>
           <br></br>
           <Minor2
           context={this.props.context}
@@ -248,11 +258,18 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             this.setState({
               minor2DataState: updatedMinor2Data
             });
-          }}></Minor2>
+          }}>
+          </Minor2>
           <br></br>
           <FormInteraction></FormInteraction>
         </div>
       </section>
     );
   }
+
+  private _updateAdditionalRequiredFieldsState(minor: number, updatedAdditionalRequiredFields): void {
+    // Check if Props exist and if they exist, update them
+  }
 }
+
+

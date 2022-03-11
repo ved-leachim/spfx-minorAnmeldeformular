@@ -17,7 +17,26 @@ export interface IMinorAnmeldeformularV2State {
         mainInstrument: string;
         minor1: string;
         minor2: string;
-        [key: string]: any;
+        minor1AdditionalRequiredFields?: {
+            preferredLecturer1Id?: string;
+            preferredLecturer1Name?: string;
+            preferredLecturer2Id?: string;
+            preferredLecturer2Name?: string;
+            preferredSecondaryInstrument1?: string;
+            preferredSecondaryInstrument1Special?: string;
+            preferredSecondaryInstrument2?: string;
+            preferredSecondaryInstrument2Special?: string;
+        };
+        minor2AdditionalRequiredFields?: {
+            preferredLecturer1Id?: string;
+            preferredLecturer1Name?: string;
+            preferredLecturer2Id?: string;
+            preferredLecturer2Name?: string;
+            preferredSecondaryInstrument1?: string;
+            preferredSecondaryInstrument1Special?: string;
+            preferredSecondaryInstrument2?: string;
+            preferredSecondaryInstrument2Special?: string;
+        };
     };
     dataLoaded: boolean;
 }

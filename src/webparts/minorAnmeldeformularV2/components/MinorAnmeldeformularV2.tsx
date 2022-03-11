@@ -119,31 +119,17 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
     if (prevState.minor1DataState.templateId != this.state.minor1DataState.templateId) {
       switch (this.state.minor1DataState.templateId) {
         case "6": {
-          this._resetRequiredFields(1);
-          this.state.requiredDataState.minor1AdditionalRequiredFields = {
-            preferredLecturer1Id: "",
-            preferredLecturer1Name: "",
-            preferredLecturer2Id: "",
-            preferredLecturer2Name: "",
-            preferredSecondaryInstrument1: "",
-            preferredSecondaryInstrument1Special: "",
-            preferredSecondaryInstrument2: "",
-            preferredSecondaryInstrument2Special: ""
-          };
+          this._resetAdditionalRequiredFields(1);
+          this._addAdditionalRequiredFields(1, "6");
           break;
         }
         case "7": {
-          this._resetRequiredFields(1);
-          this.state.requiredDataState.minor1AdditionalRequiredFields = {
-            preferredLecturer1Id: "",
-            preferredLecturer1Name: "",
-            preferredLecturer2Id: "",
-            preferredLecturer2Name: "",
-          };
+          this._resetAdditionalRequiredFields(1);
+          this._addAdditionalRequiredFields(1, "7");
           break;
         }
         default: {
-          this._resetRequiredFields(1);
+          this._resetAdditionalRequiredFields(1);
           break;
         }
       }
@@ -151,39 +137,88 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
     if (prevState.minor2DataState.templateId != this.state.minor2DataState.templateId) {
       switch (this.state.minor2DataState.templateId) {
         case "6": {
-          this._resetRequiredFields(2);
-          this.state.requiredDataState.minor2AdditionalRequiredFields = {
-            preferredLecturer1Id: "",
-            preferredLecturer1Name: "",
-            preferredLecturer2Id: "",
-            preferredLecturer2Name: "",
-            preferredSecondaryInstrument1: "",
-            preferredSecondaryInstrument1Special: "",
-            preferredSecondaryInstrument2: "",
-            preferredSecondaryInstrument2Special: ""
-          };
+          this._resetAdditionalRequiredFields(2);
+          this._addAdditionalRequiredFields(2, "6");
           break;
         }
         case "7": {
-          this._resetRequiredFields(2);
-          this.state.requiredDataState.minor2AdditionalRequiredFields = {
-            preferredLecturer1Id: "",
-            preferredLecturer1Name: "",
-            preferredLecturer2Id: "",
-            preferredLecturer2Name: "",
-          };
+          this._resetAdditionalRequiredFields(2);
+          this._addAdditionalRequiredFields(2, "7");
           break;
         }
         default: {
-          this._resetRequiredFields(2);
+          this._resetAdditionalRequiredFields(2);
           break;
         }
       }
     }
-    // After the props have been added it's time to fill them with the information from the minor1 & 2 state
+    if (prevState.minor1DataState != this.state.minor1DataState ||
+        prevState.minor2DataState != this.state.minor2DataState){
+      this._updateAdditionalRequiredFieldsState();
+    }
   }
 
-  private _resetRequiredFields(minor: number): void {
+  private _addAdditionalRequiredFields(minor: number, templateId: string): void {
+    switch (minor) {
+      case 1: {
+
+        switch (templateId) {
+          case "6": {
+            this.state.requiredDataState.minor1AdditionalRequiredFields = {
+              preferredLecturer1Id: "",
+              preferredLecturer1Name: "",
+              preferredLecturer2Id: "",
+              preferredLecturer2Name: "",
+              preferredSecondaryInstrument1: "",
+              preferredSecondaryInstrument1Special: "",
+              preferredSecondaryInstrument2: "",
+              preferredSecondaryInstrument2Special: ""
+            };
+            break;
+          }
+          case "7": {
+            this.state.requiredDataState.minor1AdditionalRequiredFields = {
+              preferredLecturer1Id: "",
+              preferredLecturer1Name: "",
+              preferredLecturer2Id: "",
+              preferredLecturer2Name: "",
+            };
+            break;
+          }
+        }
+
+        break;
+      }
+      case 2: {
+
+        switch (templateId) {
+          case "6": {
+            this.state.requiredDataState.minor2AdditionalRequiredFields = {
+              preferredLecturer1Id: "",
+              preferredLecturer1Name: "",
+              preferredLecturer2Id: "",
+              preferredLecturer2Name: "",
+              preferredSecondaryInstrument1: "",
+              preferredSecondaryInstrument1Special: "",
+              preferredSecondaryInstrument2: "",
+              preferredSecondaryInstrument2Special: ""
+            };
+            break;
+          }
+          case "7": {
+            this.state.requiredDataState.minor2AdditionalRequiredFields = {
+              preferredLecturer1Id: "",
+              preferredLecturer1Name: "",
+              preferredLecturer2Id: "",
+              preferredLecturer2Name: "",
+            };
+          }
+        }
+      }
+    }
+  }
+
+  private _resetAdditionalRequiredFields(minor: number): void {
     switch (minor) {
       case 1: {
         if (this.state.requiredDataState.hasOwnProperty('minor1AdditionalRequiredFields')) {delete this.state.requiredDataState.minor1AdditionalRequiredFields;}
@@ -194,7 +229,27 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         break;
       }
     }
-}
+  }
+
+  private _updateAdditionalRequiredFieldsState(): void {
+    if (this.state.requiredDataState.hasOwnProperty('minor1AdditionalRequiredFields')) {
+      for (let key in this.state.requiredDataState.minor1AdditionalRequiredFields){
+        this.setState(state => {
+          state.requiredDataState.minor1AdditionalRequiredFields[key] = this.state.minor1DataState[key];
+          return state;
+        });
+      }
+    }
+
+    if (this.state.requiredDataState.hasOwnProperty('minor2AdditionalRequiredFields')) {
+      for (let key in this.state.requiredDataState.minor2AdditionalRequiredFields){
+        this.setState(state => {
+          state.requiredDataState.minor2AdditionalRequiredFields[key] = this.state.minor2DataState[key];
+          return state;
+        });
+      }
+    }
+  }
 
   public render(): React.ReactElement<IMinorAnmeldeformularV2Props> {
     const {
@@ -265,10 +320,6 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         </div>
       </section>
     );
-  }
-
-  private _updateAdditionalRequiredFieldsState(minor: number, updatedAdditionalRequiredFields): void {
-    // Check if Props exist and if they exist, update them
   }
 }
 

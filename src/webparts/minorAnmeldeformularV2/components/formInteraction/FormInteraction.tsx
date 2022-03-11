@@ -1,18 +1,16 @@
 import { IMessageBarStyles, IStackItemStyles, IStackProps, MessageBar, MessageBarType, PrimaryButton, Stack } from 'office-ui-fabric-react';
 import * as React from 'react';
+import {columnProps, messageBarStyles, stackStyles, stackTokens} from "../../styles/styles";
+import {IFormInteractionState} from "./IFormInteractionState";
 
-export interface IFormInteractionProps {}
+export interface IFormInteractionProps {
+    hasAllRequiredFields: boolean;
+}
 
 export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (props: React.PropsWithChildren<IFormInteractionProps>) => {
-  const [value, setValue] = React.useState('');
-
-  const stackTokens = {childrenGap: 50};
-  const stackStyles: Partial<IStackItemStyles> = { root: {width: 650}};
-  const columnProps: Partial<IStackProps> = {
-      tokens: {childrenGap: 15},
-      styles: {root: {width: 300}}
-  };
-  const messageBarStyles: Partial<IMessageBarStyles> = { root: {width: 650}};
+  const [formInteractionData, setFormInteractionData] = React.useState<IFormInteractionState>({
+      responseMessage: "Bitte füllen Sie alle benötigten Informationen aus."
+  });
 
   return (
       <div>
@@ -21,13 +19,15 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
             isMultiline={true}
             dismissButtonAriaLabel="Schliessen"
             styles={messageBarStyles}>
-              Hier Kommuniziert das Formular mit dem Benutzer...
+              ${formInteractionData.responseMessage}
           </MessageBar>
           <br></br>
           <Stack horizontal tokens={stackTokens} styles={stackStyles}>
               <Stack {...columnProps}>
                 <PrimaryButton
-                text='Absenden'>
+                text='Absenden'
+                disabled={!props.hasAllRequiredFields}
+                >
                 </PrimaryButton>
               </Stack>
               <Stack {...columnProps}>

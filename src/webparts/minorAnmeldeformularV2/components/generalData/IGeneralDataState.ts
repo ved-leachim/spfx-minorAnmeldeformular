@@ -7,5 +7,5 @@ export interface IGeneralDataState {
     studyYear: string;
     mainInstrument: string;
     favoriteLecturerId: string;
-    favoritLecturerName: string;
+    favoriteLecturerName: string;
 }

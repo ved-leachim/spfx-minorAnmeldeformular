@@ -1,23 +1,14 @@
 import { Stack, TextField } from '@microsoft/office-ui-fabric-react-bundle';
-import { IStackProps, IStackStyles} from 'office-ui-fabric-react';
 import { FontSizes } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { IContactDataState } from './IContactDataState';
+import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
 
 export interface IContactDataProps {
     handleUpdateContactData(updatedContactData: IContactDataState): void;
 }
 
 export const ContactData: React.FunctionComponent<IContactDataProps> = (props: React.PropsWithChildren<IContactDataProps>) => {
-
-
-  // Styling of Stack-Layout
-  const stackTokens = {childrenGap: 50};
-  const stackStyles: Partial<IStackStyles> = { root: {width: 650}};
-  const columnProps: Partial<IStackProps> = {
-      tokens: {childrenGap: 15},
-      styles: {root: {width: 300}}
-  };
 
   // Managing FC-State
   const [contactData, setContactData] = React.useState<IContactDataState>({

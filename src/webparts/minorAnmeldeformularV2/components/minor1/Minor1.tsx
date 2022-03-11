@@ -10,16 +10,9 @@ import {PreferredLecturer} from "../templates/07 preferredLecturer/PreferredLect
 import {Orchestra} from "../templates/04 orchestra/Orchestra";
 import {RequestedSemesters} from "../templates/05 requestedNumbersOfSemesters/RequestedSemesters";
 import {SecondaryInstruments} from "../templates/06 secondaryInstruments/SecondaryInstruments";
+import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
 
 export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.PropsWithChildren<IMinor1Props>) => {
-
-  // Styling of Stack-Layout
-  const stackTokens = {childrenGap: 50};
-  const stackStyles: Partial<IStackStyles> = { root: {width: 650}};
-  const columnProps: Partial<IStackProps> = {
-      tokens: {childrenGap: 15},
-      styles: {root: {width: 300}}
-  };
 
   // Managing FC-State
   const [minor1Data, setMinor1Data] = React.useState<IMinor1State>({

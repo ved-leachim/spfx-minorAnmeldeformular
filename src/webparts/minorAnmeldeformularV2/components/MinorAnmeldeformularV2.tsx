@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styles from './MinorAnmeldeformularV2.module.scss';
 import { IMinorAnmeldeformularV2Props } from './IMinorAnmeldeformularV2Props';
 import { ContactData } from './contactData/ContactData';
 import { escape } from '@microsoft/sp-lodash-subset';
@@ -15,12 +14,13 @@ import { SPServices } from '../../Services/SPServices';
 import { IDropdownOption, Spinner } from 'office-ui-fabric-react';
 import { IMinor1State } from './minor1/IMinor1State';
 import { IMinor2State } from './minor2/IMinor2State';
+import {checkBasicRequiredFields} from "../helper/checkRequiredFields";
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
 
   private SPServices: SPServices;
   // Props for functional Components
-  private studyProgrammData: IDropdownOption[];
+  private studyProgramData: IDropdownOption[];
   private mainInstrumentData: IDropdownOption[];
   private minorData: IDropdownOption[];
 
@@ -34,13 +34,13 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         contactEMail: ""
       },
       generalDataState: {
-        isTheFirstMaster: null,
+        isTheFirstMaster: "",
         studyProgram: "",
         jazzOrClassic: "",
         studyYear: "",
         mainInstrument: "",
         favoriteLecturerId: "",
-        favoritLecturerName: ""
+        favoriteLecturerName: ""
       },
       minor1DataState: {
         minor1: "",
@@ -80,14 +80,17 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           surname: "",
           contactEMail: ""
         },
-        isTheFirstMaster: "",
-        studyProgram: "",
-        studyYear: "",
-        jazzOrClassic: "",
-        mainInstrument: "",
-        minor1: "",
-        minor2: ""
+        generalDataRequiredFields: {
+          isTheFirstMaster: "",
+          studyProgram: "",
+          studyYear: "",
+          jazzOrClassic: "",
+          mainInstrument: "",
+          minor1: "",
+          minor2: ""
+        }
       },
+      hasAllRequiredFields: false,
       dataLoaded: false,
     };
 
@@ -101,7 +104,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
       this.SPServices.getFormData(this.props.configMinors)])
         .then((allNeededFormDataResponse) => {
           // General Data: Study Program Data
-          this.studyProgrammData = allNeededFormDataResponse[0],
+          this.studyProgramData = allNeededFormDataResponse[0],
           // General Data: Main Instrument Data
           this.mainInstrumentData = allNeededFormDataResponse[1],
           // Minor 1 & 2: Minor Data
@@ -152,10 +155,13 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         }
       }
     }
+    // Update the additional required fields if necessary
     if (prevState.minor1DataState != this.state.minor1DataState ||
         prevState.minor2DataState != this.state.minor2DataState){
       this._updateAdditionalRequiredFieldsState();
     }
+    // Check if all required fields are filled in
+    //this._checkRequiredFieldsState();
   }
 
   private _addAdditionalRequiredFields(minor: number, templateId: string): void {
@@ -251,6 +257,16 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
     }
   }
 
+  private _checkRequiredFieldsState(): void {
+    // Check basic required fields
+    if (checkBasicRequiredFields) {
+      this.setState({hasAllRequiredFields: true});
+    } else {
+      this.setState({hasAllRequiredFields: false});
+    }
+    // Check additional required fields depending on template
+  }
+
   public render(): React.ReactElement<IMinorAnmeldeformularV2Props> {
     const {
       isDarkTheme,
@@ -277,21 +293,28 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           <br></br>
           <GeneralData
           context={this.props.context}
-          studyProgrammData={this.studyProgrammData}
+          studyProgrammData={this.studyProgramData}
           mainInstrumentData={this.mainInstrumentData}
           handleUpdateGeneralData={(updatedGeneralData: IGeneralDataState) => {
             this.setState({
-              generalDataState: updatedGeneralData,
+              generalDataState: updatedGeneralData
+                });
+            this.setState(state => ({
+              ...state,
               requiredDataState: {
-                ...this.state.requiredDataState,
-                isTheFirstMaster: updatedGeneralData.isTheFirstMaster,
-                studyProgram: updatedGeneralData.studyProgram,
-                studyYear: updatedGeneralData.studyYear,
-                jazzOrClassic: updatedGeneralData.jazzOrClassic,
-                mainInstrument: updatedGeneralData.mainInstrument,
+                ...state.requiredDataState,
+                generalDataRequiredFields: {
+                  ...state.requiredDataState.generalDataRequiredFields,
+                  isTheFirstMaster: updatedGeneralData.isTheFirstMaster,
+                  studyProgram: updatedGeneralData.studyProgram,
+                  jazzOrClassic: updatedGeneralData.jazzOrClassic,
+                  studyYear: updatedGeneralData.studyYear,
+                  mainInstrument: updatedGeneralData.mainInstrument
+                }
               }
-            });
-          }}>
+            }));
+          }}
+          >
           </GeneralData>
           <br></br>
           <Minor1
@@ -302,6 +325,16 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             this.setState({
               minor1DataState: updatedMinor1Data
             });
+            this.setState(state => ({
+              ...state,
+              requiredDataState: {
+                ...state.requiredDataState,
+                generalDataRequiredFields: {
+                  ...state.requiredDataState.generalDataRequiredFields,
+                  minor1: updatedMinor1Data.minor1
+                }
+              }
+            }));
           }}>
           </Minor1>
           <br></br>
@@ -313,10 +346,23 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             this.setState({
               minor2DataState: updatedMinor2Data
             });
+            this.setState(state => ({
+              ...state,
+              requiredDataState: {
+                ...state.requiredDataState,
+                generalDataRequiredFields: {
+                  ...state.requiredDataState.generalDataRequiredFields,
+                  minor2: updatedMinor2Data.minor2
+                }
+              }
+            }));
           }}>
           </Minor2>
           <br></br>
-          <FormInteraction></FormInteraction>
+          <FormInteraction
+              hasAllRequiredFields={this.state.hasAllRequiredFields}
+          >
+          </FormInteraction>
         </div>
       </section>
     );

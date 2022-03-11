@@ -1,3 +1,3 @@
 export interface IFormInteractionState {
-    respondMessage: string;
+    responseMessage: string;
 }

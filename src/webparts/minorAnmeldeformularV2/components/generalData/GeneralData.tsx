@@ -2,6 +2,7 @@ import { Dropdown, FontSizes, IDropdownOption, IStackProps, IStackStyles, rgb2he
 import * as React from 'react';
 import { IGeneralDataState } from './IGeneralDataState';
 import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
+import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
 
 export interface IGeneralDataProps {
     context: any;
@@ -12,14 +13,6 @@ export interface IGeneralDataProps {
 
 export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: React.PropsWithChildren<IGeneralDataProps>) => {
 
-  // Styling of Stack-Layout
-  const stackTokens = {childrenGap: 50};
-  const stackStyles: Partial<IStackStyles> = { root: {width: 650}};
-  const columnProps: Partial<IStackProps> = {
-      tokens: {childrenGap: 15},
-      styles: {root: {width: 300}}
-  };
-
   // Managing FC-State
   const [generalData, setGeneralData] = React.useState<IGeneralDataState>({
     isTheFirstMaster: "",
@@ -28,7 +21,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
     jazzOrClassic: "",
     mainInstrument: "",
     favoriteLecturerId: "",
-    favoritLecturerName: ""
+    favoriteLecturerName: ""
   });
 
   // Update Parent Component
@@ -68,9 +61,9 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                 </Dropdown>
                 <TextField
                 label='Dozierende*r - Tastatureingabe, falls nicht im Verzeichnis gefunden'
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setGeneralData({...generalData, favoritLecturerName: e.target.value});}}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setGeneralData({...generalData, favoriteLecturerName: e.target.value});}}
                 disabled={generalData.favoriteLecturerId != ""}
-                value={generalData.favoritLecturerName}>
+                value={generalData.favoriteLecturerName}>
                 </TextField>
             </Stack>
             <Stack {...columnProps}>
@@ -95,7 +88,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                 ensureUser
                 principalTypes={[PrincipalType.User]}
                 onChange={(selectedPerson) => {
-                    if (selectedPerson !== null && selectedPerson.length > 0) {setGeneralData({...generalData, favoriteLecturerId: selectedPerson[0].id, favoritLecturerName: ""});}
+                    if (selectedPerson !== null && selectedPerson.length > 0) {setGeneralData({...generalData, favoriteLecturerId: selectedPerson[0].id, favoriteLecturerName: ""});}
                     else {setGeneralData({...generalData, favoriteLecturerId: ""});}
                 }}
                 placeholder={"Im Verzeichnis suchen..."}

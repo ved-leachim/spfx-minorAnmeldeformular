@@ -1,14 +1,13 @@
 import {IMinorAnmeldeformularV2RequiredDataState} from "../components/IMinorAnmeldeformularV2RequiredDataState";
 
-export const checkBasicRequiredFields = (requiredDataState: IMinorAnmeldeformularV2RequiredDataState): boolean => {
-    for (let key in requiredDataState.contactDataState) {
-        if (requiredDataState.contactDataState[key] == "") {
-            return false;
+export const checkRequiredFields = (requiredDataState: IMinorAnmeldeformularV2RequiredDataState): boolean => {
+    // REFACTOR - MAKE THIS LOGIC AVAILABLE INDEPENDENT FROM NESTING-LEVEL!
+    for (const key in requiredDataState) {
+        if (typeof requiredDataState[key] === 'object') {
+            for (const subkey in requiredDataState[key]) {
+                if (requiredDataState[key][subkey] == "") return false;
+            }
         }
     }
-    for (let key in requiredDataState.generalDataRequiredFields) {
-        if (requiredDataState.generalDataRequiredFields[key] == "") {
-            return false;
-        }
-    }
+    return true;
 };

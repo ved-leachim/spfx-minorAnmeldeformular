@@ -14,7 +14,7 @@ import { SPServices } from '../../Services/SPServices';
 import { IDropdownOption, Spinner } from 'office-ui-fabric-react';
 import { IMinor1State } from './minor1/IMinor1State';
 import { IMinor2State } from './minor2/IMinor2State';
-import {checkBasicRequiredFields} from "../helper/checkRequiredFields";
+import { checkRequiredFields } from "../helper/checkRequiredFields";
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
 
@@ -160,8 +160,14 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         prevState.minor2DataState != this.state.minor2DataState){
       this._updateAdditionalRequiredFieldsState();
     }
-    // Check if all required fields are filled in
-    //this._checkRequiredFieldsState();
+    if (prevState.requiredDataState != this.state.requiredDataState) {
+      // Check if all required fields are filled in
+      if (checkRequiredFields(this.state.requiredDataState)) {
+        this.setState({hasAllRequiredFields: true});
+      } else {
+        this.setState({hasAllRequiredFields: false});
+      }
+    }
   }
 
   private _addAdditionalRequiredFields(minor: number, templateId: string): void {
@@ -231,7 +237,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         break;
       }
       case 2: {
-        if (this.state.requiredDataState.hasOwnProperty('minor2AdditionalRequiredFields')) {delete this.state.requiredDataState.minor1AdditionalRequiredFields;}
+        if (this.state.requiredDataState.hasOwnProperty('minor2AdditionalRequiredFields')) {delete this.state.requiredDataState.minor2AdditionalRequiredFields;}
         break;
       }
     }
@@ -255,16 +261,6 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         });
       }
     }
-  }
-
-  private _checkRequiredFieldsState(): void {
-    // Check basic required fields
-    if (checkBasicRequiredFields) {
-      this.setState({hasAllRequiredFields: true});
-    } else {
-      this.setState({hasAllRequiredFields: false});
-    }
-    // Check additional required fields depending on template
   }
 
   public render(): React.ReactElement<IMinorAnmeldeformularV2Props> {

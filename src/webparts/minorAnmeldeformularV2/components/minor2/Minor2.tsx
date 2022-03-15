@@ -20,16 +20,12 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
     templateId: "",
     proofOfExperience: "",
     preferredLecturer1Id: "",
-    preferredLecturer1Name: "",
     preferredLecturer2Id: "",
-    preferredLecturer2Name: "",
     jazzOrClassic: "",
     hasOrchestraInternship: "",
     desiredNumberOfSemesters: "",
     preferredSecondaryInstrument1: "",
-    preferredSecondaryInstrument1Special: "",
     preferredSecondaryInstrument2: "",
-    preferredSecondaryInstrument2Special: ""
   });
 
     // Update Parent Component

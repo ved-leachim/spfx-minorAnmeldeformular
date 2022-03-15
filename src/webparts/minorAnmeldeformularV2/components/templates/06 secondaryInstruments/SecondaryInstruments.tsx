@@ -22,13 +22,10 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
     // Managing FC-State
     const [SecondaryInstrumentsData, setSecondaryInstrumentsData] = React.useState<ISecondaryInstrumentsState>({
         preferredLecturer1Id: "",
-        preferredLecturer1Name: "",
         preferredLecturer2Id: "",
-        preferredLecturer2Name: "",
         preferredSecondaryInstrument1: "",
-        preferredSecondaryInstrument1Special: "",
         preferredSecondaryInstrument2: "",
-        preferredSecondaryInstrument2Special: ""
+
     });
 
     // Update Parent Component & Unmount Cleanup

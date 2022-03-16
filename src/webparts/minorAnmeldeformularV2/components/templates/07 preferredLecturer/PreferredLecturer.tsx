@@ -7,7 +7,7 @@ import {labelStyle} from "../../../styles/styles";
 
 export interface IPreferredLecturerProps {
     context: any;
-    handleUpdatePreferredLecturerData(updatedPerformanceJazzData: IPreferredLecturerState): void;
+    // handleUpdatePreferredLecturerData(updatedPerformanceJazzData: IPreferredLecturerState): void;
 }
 
 export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps> = (props: React.PropsWithChildren<IPreferredLecturerProps>) => {
@@ -19,10 +19,10 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
     });
 
     // Update Parent Component & Unmount Cleanup
-    React.useEffect(() => {
+/*    React.useEffect(() => {
         props.handleUpdatePreferredLecturerData(preferredLecturerData);
         // the function the effect callback function returns is used for cleanup
-    }, [preferredLecturerData]);
+    }, [preferredLecturerData]);*/
 
     return (
         <div>

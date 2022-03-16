@@ -29,4 +29,4 @@ export const RequiredFieldsContext = createContext<requiredFields>({
 
 );
 
-export const useRequiredFieldsContext = () => {useContext(RequiredFieldsContext);};
+export const useRequiredFieldsContext = () => useContext(RequiredFieldsContext);

@@ -1,20 +1,17 @@
 import { PeoplePicker, PrincipalType } from '@pnp/spfx-controls-react/lib/PeoplePicker';
 import {
     Dropdown,
-    FontSizes,
     IDropdownOption,
-    rgb2hex,
     TextField
 } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { ISecondaryInstrumentsState } from './ISecondaryInstrumentsState';
-import {CSSProperties} from "react";
 import {labelStyle} from "../../../styles/styles";
 
 export interface ISecondaryInstrumentsProps {
     context: any;
     secondaryInstrumentData: IDropdownOption[];
-    handleUpdateSecondaryInstrumentsData(updatedPerformanceJazzData: ISecondaryInstrumentsState): void;
+    // handleUpdateSecondaryInstrumentsData(updatedPerformanceJazzData: ISecondaryInstrumentsState): void;
 }
 
 export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstrumentsProps> = (props: React.PropsWithChildren<ISecondaryInstrumentsProps>) => {
@@ -29,10 +26,10 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
     });
 
     // Update Parent Component & Unmount Cleanup
-    React.useEffect(() => {
+/*    React.useEffect(() => {
         props.handleUpdateSecondaryInstrumentsData(SecondaryInstrumentsData);
         // the function the effect callback function returns is used for cleanup
-    },[SecondaryInstrumentsData]);
+    },[SecondaryInstrumentsData]);*/
 
   return (
     <div>

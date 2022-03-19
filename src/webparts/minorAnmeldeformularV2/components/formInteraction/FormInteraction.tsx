@@ -4,7 +4,6 @@ import {columnProps, messageBarStyles, stackStyles, stackTokens} from "../../sty
 import {IFormInteractionState} from "./IFormInteractionState";
 
 export interface IFormInteractionProps {
-    hasAllRequiredFields: boolean;
 }
 
 export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (props: React.PropsWithChildren<IFormInteractionProps>) => {
@@ -26,7 +25,7 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
               <Stack {...columnProps}>
                 <PrimaryButton
                 text='Absenden'
-                disabled={!props.hasAllRequiredFields}
+                disabled
                 >
                 </PrimaryButton>
               </Stack>

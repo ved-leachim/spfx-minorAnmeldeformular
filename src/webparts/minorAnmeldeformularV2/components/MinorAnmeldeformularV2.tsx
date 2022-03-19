@@ -18,8 +18,11 @@ import { checkRequiredFields } from "../helper/checkRequiredFields";
 import { RequiredFieldsContext } from "../context/RequiredFieldsContext";
 import {useState} from "react";
 import {IMinorAnmeldeformularV2RequiredDataState} from "./IMinorAnmeldeformularV2RequiredDataState";
+import {useRequiredFieldsContext} from "../context/RequiredFieldsContext";
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
+
+  private static context = useRequiredFieldsContext().requiredFields;
 
   private SPServices: SPServices;
   // Props for functional Components
@@ -58,7 +61,6 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         hasOrchestraInternship: "",
         desiredNumberOfSemesters: "",
       },
-      hasAllRequiredFields: false,
       dataLoaded: false,
     };
 
@@ -85,139 +87,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           });
   }
 
-  // Add or remove additional required fields depending on templateId state
   public componentDidUpdate(prevProps: Readonly<IMinorAnmeldeformularV2Props>, prevState: Readonly<IMinorAnmeldeformularV2State>, snapshot?: any) {
-    if (prevState.minor1DataState.templateId != this.state.minor1DataState.templateId) {
-      switch (this.state.minor1DataState.templateId) {
-        case "6": {
-          this._resetAdditionalRequiredFields(1);
-          this._addAdditionalRequiredFields(1, "6");
-          break;
-        }
-        case "7": {
-          this._resetAdditionalRequiredFields(1);
-          this._addAdditionalRequiredFields(1, "7");
-          break;
-        }
-        default: {
-          this._resetAdditionalRequiredFields(1);
-          break;
-        }
-      }
-    }
-    if (prevState.minor2DataState.templateId != this.state.minor2DataState.templateId) {
-      switch (this.state.minor2DataState.templateId) {
-        case "6": {
-          this._resetAdditionalRequiredFields(2);
-          this._addAdditionalRequiredFields(2, "6");
-          break;
-        }
-        case "7": {
-          this._resetAdditionalRequiredFields(2);
-          this._addAdditionalRequiredFields(2, "7");
-          break;
-        }
-        default: {
-          this._resetAdditionalRequiredFields(2);
-          break;
-        }
-      }
-    }
-    // Update the additional required fields if necessary
-    if (prevState.minor1DataState != this.state.minor1DataState ||
-        prevState.minor2DataState != this.state.minor2DataState){
-      this._updateAdditionalRequiredFieldsState();
-    }
-    if (prevState.requiredDataState != this.state.requiredDataState) {
-      // Check if all required fields are filled in
-      if (checkRequiredFields(this.state.requiredDataState)) {
-        this.setState({hasAllRequiredFields: true});
-      } else {
-        this.setState({hasAllRequiredFields: false});
-      }
-    }
-  }
-
-  private _addAdditionalRequiredFields(minor: number, templateId: string): void {
-    switch (minor) {
-      case 1: {
-
-        // REFACTOR - EXPORT Object Models into another file
-        switch (templateId) {
-          case "6": {
-            this.state.requiredDataState.minor1AdditionalRequiredFields = {
-              preferredLecturer1Id: "",
-              preferredLecturer2Id: "",
-              preferredSecondaryInstrument1: "",
-              preferredSecondaryInstrument2: "",
-            };
-            break;
-          }
-          case "7": {
-            this.state.requiredDataState.minor1AdditionalRequiredFields = {
-              preferredLecturer1Id: "",
-              preferredLecturer2Id: "",
-            };
-            break;
-          }
-        }
-
-        break;
-      }
-      case 2: {
-
-        switch (templateId) {
-          case "6": {
-            this.state.requiredDataState.minor2AdditionalRequiredFields = {
-              preferredLecturer1Id: "",
-              preferredLecturer2Id: "",
-              preferredSecondaryInstrument1: "",
-              preferredSecondaryInstrument2: "",
-            };
-            break;
-          }
-          case "7": {
-            this.state.requiredDataState.minor2AdditionalRequiredFields = {
-              preferredLecturer1Id: "",
-              preferredLecturer2Id: "",
-            };
-          }
-        }
-      }
-    }
-  }
-
-  private _resetAdditionalRequiredFields(minor: number): void {
-    switch (minor) {
-      case 1: {
-        if (this.state.requiredDataState.hasOwnProperty('minor1AdditionalRequiredFields')) {delete this.state.requiredDataState.minor1AdditionalRequiredFields;}
-        break;
-      }
-      case 2: {
-        if (this.state.requiredDataState.hasOwnProperty('minor2AdditionalRequiredFields')) {delete this.state.requiredDataState.minor2AdditionalRequiredFields;}
-        break;
-      }
-    }
-  }
-
-  private _updateAdditionalRequiredFieldsState(): void {
-    if (this.state.requiredDataState.hasOwnProperty('minor1AdditionalRequiredFields')) {
-      for (let key in this.state.requiredDataState.minor1AdditionalRequiredFields){
-        this.setState(state => {
-          state.requiredDataState.minor1AdditionalRequiredFields[key] = this.state.minor1DataState[key];
-          return state;
-        });
-      }
-    }
-
-    if (this.state.requiredDataState.hasOwnProperty('minor2AdditionalRequiredFields')) {
-      for (let key in this.state.requiredDataState.minor2AdditionalRequiredFields){
-        this.setState(state => {
-          state.requiredDataState.minor2AdditionalRequiredFields[key] = this.state.minor2DataState[key];
-          return state;
-        });
-      }
-    }
   }
 
   public render(): React.ReactElement<IMinorAnmeldeformularV2Props> {
@@ -240,8 +110,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           <ContactData
           handleUpdateContactData={(updatedContactData: IContactDataState) => {
             this.setState({
-              contactDataState: updatedContactData,
-              requiredDataState: {...this.state.requiredDataState, contactDataState: updatedContactData}
+              contactDataState: updatedContactData
             });
             }}>
           </ContactData>
@@ -253,21 +122,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           handleUpdateGeneralData={(updatedGeneralData: IGeneralDataState) => {
             this.setState({
               generalDataState: updatedGeneralData
-                });
-            this.setState(state => ({
-              ...state,
-              requiredDataState: {
-                ...state.requiredDataState,
-                generalDataRequiredFields: {
-                  ...state.requiredDataState.generalDataRequiredFields,
-                  isTheFirstMaster: updatedGeneralData.isTheFirstMaster,
-                  studyProgram: updatedGeneralData.studyProgram,
-                  jazzOrClassic: updatedGeneralData.jazzOrClassic,
-                  studyYear: updatedGeneralData.studyYear,
-                  mainInstrument: updatedGeneralData.mainInstrument
-                }
-              }
-            }));
+            });
           }}
           >
           </GeneralData>
@@ -281,16 +136,6 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
               this.setState({
                 minor1DataState: updatedMinor1Data
               });
-              this.setState(state => ({
-                ...state,
-                requiredDataState: {
-                  ...state.requiredDataState,
-                  generalDataRequiredFields: {
-                    ...state.requiredDataState.generalDataRequiredFields,
-                    minor1: updatedMinor1Data.minor1
-                  }
-                }
-              }));
             }}>
             </Minor1>
             <br></br>
@@ -302,24 +147,13 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
               this.setState({
                 minor2DataState: updatedMinor2Data
               });
-              this.setState(state => ({
-                ...state,
-                requiredDataState: {
-                  ...state.requiredDataState,
-                  generalDataRequiredFields: {
-                    ...state.requiredDataState.generalDataRequiredFields,
-                    minor2: updatedMinor2Data.minor2
-                  }
-                }
-              }));
             }}>
             </Minor2>
+            <br></br>
+            <FormInteraction
+            >
+            </FormInteraction>
           </RequiredFieldsContext.Provider>
-          <br></br>
-          <FormInteraction
-              hasAllRequiredFields={this.state.hasAllRequiredFields}
-          >
-          </FormInteraction>
         </div>
       </section>
     );

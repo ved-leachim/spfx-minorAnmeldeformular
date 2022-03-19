@@ -117,6 +117,7 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
                     (minor2Data.templateId == "6") ?
                         <SecondaryInstruments
                             context={props.context}
+                            minor={2}
                             secondaryInstrumentData={props.secondaryInstrumentData}
                         >
                         </SecondaryInstruments> :

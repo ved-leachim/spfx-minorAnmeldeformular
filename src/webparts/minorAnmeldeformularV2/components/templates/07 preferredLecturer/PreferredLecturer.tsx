@@ -4,18 +4,24 @@ import * as React from 'react';
 import {IPreferredLecturerState} from './IPreferredLecturerState';
 import {useEffect} from "react";
 import {labelStyle} from "../../../styles/styles";
+import {useRequiredFieldsContext} from "../../../context/RequiredFieldsContext";
 
 export interface IPreferredLecturerProps {
     context: any;
-    // handleUpdatePreferredLecturerData(updatedPerformanceJazzData: IPreferredLecturerState): void;
+    minor: number;
 }
 
 export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps> = (props: React.PropsWithChildren<IPreferredLecturerProps>) => {
 
+    // Managing RequiredFieldsContext
+    const { requiredFields, setRequiredFields } = useRequiredFieldsContext();
+
     // Managing FC-State
     const [preferredLecturerData, setPreferredLecturerData] = React.useState<IPreferredLecturerState>({
         preferredLecturer1Id: "",
+        preferredLecturer1Name: "",
         preferredLecturer2Id: "",
+        preferredLecturer2Name: ""
     });
 
     // Update Parent Component & Unmount Cleanup
@@ -68,32 +74,85 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
     );
 
     function handlePreferredLecturer1IdChange(selectedPerson: IPersonaProps[]): void {
+        // State
+        if (selectedPerson !== null && selectedPerson.length > 0) {setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: selectedPerson[0].id, preferredLecturer1Name: ""});}
+        else {setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: ""});}
+        // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: selectedPerson[0].id});
-        if (preferredLecturerData.preferredLecturer1Id != ""){
-            if (preferredLecturerData.hasOwnProperty('preferredLecturer1Name')) {delete preferredLecturerData.preferredLecturer1Name;}
+        if (props.minor = 1) {
+            setRequiredFields({
+                ...requiredFields, minor1AdditionalRequiredFields: {
+                    preferredLecturer1Id: selectedPerson[0].id
+                }
+
+            });
+        } else {
+            setRequiredFields({
+                ...requiredFields, minor2AdditionalRequiredFields: {
+                    preferredLecturer1Id: selectedPerson[0].id
+                }
+            });
         }
     }
 
-    function handlePreferredLecturer1NameChange(lecturer1Name: string): void {
-        preferredLecturerData.preferredLecturer1Name = "";
-        setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Name: lecturer1Name});
-        if (preferredLecturerData.preferredLecturer1Name != ""){
-            if (preferredLecturerData.hasOwnProperty('preferredLecturer1Id')) {delete preferredLecturerData.preferredLecturer1Id;}
+    function handlePreferredLecturer1NameChange(lecturerName: string): void {
+        // State
+        setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Name: lecturerName});
+        // Context
+        setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Name: lecturerName});
+        if (props.minor == 1) {
+            setRequiredFields({
+                ...requiredFields, minor1AdditionalRequiredFields: {
+                    preferredLecturer1Name: lecturerName
+                }
+            });
+        } else {
+            setRequiredFields({
+                ...requiredFields, minor2AdditionalRequiredFields: {
+                    preferredLecturer1Name: lecturerName
+                }
+            });
         }
     }
 
     function handlePreferredLecturer2IdChange(selectedPerson: IPersonaProps[]): void {
+        // State
+        if (selectedPerson !== null && selectedPerson.length > 0) {setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: selectedPerson[0].id, preferredLecturer2Name: ""});}
+        else {setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: ""});}
+        // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: selectedPerson[0].id});
-        if (preferredLecturerData.preferredLecturer2Id != ""){
-            if (preferredLecturerData.hasOwnProperty('preferredLecturer2Name')) {delete preferredLecturerData.preferredLecturer2Name;}
+        if (props.minor = 1) {
+            setRequiredFields({
+                ...requiredFields, minor1AdditionalRequiredFields: {
+                    preferredLecturer2Id: selectedPerson[0].id
+                }
+            });
+        } else {
+            setRequiredFields({
+                ...requiredFields, minor2AdditionalRequiredFields: {
+                    preferredLecturer2Id: selectedPerson[0].id
+                }
+            });
         }
     }
 
-    function handlePreferredLecturer2NameChange(lecturer2Name: string): void {
-        preferredLecturerData.preferredLecturer2Name = "";
-        setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Name: lecturer2Name});
-        if (preferredLecturerData.preferredLecturer2Name != ""){
-            if (preferredLecturerData.hasOwnProperty('preferredLecturer2Id')) {delete preferredLecturerData.preferredLecturer2Id;}
+    function handlePreferredLecturer2NameChange(lecturerName: string): void {
+        // State
+        setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Name: lecturerName});
+        // Context
+        setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Name: lecturerName});
+        if (props.minor == 1) {
+            setRequiredFields({
+                ...requiredFields, minor1AdditionalRequiredFields: {
+                    preferredLecturer2Name: lecturerName
+                }
+            });
+        } else {
+            setRequiredFields({
+                ...requiredFields, minor2AdditionalRequiredFields: {
+                    preferredLecturer2Name: lecturerName
+                }
+            });
         }
     }
 };

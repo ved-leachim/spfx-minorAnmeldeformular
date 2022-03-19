@@ -1,5 +1,6 @@
 export interface IPreferredLecturerState {
     preferredLecturer1Id: string;
+    preferredLecturer1Name: string;
     preferredLecturer2Id: string;
-    [key: string]: string;
+    preferredLecturer2Name: string;
 }

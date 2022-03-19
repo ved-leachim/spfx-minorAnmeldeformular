@@ -52,20 +52,20 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
                     });
                     // Setting RequiredFieldsContext
                     setRequiredFields({
-                            contactDataState: {
-                                givenName: "",
-                                surname: "",
-                                contactEMail: ""
-                            },
-                            generalDataRequiredFields: {
-                                isTheFirstMaster: "",
-                                studyProgram: "",
-                                studyYear: "",
-                                jazzOrClassic: "",
-                                mainInstrument: "",
-                                minor1: options.text,
-                                minor2: ""
-                            }
+                        contactDataState: {
+                            givenName: requiredFields.contactDataState.givenName,
+                            surname: requiredFields.contactDataState.surname,
+                            contactEMail: requiredFields.contactDataState.contactEMail
+                        },
+                        generalDataRequiredFields: {
+                            isTheFirstMaster: requiredFields.generalDataRequiredFields.isTheFirstMaster,
+                            studyProgram: requiredFields.generalDataRequiredFields.studyProgram,
+                            studyYear: requiredFields.generalDataRequiredFields.studyYear,
+                            jazzOrClassic: requiredFields.generalDataRequiredFields.jazzOrClassic,
+                            mainInstrument: requiredFields.generalDataRequiredFields.mainInstrument,
+                            minor1: options.text,
+                            minor2: requiredFields.generalDataRequiredFields.minor2
+                        }
                     });
                 }}
                 required>
@@ -131,6 +131,7 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
                     (minor1Data.templateId == "7") ?
                         <PreferredLecturer
                             context={props.context}
+                            minor={1}
                         >
                         </PreferredLecturer> :
                         <></>

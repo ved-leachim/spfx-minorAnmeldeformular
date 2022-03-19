@@ -45,45 +45,19 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         favoriteLecturerName: ""
       },
       minor1DataState: {
-        minor1: "",
         templateId: "",
         proofOfExperience: "",
-        preferredLecturer1Id: "",
-        preferredLecturer2Id: "",
         jazzOrClassic: "",
         hasOrchestraInternship: "",
         desiredNumberOfSemesters: "",
-        preferredSecondaryInstrument1: "",
-        preferredSecondaryInstrument2: "",
       },
       minor2DataState: {
-        minor2: "",
         templateId: "",
         proofOfExperience: "",
-        preferredLecturer1Id: "",
-        preferredLecturer2Id: "",
         jazzOrClassic: "",
         hasOrchestraInternship: "",
         desiredNumberOfSemesters: "",
-        preferredSecondaryInstrument1: "",
-        preferredSecondaryInstrument2: "",
       },
-      /*requiredDataState: {
-        contactDataState: {
-          givenName: "",
-          surname: "",
-          contactEMail: ""
-        },
-        generalDataRequiredFields: {
-          isTheFirstMaster: "",
-          studyProgram: "",
-          studyYear: "",
-          jazzOrClassic: "",
-          mainInstrument: "",
-          minor1: "",
-          minor2: ""
-        }
-      },*/
       hasAllRequiredFields: false,
       dataLoaded: false,
     };

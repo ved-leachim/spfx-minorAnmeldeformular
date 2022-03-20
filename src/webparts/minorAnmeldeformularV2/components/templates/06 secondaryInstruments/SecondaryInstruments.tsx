@@ -7,7 +7,8 @@ import {
 import * as React from 'react';
 import { ISecondaryInstrumentsState } from './ISecondaryInstrumentsState';
 import {labelStyle} from "../../../styles/styles";
-import {useRequiredFieldsContext} from "../../../context/RequiredFieldsContext";
+import {useContext} from "react";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../../context/RequiredFieldsContext";
 
 export interface ISecondaryInstrumentsProps {
     context: any;
@@ -18,7 +19,7 @@ export interface ISecondaryInstrumentsProps {
 export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstrumentsProps> = (props: React.PropsWithChildren<ISecondaryInstrumentsProps>) => {
 
     // Managing RequiredFieldsContext
-    const { requiredFields, setRequiredFields } = useRequiredFieldsContext();
+    const { requiredFields, updateRequiredFields } = useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
     // Managing FC-State
     const [SecondaryInstrumentsData, setSecondaryInstrumentsData] = React.useState<ISecondaryInstrumentsState>({
@@ -129,13 +130,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument1: options.text, preferredSecondaryInstrument1Special: ""});
       // Context
       if (props.minor == 1) {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
                   preferredSecondaryInstrument1: options.text
               }
           });
       } else {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
                   preferredSecondaryInstrument1: options.text
               }
@@ -149,13 +150,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument1Special: specialInstrument});
       // Context
       if (props.minor == 1) {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
                   preferredSecondaryInstrument1Special: specialInstrument
               }
           });
       } else {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
                   preferredSecondaryInstrument2Special: specialInstrument
               }
@@ -169,13 +170,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument2: options.text, preferredSecondaryInstrument2Special: ""});
       // Context
       if (props.minor == 1) {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
                   preferredSecondaryInstrument2: options.text
               }
           });
       } else {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
                   preferredSecondaryInstrument2: options.text
               }
@@ -189,13 +190,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument2Special: specialInstrument});
       // Context
       if (props.minor == 1) {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
                   preferredSecondaryInstrument1Special: specialInstrument
               }
           });
       } else {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
                   preferredSecondaryInstrument2Special: specialInstrument
               }
@@ -209,13 +210,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       else {setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer1Id: ""});}
       // Context
       if (props.minor == 1) {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
                   preferredLecturer1Id: selectedPerson[0].id
               }
           });
       } else {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
                   preferredLecturer1Id: selectedPerson[0].id
               }
@@ -228,13 +229,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer1Name: lecturerName});
       // Context
       if (props.minor == 1) {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
                   preferredLecturer1Name: lecturerName
               }
           });
       } else {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
                   preferredLecturer1Name: lecturerName
               }
@@ -248,13 +249,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       else {setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer2Id: ""});}
       // Context
       if (props.minor == 1) {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
                   preferredLecturer2Id: selectedPerson[0].id
               }
           });
       } else {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
                   preferredLecturer2Id: selectedPerson[0].id
               }
@@ -267,13 +268,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer2Name: lecturerName});
       // Context
       if (props.minor == 1) {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
                   preferredLecturer2Name: lecturerName
               }
           });
       } else {
-          setRequiredFields({
+          updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
                   preferredLecturer2Name: lecturerName
               }

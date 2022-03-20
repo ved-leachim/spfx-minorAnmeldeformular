@@ -3,7 +3,8 @@ import { FontSizes } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { IContactDataState } from './IContactDataState';
 import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
-import {useRequiredFieldsContext} from "../../context/RequiredFieldsContext";
+import {useContext} from "react";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
 
 export interface IContactDataProps {
     handleUpdateContactData(updatedContactData: IContactDataState): void;
@@ -12,7 +13,7 @@ export interface IContactDataProps {
 export const ContactData: React.FunctionComponent<IContactDataProps> = (props: React.PropsWithChildren<IContactDataProps>) => {
 
     // Managing RequiredFieldsContext
-    const { requiredFields, setRequiredFields } = useRequiredFieldsContext();
+    const { requiredFields, updateRequiredFields } = useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
   // Managing FC-State
   const [contactData, setContactData] = React.useState<IContactDataState>({
@@ -38,7 +39,7 @@ export const ContactData: React.FunctionComponent<IContactDataProps> = (props: R
                     setContactData({
                         ...contactData, givenName: e.target.value
                     });
-                    setRequiredFields({
+                    updateRequiredFields({
                         ...requiredFields, contactDataState: {
                             ...contactData, givenName: e.target.value
                         }
@@ -52,7 +53,7 @@ export const ContactData: React.FunctionComponent<IContactDataProps> = (props: R
                     setContactData({
                         ...contactData, contactEMail: e.target.value
                     });
-                    setRequiredFields({
+                    updateRequiredFields({
                         ...requiredFields, contactDataState: {
                             ...contactData, contactEMail: e.target.value
                         }
@@ -68,7 +69,7 @@ export const ContactData: React.FunctionComponent<IContactDataProps> = (props: R
                     setContactData({
                         ...contactData, surname: e.target.value
                     });
-                    setRequiredFields({
+                    updateRequiredFields({
                         ...requiredFields, contactDataState: {
                             ...contactData, surname: e.target.value
                         }

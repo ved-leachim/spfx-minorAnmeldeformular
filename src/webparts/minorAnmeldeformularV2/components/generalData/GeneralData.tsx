@@ -3,19 +3,21 @@ import * as React from 'react';
 import { IGeneralDataState } from './IGeneralDataState';
 import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
 import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
-import {useRequiredFieldsContext} from "../../context/RequiredFieldsContext";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
+
+
 
 export interface IGeneralDataProps {
     context: any;
     handleUpdateGeneralData(updatedGeneralData: IGeneralDataState): void;
-    studyProgrammData: IDropdownOption[];
+    studyProgramData: IDropdownOption[];
     mainInstrumentData: IDropdownOption[];
 }
 
 export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: React.PropsWithChildren<IGeneralDataProps>) => {
 
     // Managing RequiredFieldsContext
-    const { requiredFields, setRequiredFields } = useRequiredFieldsContext();
+    const { requiredFields, updateRequiredFields } = React.useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
   // Managing FC-State
   const [generalData, setGeneralData] = React.useState<IGeneralDataState>({
@@ -51,7 +53,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                         ...generalData, isTheFirstMaster: options.text
                     });
                     // Context
-                    setRequiredFields({
+                    updateRequiredFields({
                         ...requiredFields, generalDataRequiredFields: {
                             ...requiredFields.generalDataRequiredFields, isTheFirstMaster: options.text
                         }
@@ -71,7 +73,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                         ...generalData, studyYear: options.text
                     });
                     // Context
-                    setRequiredFields({
+                    updateRequiredFields({
                         ...requiredFields, generalDataRequiredFields: {
                             ...requiredFields.generalDataRequiredFields, studyYear: options.text
                         }
@@ -88,7 +90,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                         ...generalData, mainInstrument: options.text
                     });
                     // Context
-                    setRequiredFields({
+                    updateRequiredFields({
                         ...requiredFields, generalDataRequiredFields: {
                             ...requiredFields.generalDataRequiredFields, mainInstrument: options.text
                         }
@@ -106,14 +108,14 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
             <Stack {...columnProps}>
                 <Dropdown
                 label='Studiengang'
-                options={props.studyProgrammData}
+                options={props.studyProgramData}
                 onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
                     // State
                     setGeneralData({
                         ...generalData, studyProgram: options.text
                     });
                     // Context
-                    setRequiredFields({
+                    updateRequiredFields({
                         ...requiredFields, generalDataRequiredFields: {
                             ...requiredFields.generalDataRequiredFields, studyProgram: options.text
                         }
@@ -131,7 +133,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                     setGeneralData({
                         ...generalData, jazzOrClassic: options.text
                     });
-                    setRequiredFields({
+                    updateRequiredFields({
                         ...requiredFields, generalDataRequiredFields: {
                             ...requiredFields.generalDataRequiredFields, jazzOrClassic: options.text
                         }

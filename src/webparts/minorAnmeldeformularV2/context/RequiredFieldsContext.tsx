@@ -1,14 +1,17 @@
 import * as React from "react";
 import {IMinorAnmeldeformularV2RequiredDataState} from "../components/IMinorAnmeldeformularV2RequiredDataState";
-import {createContext, useContext, useState} from "react";
 
-export type requiredFields = {
+export type RequiredFieldsContextType = {
     requiredFields: IMinorAnmeldeformularV2RequiredDataState,
-    setRequiredFields:(requiredFields: IMinorAnmeldeformularV2RequiredDataState) => void
+    updateRequiredFields: (requiredFields: IMinorAnmeldeformularV2RequiredDataState) => void;
 };
 
-export const RequiredFieldsContext = createContext<requiredFields>({
-    requiredFields: {
+// The default value for creating the context is null
+export const RequiredFieldsContext = React.createContext<RequiredFieldsContextType | null>(null);
+
+// The intended values will be assigned on the provider
+const RequiredFieldsProvider: React.FC<React.ReactNode> = ({children}) => {
+    const [requiredFields, setRequiredFields] = React.useState<IMinorAnmeldeformularV2RequiredDataState>({
         contactDataState: {
             givenName: "",
             surname: "",
@@ -22,11 +25,19 @@ export const RequiredFieldsContext = createContext<requiredFields>({
             mainInstrument: "",
             minor1: "",
             minor2: ""
-        }
-    },
-    setRequiredFields: () => {}
-    }
+        },
+    });
 
-);
+    const updateRequiredFields = (updatedRequiredFields: IMinorAnmeldeformularV2RequiredDataState) => {
+        setRequiredFields({...updatedRequiredFields});
+    };
 
-export const useRequiredFieldsContext = () => useContext(RequiredFieldsContext);
+    return(
+        <RequiredFieldsContext.Provider value={{requiredFields, updateRequiredFields}}>
+            {children}
+        </RequiredFieldsContext.Provider>
+    );
+};
+
+export default RequiredFieldsProvider;
+

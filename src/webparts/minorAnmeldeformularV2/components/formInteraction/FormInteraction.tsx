@@ -2,6 +2,8 @@ import { IMessageBarStyles, IStackItemStyles, IStackProps, MessageBar, MessageBa
 import * as React from 'react';
 import {columnProps, messageBarStyles, stackStyles, stackTokens} from "../../styles/styles";
 import {IFormInteractionState} from "./IFormInteractionState";
+import {RequiredFieldsContext, useRequiredFieldsContext} from "../../context/RequiredFieldsContext";
+import {useContext} from "react";
 
 export interface IFormInteractionProps {
 }
@@ -10,6 +12,12 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
   const [formInteractionData, setFormInteractionData] = React.useState<IFormInteractionState>({
       responseMessage: "Bitte füllen Sie alle benötigten Informationen aus."
   });
+
+    // Managing RequiredFieldsContext
+    //const [requiredFields, setRequiredFields] = useContext(RequiredFieldsContext);
+
+    // Managing RequiredFieldsContext
+    const { requiredFields, setRequiredFields } = useRequiredFieldsContext();
 
   return (
       <div>
@@ -35,6 +43,7 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
                   </PrimaryButton>
               </Stack>
           </Stack>
+          <h1>{requiredFields.generalDataRequiredFields.studyProgram}</h1>
       </div>
   );
 };

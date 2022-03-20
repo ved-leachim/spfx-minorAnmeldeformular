@@ -11,12 +11,14 @@ import {Orchestra} from "../templates/04 orchestra/Orchestra";
 import {RequestedSemesters} from "../templates/05 requestedNumbersOfSemesters/RequestedSemesters";
 import {SecondaryInstruments} from "../templates/06 secondaryInstruments/SecondaryInstruments";
 import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
-import {useRequiredFieldsContext} from "../../context/RequiredFieldsContext";
+import {useContext} from "react";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
+
 
 export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.PropsWithChildren<IMinor2Props>) => {
 
     // Managing RequiredFieldsContext
-    const { requiredFields, setRequiredFields } = useRequiredFieldsContext();
+     const { requiredFields, updateRequiredFields } = useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
   // Managing FC-State
   const [minor2Data, setMinor2Data] = React.useState<IMinor2State>({
@@ -46,7 +48,7 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
                         ...minor2Data,
                         templateId: options.id,
                     });
-                    setRequiredFields({
+                    updateRequiredFields({
                         contactDataState: {
                             givenName: requiredFields.contactDataState.givenName,
                             surname: requiredFields.contactDataState.surname,

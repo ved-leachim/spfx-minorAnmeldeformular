@@ -14,15 +14,9 @@ import { SPServices } from '../../Services/SPServices';
 import { IDropdownOption, Spinner } from 'office-ui-fabric-react';
 import { IMinor1State } from './minor1/IMinor1State';
 import { IMinor2State } from './minor2/IMinor2State';
-import { checkRequiredFields } from "../helper/checkRequiredFields";
-import { RequiredFieldsContext } from "../context/RequiredFieldsContext";
-import {useState} from "react";
-import {IMinorAnmeldeformularV2RequiredDataState} from "./IMinorAnmeldeformularV2RequiredDataState";
-import {useRequiredFieldsContext} from "../context/RequiredFieldsContext";
+import RequiredFieldsProvider from "../context/RequiredFieldsContext";
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
-
-  private static context = useRequiredFieldsContext().requiredFields;
 
   private SPServices: SPServices;
   // Props for functional Components
@@ -87,9 +81,6 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           });
   }
 
-  public componentDidUpdate(prevProps: Readonly<IMinorAnmeldeformularV2Props>, prevState: Readonly<IMinorAnmeldeformularV2State>, snapshot?: any) {
-  }
-
   public render(): React.ReactElement<IMinorAnmeldeformularV2Props> {
     const {
       isDarkTheme,
@@ -98,13 +89,10 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
       userDisplayName
     } = this.props;
 
-    const [requiredFields, setRequiredFields] = useState<IMinorAnmeldeformularV2RequiredDataState>();
-
     return (
       
       // Wait for Data from initial fetching in ComponentDidMount()
       !this.state.dataLoaded ? <Spinner label='Wait, wait...' ariaLive='assertive' labelPosition='right'></Spinner> :
-
       <section>
         <div>
           <ContactData
@@ -117,7 +105,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           <br></br>
           <GeneralData
           context={this.props.context}
-          studyProgrammData={this.studyProgramData}
+          studyProgramData={this.studyProgramData}
           mainInstrumentData={this.mainInstrumentData}
           handleUpdateGeneralData={(updatedGeneralData: IGeneralDataState) => {
             this.setState({
@@ -127,7 +115,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           >
           </GeneralData>
           <br></br>
-          <RequiredFieldsContext.Provider value={{requiredFields, setRequiredFields}}>
+          <RequiredFieldsProvider>
             <Minor1
             context={this.props.context}
             minorData={this.minorData}
@@ -153,7 +141,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             <FormInteraction
             >
             </FormInteraction>
-          </RequiredFieldsContext.Provider>
+          </RequiredFieldsProvider>
         </div>
       </section>
     );

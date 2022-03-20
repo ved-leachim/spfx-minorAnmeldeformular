@@ -2,9 +2,9 @@ import {PeoplePicker, PrincipalType} from '@pnp/spfx-controls-react/lib/PeoplePi
 import {Dropdown, FontSizes, IPersonaProps, PeoplePickerItem, rgb2hex, TextField} from 'office-ui-fabric-react';
 import * as React from 'react';
 import {IPreferredLecturerState} from './IPreferredLecturerState';
-import {useEffect} from "react";
 import {labelStyle} from "../../../styles/styles";
-import {useRequiredFieldsContext} from "../../../context/RequiredFieldsContext";
+import {useContext} from "react";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../../context/RequiredFieldsContext";
 
 export interface IPreferredLecturerProps {
     context: any;
@@ -12,9 +12,9 @@ export interface IPreferredLecturerProps {
 }
 
 export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps> = (props: React.PropsWithChildren<IPreferredLecturerProps>) => {
-
+    
     // Managing RequiredFieldsContext
-    const { requiredFields, setRequiredFields } = useRequiredFieldsContext();
+    const { requiredFields, updateRequiredFields } = useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
     // Managing FC-State
     const [preferredLecturerData, setPreferredLecturerData] = React.useState<IPreferredLecturerState>({
@@ -80,14 +80,14 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: selectedPerson[0].id});
         if (props.minor = 1) {
-            setRequiredFields({
+            updateRequiredFields({
                 ...requiredFields, minor1AdditionalRequiredFields: {
                     preferredLecturer1Id: selectedPerson[0].id
                 }
 
             });
         } else {
-            setRequiredFields({
+            updateRequiredFields({
                 ...requiredFields, minor2AdditionalRequiredFields: {
                     preferredLecturer1Id: selectedPerson[0].id
                 }
@@ -101,13 +101,13 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Name: lecturerName});
         if (props.minor == 1) {
-            setRequiredFields({
+            updateRequiredFields({
                 ...requiredFields, minor1AdditionalRequiredFields: {
                     preferredLecturer1Name: lecturerName
                 }
             });
         } else {
-            setRequiredFields({
+            updateRequiredFields({
                 ...requiredFields, minor2AdditionalRequiredFields: {
                     preferredLecturer1Name: lecturerName
                 }
@@ -122,13 +122,13 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: selectedPerson[0].id});
         if (props.minor = 1) {
-            setRequiredFields({
+            updateRequiredFields({
                 ...requiredFields, minor1AdditionalRequiredFields: {
                     preferredLecturer2Id: selectedPerson[0].id
                 }
             });
         } else {
-            setRequiredFields({
+            updateRequiredFields({
                 ...requiredFields, minor2AdditionalRequiredFields: {
                     preferredLecturer2Id: selectedPerson[0].id
                 }
@@ -142,13 +142,13 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Name: lecturerName});
         if (props.minor == 1) {
-            setRequiredFields({
+            updateRequiredFields({
                 ...requiredFields, minor1AdditionalRequiredFields: {
                     preferredLecturer2Name: lecturerName
                 }
             });
         } else {
-            setRequiredFields({
+            updateRequiredFields({
                 ...requiredFields, minor2AdditionalRequiredFields: {
                     preferredLecturer2Name: lecturerName
                 }

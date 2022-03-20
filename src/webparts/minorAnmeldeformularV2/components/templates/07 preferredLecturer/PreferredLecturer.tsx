@@ -1,10 +1,13 @@
 import {PeoplePicker, PrincipalType} from '@pnp/spfx-controls-react/lib/PeoplePicker';
-import {Dropdown, FontSizes, IPersonaProps, PeoplePickerItem, rgb2hex, TextField} from 'office-ui-fabric-react';
+import {IPersonaProps, TextField} from 'office-ui-fabric-react';
 import * as React from 'react';
 import {IPreferredLecturerState} from './IPreferredLecturerState';
 import {labelStyle} from "../../../styles/styles";
-import {useContext} from "react";
-import {RequiredFieldsContext, RequiredFieldsContextType} from "../../../context/RequiredFieldsContext";
+import {
+    additionalRequiredFields,
+    updateMinor1RequiredFieldsContext,
+    updateMinor2RequiredFieldsContext
+} from "../../../helper/RequiredFieldsHelper";
 
 export interface IPreferredLecturerProps {
     context: any;
@@ -12,9 +15,6 @@ export interface IPreferredLecturerProps {
 }
 
 export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps> = (props: React.PropsWithChildren<IPreferredLecturerProps>) => {
-    
-    // Managing RequiredFieldsContext
-    const { requiredFields, updateRequiredFields } = useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
     // Managing FC-State
     const [preferredLecturerData, setPreferredLecturerData] = React.useState<IPreferredLecturerState>({
@@ -80,18 +80,9 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: selectedPerson[0].id});
         if (props.minor == 1) {
-            updateRequiredFields({
-                ...requiredFields, minor1AdditionalRequiredFields: {
-                    preferredLecturer1Id: selectedPerson[0].id
-                }
-
-            });
+            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
         } else {
-            updateRequiredFields({
-                ...requiredFields, minor2AdditionalRequiredFields: {
-                    preferredLecturer1Id: selectedPerson[0].id
-                }
-            });
+            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
         }
     }
 
@@ -101,17 +92,9 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Name: lecturerName});
         if (props.minor == 1) {
-            updateRequiredFields({
-                ...requiredFields, minor1AdditionalRequiredFields: {
-                    ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer1Name: lecturerName
-                }
-            });
+            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
         } else {
-            updateRequiredFields({
-                ...requiredFields, minor2AdditionalRequiredFields: {
-                    ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer1Name: lecturerName
-                }
-            });
+            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
         }
     }
 
@@ -121,18 +104,10 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         else {setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: ""});}
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: selectedPerson[0].id});
         // Context
-        if (props.minor = 1) {
-            updateRequiredFields({
-                ...requiredFields, minor1AdditionalRequiredFields: {
-                    ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer2Id: selectedPerson[0].id
-                }
-            });
+        if (props.minor == 1) {
+            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
         } else {
-            updateRequiredFields({
-                ...requiredFields, minor2AdditionalRequiredFields: {
-                    ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer2Id: selectedPerson[0].id
-                }
-            });
+            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
         }
     }
 
@@ -140,19 +115,10 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // State
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Name: lecturerName});
         // Context
-        setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Name: lecturerName});
         if (props.minor == 1) {
-            updateRequiredFields({
-                ...requiredFields, minor1AdditionalRequiredFields: {
-                    ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer2Name: lecturerName
-                }
-            });
+            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
         } else {
-            updateRequiredFields({
-                ...requiredFields, minor2AdditionalRequiredFields: {
-                    ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer2Name: lecturerName
-                }
-            });
+            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
         }
     }
 };

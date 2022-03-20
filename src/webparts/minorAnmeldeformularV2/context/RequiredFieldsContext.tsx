@@ -7,7 +7,25 @@ export type RequiredFieldsContextType = {
 };
 
 // The default value for creating the context is null
-export const RequiredFieldsContext = React.createContext<RequiredFieldsContextType | null>(null);
+export const RequiredFieldsContext = React.createContext<RequiredFieldsContextType>({
+    requiredFields: {
+        contactDataState: {
+            givenName: "",
+            surname: "",
+            contactEMail: ""
+        },
+        generalDataRequiredFields: {
+            isTheFirstMaster: "",
+            studyProgram: "",
+            studyYear: "",
+            jazzOrClassic: "",
+            mainInstrument: "",
+            minor1: "",
+            minor2: ""
+        }
+    },
+    updateRequiredFields: () => {}
+});
 
 // The intended values will be assigned on the provider
 const RequiredFieldsProvider: React.FC<React.ReactNode> = ({children}) => {

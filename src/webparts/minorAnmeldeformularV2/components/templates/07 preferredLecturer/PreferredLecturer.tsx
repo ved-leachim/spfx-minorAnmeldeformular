@@ -79,7 +79,7 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         else {setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: ""});}
         // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: selectedPerson[0].id});
-        if (props.minor = 1) {
+        if (props.minor == 1) {
             updateRequiredFields({
                 ...requiredFields, minor1AdditionalRequiredFields: {
                     preferredLecturer1Id: selectedPerson[0].id
@@ -103,13 +103,13 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         if (props.minor == 1) {
             updateRequiredFields({
                 ...requiredFields, minor1AdditionalRequiredFields: {
-                    preferredLecturer1Name: lecturerName
+                    ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer1Name: lecturerName
                 }
             });
         } else {
             updateRequiredFields({
                 ...requiredFields, minor2AdditionalRequiredFields: {
-                    preferredLecturer1Name: lecturerName
+                    ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer1Name: lecturerName
                 }
             });
         }
@@ -119,18 +119,18 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // State
         if (selectedPerson !== null && selectedPerson.length > 0) {setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: selectedPerson[0].id, preferredLecturer2Name: ""});}
         else {setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: ""});}
-        // Context
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: selectedPerson[0].id});
+        // Context
         if (props.minor = 1) {
             updateRequiredFields({
                 ...requiredFields, minor1AdditionalRequiredFields: {
-                    preferredLecturer2Id: selectedPerson[0].id
+                    ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer2Id: selectedPerson[0].id
                 }
             });
         } else {
             updateRequiredFields({
                 ...requiredFields, minor2AdditionalRequiredFields: {
-                    preferredLecturer2Id: selectedPerson[0].id
+                    ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer2Id: selectedPerson[0].id
                 }
             });
         }
@@ -144,13 +144,13 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         if (props.minor == 1) {
             updateRequiredFields({
                 ...requiredFields, minor1AdditionalRequiredFields: {
-                    preferredLecturer2Name: lecturerName
+                    ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer2Name: lecturerName
                 }
             });
         } else {
             updateRequiredFields({
                 ...requiredFields, minor2AdditionalRequiredFields: {
-                    preferredLecturer2Name: lecturerName
+                    ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer2Name: lecturerName
                 }
             });
         }

@@ -2,8 +2,9 @@ import { IMessageBarStyles, IStackItemStyles, IStackProps, MessageBar, MessageBa
 import * as React from 'react';
 import {columnProps, messageBarStyles, stackStyles, stackTokens} from "../../styles/styles";
 import {IFormInteractionState} from "./IFormInteractionState";
-import {RequiredFieldsContext, useRequiredFieldsContext} from "../../context/RequiredFieldsContext";
 import {useContext} from "react";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
+
 
 export interface IFormInteractionProps {
 }
@@ -14,10 +15,7 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
   });
 
     // Managing RequiredFieldsContext
-    //const [requiredFields, setRequiredFields] = useContext(RequiredFieldsContext);
-
-    // Managing RequiredFieldsContext
-    const { requiredFields, setRequiredFields } = useRequiredFieldsContext();
+    const { requiredFields, updateRequiredFields } = useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
   return (
       <div>
@@ -43,7 +41,6 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
                   </PrimaryButton>
               </Stack>
           </Stack>
-          <h1>{requiredFields.generalDataRequiredFields.studyProgram}</h1>
       </div>
   );
 };

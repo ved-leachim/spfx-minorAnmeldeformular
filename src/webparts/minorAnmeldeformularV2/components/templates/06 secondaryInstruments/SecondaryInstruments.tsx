@@ -132,13 +132,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       if (props.minor == 1) {
           updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
-                  preferredSecondaryInstrument1: options.text
-              }
+                  ...requiredFields.minor1AdditionalRequiredFields, preferredSecondaryInstrument1: options.text
+                  }
           });
       } else {
           updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
-                  preferredSecondaryInstrument1: options.text
+                  ...requiredFields.minor2AdditionalRequiredFields, preferredSecondaryInstrument1: options.text
               }
           });
       }
@@ -152,13 +152,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       if (props.minor == 1) {
           updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
-                  preferredSecondaryInstrument1Special: specialInstrument
+                  ...requiredFields.minor1AdditionalRequiredFields, preferredSecondaryInstrument1Special: specialInstrument
               }
           });
       } else {
           updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
-                  preferredSecondaryInstrument2Special: specialInstrument
+                  ...requiredFields.minor2AdditionalRequiredFields, preferredSecondaryInstrument2Special: specialInstrument
               }
           });
       }
@@ -172,13 +172,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       if (props.minor == 1) {
           updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
-                  preferredSecondaryInstrument2: options.text
+                  ...requiredFields.minor1AdditionalRequiredFields, preferredSecondaryInstrument2: options.text
               }
           });
       } else {
           updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
-                  preferredSecondaryInstrument2: options.text
+                  ...requiredFields.minor2AdditionalRequiredFields, preferredSecondaryInstrument2: options.text
               }
           });
       }
@@ -192,13 +192,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       if (props.minor == 1) {
           updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
-                  preferredSecondaryInstrument1Special: specialInstrument
+                  ...requiredFields.minor1AdditionalRequiredFields, preferredSecondaryInstrument1Special: specialInstrument
               }
           });
       } else {
           updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
-                  preferredSecondaryInstrument2Special: specialInstrument
+                  ...requiredFields.minor2AdditionalRequiredFields, preferredSecondaryInstrument2Special: specialInstrument
               }
           });
       }
@@ -212,13 +212,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       if (props.minor == 1) {
           updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
-                  preferredLecturer1Id: selectedPerson[0].id
+                  ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer1Id: selectedPerson[0].id
               }
           });
       } else {
           updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
-                  preferredLecturer1Id: selectedPerson[0].id
+                  ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer1Id: selectedPerson[0].id
               }
           });
       }
@@ -231,13 +231,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       if (props.minor == 1) {
           updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
-                  preferredLecturer1Name: lecturerName
+                  ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer1Name: lecturerName
               }
           });
       } else {
           updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
-                  preferredLecturer1Name: lecturerName
+                  ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer1Name: lecturerName
               }
           });
       }
@@ -251,13 +251,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       if (props.minor == 1) {
           updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
-                  preferredLecturer2Id: selectedPerson[0].id
+                  ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer2Id: selectedPerson[0].id
               }
           });
       } else {
           updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
-                  preferredLecturer2Id: selectedPerson[0].id
+                  ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer2Id: selectedPerson[0].id
               }
           });
       }
@@ -270,16 +270,15 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       if (props.minor == 1) {
           updateRequiredFields({
               ...requiredFields, minor1AdditionalRequiredFields: {
-                  preferredLecturer2Name: lecturerName
+                  ...requiredFields.minor1AdditionalRequiredFields, preferredLecturer2Name: lecturerName
               }
           });
       } else {
           updateRequiredFields({
               ...requiredFields, minor2AdditionalRequiredFields: {
-                  preferredLecturer2Name: lecturerName
+                  ...requiredFields.minor2AdditionalRequiredFields, preferredLecturer2Name: lecturerName
               }
           });
       }
   }
-
 };

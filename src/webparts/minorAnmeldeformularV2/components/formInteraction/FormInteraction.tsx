@@ -2,15 +2,20 @@ import { IMessageBarStyles, IStackItemStyles, IStackProps, MessageBar, MessageBa
 import * as React from 'react';
 import {columnProps, messageBarStyles, stackStyles, stackTokens} from "../../styles/styles";
 import {IFormInteractionState} from "./IFormInteractionState";
+import {useContext} from "react";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
+
 
 export interface IFormInteractionProps {
-    hasAllRequiredFields: boolean;
 }
 
 export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (props: React.PropsWithChildren<IFormInteractionProps>) => {
   const [formInteractionData, setFormInteractionData] = React.useState<IFormInteractionState>({
       responseMessage: "Bitte füllen Sie alle benötigten Informationen aus."
   });
+
+    // Managing RequiredFieldsContext
+    const { requiredFields, updateRequiredFields } = useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
   return (
       <div>
@@ -26,7 +31,7 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
               <Stack {...columnProps}>
                 <PrimaryButton
                 text='Absenden'
-                disabled={!props.hasAllRequiredFields}
+                disabled
                 >
                 </PrimaryButton>
               </Stack>

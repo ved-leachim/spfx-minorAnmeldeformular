@@ -11,25 +11,22 @@ import {Orchestra} from "../templates/04 orchestra/Orchestra";
 import {RequestedSemesters} from "../templates/05 requestedNumbersOfSemesters/RequestedSemesters";
 import {SecondaryInstruments} from "../templates/06 secondaryInstruments/SecondaryInstruments";
 import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
+import {useContext} from "react";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
+
 
 export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.PropsWithChildren<IMinor2Props>) => {
 
+    // Managing RequiredFieldsContext
+     const { requiredFields, updateRequiredFields } = useContext(RequiredFieldsContext) as RequiredFieldsContextType;
+
   // Managing FC-State
   const [minor2Data, setMinor2Data] = React.useState<IMinor2State>({
-    minor2: "",
     templateId: "",
     proofOfExperience: "",
-    preferredLecturer1Id: "",
-    preferredLecturer1Name: "",
-    preferredLecturer2Id: "",
-    preferredLecturer2Name: "",
     jazzOrClassic: "",
     hasOrchestraInternship: "",
     desiredNumberOfSemesters: "",
-    preferredSecondaryInstrument1: "",
-    preferredSecondaryInstrument1Special: "",
-    preferredSecondaryInstrument2: "",
-    preferredSecondaryInstrument2Special: ""
   });
 
     // Update Parent Component
@@ -49,21 +46,12 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
                 onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
                     setMinor2Data({
                         ...minor2Data,
-                        minor2: options.text,
                         templateId: options.id,
-                        // Resetting the upgiven state from template-components
-                        proofOfExperience: "",
-                        preferredLecturer1Id: "",
-                        preferredLecturer1Name: "",
-                        preferredLecturer2Id: "",
-                        preferredLecturer2Name: "",
-                        jazzOrClassic: "",
-                        hasOrchestraInternship: "",
-                        desiredNumberOfSemesters: "",
-                        preferredSecondaryInstrument1: "",
-                        preferredSecondaryInstrument1Special: "",
-                        preferredSecondaryInstrument2: "",
-                        preferredSecondaryInstrument2Special: ""
+                    });
+                    updateRequiredFields({
+                        ...requiredFields, generalDataRequiredFields: {
+                            ...requiredFields.generalDataRequiredFields, minor2: options.text
+                        }
                     });
                 }}
                 required>
@@ -78,10 +66,6 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
                                 setMinor2Data({
                                     ...minor2Data,
                                     proofOfExperience: updatedAdvancedPerformanceJazzData.proofOfExperience,
-                                    preferredLecturer1Id: updatedAdvancedPerformanceJazzData.preferredLecturer1Id,
-                                    preferredLecturer1Name: updatedAdvancedPerformanceJazzData.preferredLecturer1Name,
-                                    preferredLecturer2Id: updatedAdvancedPerformanceJazzData.preferredLecturer2Id,
-                                    preferredLecturer2Name: updatedAdvancedPerformanceJazzData.preferredLecturer2Name
                                 });
                             }}>
                         </AdvancedPerformanceJazz> :
@@ -122,35 +106,20 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
                 }
                 {
                     (minor2Data.templateId == "6") ?
-                        <SecondaryInstruments context={props.context} secondaryInstrumentData={
-                            props.secondaryInstrumentData} handleUpdateSecondaryInstrumentsData={(updatedSecondaryInstrumentData) => {
-                                setMinor2Data({
-                                    ...minor2Data,
-                                    preferredSecondaryInstrument1: updatedSecondaryInstrumentData.preferredSecondaryInstrument1,
-                                    preferredSecondaryInstrument1Special: updatedSecondaryInstrumentData.preferredSecondaryInstrument1Special,
-                                    preferredSecondaryInstrument2: updatedSecondaryInstrumentData.preferredSecondaryInstrument2,
-                                    preferredSecondaryInstrument2Special: updatedSecondaryInstrumentData.preferredSecondaryInstrument2Special,
-                                    preferredLecturer1Id: updatedSecondaryInstrumentData.preferredLecturer1Id,
-                                    preferredLecturer1Name: updatedSecondaryInstrumentData.preferredLecturer1Name,
-                                    preferredLecturer2Id: updatedSecondaryInstrumentData.preferredLecturer2Id,
-                                    preferredLecturer2Name: updatedSecondaryInstrumentData.preferredLecturer2Name
-                                });
-                            }
-                        }>
+                        <SecondaryInstruments
+                            context={props.context}
+                            minor={2}
+                            secondaryInstrumentData={props.secondaryInstrumentData}
+                        >
                         </SecondaryInstruments> :
                         <></>
                 }
                 {
                     (minor2Data.templateId == "7") ?
-                        <PreferredLecturer context={props.context} handleUpdatePreferredLecturerData={(updatedPreferredLecturerData) => {
-                            setMinor2Data({
-                                ...minor2Data,
-                                preferredLecturer1Id: updatedPreferredLecturerData.preferredLecturer1Id,
-                                preferredLecturer1Name: updatedPreferredLecturerData.preferredLecturer1Name,
-                                preferredLecturer2Id: updatedPreferredLecturerData.preferredLecturer2Id,
-                                preferredLecturer2Name: updatedPreferredLecturerData.preferredLecturer2Name
-                            });
-                        }}>
+                        <PreferredLecturer
+                            context={props.context}
+                            minor={2}
+                        >
                         </PreferredLecturer> :
                         <></>
                 }

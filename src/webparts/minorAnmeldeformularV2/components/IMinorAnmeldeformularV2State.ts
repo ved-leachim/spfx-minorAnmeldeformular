@@ -9,7 +9,6 @@ export interface IMinorAnmeldeformularV2State {
     generalDataState: IGeneralDataState;
     minor1DataState: IMinor1State;
     minor2DataState: IMinor2State;
-    requiredDataState: IMinorAnmeldeformularV2RequiredDataState;
-    hasAllRequiredFields: boolean;
+    // requiredDataState: IMinorAnmeldeformularV2RequiredDataState;
     dataLoaded: boolean;
 }

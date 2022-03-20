@@ -30,7 +30,30 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
 
     });
 
-    // Update Parent Component & Unmount Cleanup
+    // Set initial additional required Fields to the Context for this template
+    React.useEffect(() => {
+        const initialAdditionalFieldsContext = {
+            preferredLecturer1Id: "",
+            preferredLecturer2Id: "",
+            preferredSecondaryInstrument1: "",
+            preferredSecondaryInstrument2: ""
+        };
+        if (props.minor == 1) {
+            updateRequiredFields({
+                ...requiredFields, minor1AdditionalRequiredFields: {
+                    ...requiredFields.minor1AdditionalRequiredFields, ...initialAdditionalFieldsContext
+                }
+            });
+        } else {
+            updateRequiredFields({
+                ...requiredFields, minor2AdditionalRequiredFields: {
+                    ...requiredFields.minor2AdditionalRequiredFields, ...initialAdditionalFieldsContext
+                }
+            });
+        }
+    }, []);
+
+
 /*    React.useEffect(() => {
         props.handleUpdateSecondaryInstrumentsData(SecondaryInstrumentsData);
         // the function the effect callback function returns is used for cleanup
@@ -126,9 +149,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument1: options.text, preferredSecondaryInstrument1Special: ""});
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1, options.text);
+          updateMinor1RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument1, options.text);
+          if (options.text == "andere") {updateMinor1RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument1Special, "");}
+          else {removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1Special);}
       } else {
-          updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1, options.text);
+          updateMinor2RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument1, options.text);
+          if (options.text == "andere") {updateMinor2RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument1Special, "");}
+          else {removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1Special);}
       }
   }
 
@@ -138,9 +165,9 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument1Special: specialInstrument});
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1Special, specialInstrument);
+          updateMinor1RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument1Special, specialInstrument);
       } else {
-          updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1Special, specialInstrument);
+          updateMinor2RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument1Special, specialInstrument);
       }
   }
 
@@ -150,9 +177,13 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument2: options.text, preferredSecondaryInstrument2Special: ""});
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2, options.text);
+          updateMinor1RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument2, options.text);
+          if (options.text == "andere") {updateMinor1RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument2Special, "");}
+          else {removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2Special);}
       } else {
-          updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2, options.text);
+          updateMinor2RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument2, options.text);
+          if (options.text == "andere") {updateMinor2RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument2Special, "");}
+          else {removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2Special);}
       }
   }
 
@@ -162,9 +193,9 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument2Special: specialInstrument});
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2Special, specialInstrument);
+          updateMinor1RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument2Special, specialInstrument);
       } else {
-          updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2Special, specialInstrument);
+          updateMinor2RequiredFieldContext(additionalRequiredFields.preferredSecondaryInstrument2Special, specialInstrument);
       }
   }
 
@@ -174,9 +205,19 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       else {setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer1Id: ""});}
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
+          if (selectedPerson !== null && selectedPerson.length > 0) {
+              removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name);
+              updateMinor1RequiredFieldContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
+          } else {
+              updateMinor1RequiredFieldContext(additionalRequiredFields.preferredLecturer1Id, "");
+          }
       } else {
-          updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
+          if (selectedPerson !== null && selectedPerson.length > 0) {
+              removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name);
+              updateMinor2RequiredFieldContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
+          } else {
+              updateMinor2RequiredFieldContext(additionalRequiredFields.preferredLecturer1Id, "");
+          }
       }
   }
 
@@ -185,9 +226,20 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer1Name: lecturerName});
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
+          if (lecturerName !== null && lecturerName.length > 0) {
+              removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id);
+              updateMinor1RequiredFieldContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
+          } else {
+              removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name);
+              updateMinor1RequiredFieldContext(additionalRequiredFields.preferredLecturer1Id, "");
+          }
       } else {
-          updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
+          if (lecturerName !== null && lecturerName.length > 0) {
+              updateMinor2RequiredFieldContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
+          } else {
+              removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name);
+              updateMinor2RequiredFieldContext(additionalRequiredFields.preferredLecturer1Id, "");
+          }
       }
   }
 
@@ -197,9 +249,20 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       else {setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer2Id: ""});}
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
+          if (selectedPerson !== null && selectedPerson.length > 0) {
+              removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name);
+              updateMinor1RequiredFieldContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
+          } else {
+              updateMinor1RequiredFieldContext(additionalRequiredFields.preferredLecturer1Id, "");
+          }
       } else {
-          updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
+          if (selectedPerson !== null && selectedPerson.length > 0) {
+              removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name);
+              updateMinor2RequiredFieldContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
+          } else {
+              updateMinor2RequiredFieldContext(additionalRequiredFields.preferredLecturer1Id, "");
+          }
+
       }
   }
 
@@ -208,13 +271,29 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
       setSecondaryInstrumentsData({...SecondaryInstrumentsData, preferredLecturer2Name: lecturerName});
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
+          if (lecturerName !== null && lecturerName.length > 0) {
+              removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id);
+              updateMinor1RequiredFieldContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
+          } else {
+              removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name);
+              updateMinor1RequiredFieldContext(additionalRequiredFields.preferredLecturer2Id, "");
+          }
       } else {
-          updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
+          if (lecturerName !== null && lecturerName.length > 0) {
+              updateMinor2RequiredFieldContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
+          } else {
+              removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name);
+              updateMinor2RequiredFieldContext(additionalRequiredFields.preferredLecturer2Id, "");
+          }
       }
   }
 
-    function updateMinor1RequiredFieldsContext (property: additionalRequiredFields, updateValue: string): void {
+    function updateMinor1RequiredFieldContext (property: additionalRequiredFields, updateValue: string): void {
+        if (requiredFields.minor1AdditionalRequiredFields.hasOwnProperty(property)){
+            requiredFields.minor1AdditionalRequiredFields[property] = updateValue;
+            updateRequiredFields(requiredFields);
+            return;
+        }
         updateRequiredFields({
             ...requiredFields, minor1AdditionalRequiredFields: {
                 ...requiredFields.minor1AdditionalRequiredFields, [property]: updateValue
@@ -222,11 +301,34 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
         });
     }
 
-    function updateMinor2RequiredFieldsContext (property: additionalRequiredFields, updateValue: string): void {
+    function updateMinor2RequiredFieldContext (property: additionalRequiredFields, updateValue: string): void {
+      if (requiredFields.minor2AdditionalRequiredFields.hasOwnProperty(property)){
+          requiredFields.minor2AdditionalRequiredFields[property] = updateValue;
+          updateRequiredFields(requiredFields);
+          return;
+      }
         updateRequiredFields({
             ...requiredFields, minor2AdditionalRequiredFields: {
                 ...requiredFields.minor2AdditionalRequiredFields, [property]: updateValue
             }
         });
+    }
+
+    function updateMino2RequiredFieldsContext (property: additionalRequiredFields[], updateValues: string[]) {
+
+    }
+
+    function removePropFromMinor1RequiredFieldsContext(property: additionalRequiredFields): void {
+        if (requiredFields.minor1AdditionalRequiredFields.hasOwnProperty(property)){
+            delete requiredFields.minor1AdditionalRequiredFields[property];
+            updateRequiredFields(requiredFields);
+        }
+    }
+
+    function removePropFromMinor2RequiredFieldsContext(property: additionalRequiredFields): void {
+        if (requiredFields.minor2AdditionalRequiredFields.hasOwnProperty(property)){
+            delete requiredFields.minor2AdditionalRequiredFields[property];
+            updateRequiredFields(requiredFields);
+        }
     }
 };

@@ -24,6 +24,17 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         preferredLecturer2Name: ""
     });
 
+    // Set initial additional required Fields to the Context for this template
+    React.useEffect(() => {
+        if (props.minor == 1) {
+            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, "");
+            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, "");
+        } else {
+            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, "");
+            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, "");
+        }
+    }, []);
+
     // Update Parent Component & Unmount Cleanup
 /*    React.useEffect(() => {
         props.handleUpdatePreferredLecturerData(preferredLecturerData);

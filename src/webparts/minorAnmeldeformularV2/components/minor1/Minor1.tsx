@@ -53,19 +53,8 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
                     });
                     // Setting RequiredFieldsContext
                     updateRequiredFields({
-                        contactDataState: {
-                            givenName: requiredFields.contactDataState.givenName,
-                            surname: requiredFields.contactDataState.surname,
-                            contactEMail: requiredFields.contactDataState.contactEMail
-                        },
-                        generalDataRequiredFields: {
-                            isTheFirstMaster: requiredFields.generalDataRequiredFields.isTheFirstMaster,
-                            studyProgram: requiredFields.generalDataRequiredFields.studyProgram,
-                            studyYear: requiredFields.generalDataRequiredFields.studyYear,
-                            jazzOrClassic: requiredFields.generalDataRequiredFields.jazzOrClassic,
-                            mainInstrument: requiredFields.generalDataRequiredFields.mainInstrument,
-                            minor1: options.text,
-                            minor2: requiredFields.generalDataRequiredFields.minor2
+                        ...requiredFields, generalDataRequiredFields: {
+                            ...requiredFields.generalDataRequiredFields, minor1: options.text
                         }
                     });
                 }}

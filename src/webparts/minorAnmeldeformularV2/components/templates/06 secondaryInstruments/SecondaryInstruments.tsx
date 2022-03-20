@@ -3,11 +3,8 @@ import {Dropdown, IDropdownOption, IPersonaProps, TextField} from 'office-ui-fab
 import * as React from 'react';
 import {ISecondaryInstrumentsState} from './ISecondaryInstrumentsState';
 import {labelStyle} from "../../../styles/styles";
-import {
-    additionalRequiredFields,
-    updateMinor1RequiredFieldsContext,
-    updateMinor2RequiredFieldsContext
-} from "../../../helper/RequiredFieldsHelper";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../../context/RequiredFieldsContext";
+import {additionalRequiredFields} from "../../../helper/RequiredFieldsHelper";
 
 export interface ISecondaryInstrumentsProps {
     context: any;
@@ -16,6 +13,9 @@ export interface ISecondaryInstrumentsProps {
 }
 
 export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstrumentsProps> = (props: React.PropsWithChildren<ISecondaryInstrumentsProps>) => {
+
+    // Managing RequiredFieldsContext
+    const { requiredFields, updateRequiredFields } = React.useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
     // Managing FC-State
     const [SecondaryInstrumentsData, setSecondaryInstrumentsData] = React.useState<ISecondaryInstrumentsState>({
@@ -138,7 +138,7 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument1Special: specialInstrument});
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1Special, specialInstrument)
+          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1Special, specialInstrument);
       } else {
           updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument1Special, specialInstrument);
       }
@@ -162,7 +162,7 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           ...SecondaryInstrumentsData, preferredSecondaryInstrument2Special: specialInstrument});
       // Context
       if (props.minor == 1) {
-          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2Special, specialInstrument)
+          updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2Special, specialInstrument);
       } else {
           updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredSecondaryInstrument2Special, specialInstrument);
       }
@@ -213,4 +213,20 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
           updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
       }
   }
+
+    function updateMinor1RequiredFieldsContext (property: additionalRequiredFields, updateValue: string): void {
+        updateRequiredFields({
+            ...requiredFields, minor1AdditionalRequiredFields: {
+                ...requiredFields.minor1AdditionalRequiredFields, [property]: updateValue
+            }
+        });
+    }
+
+    function updateMinor2RequiredFieldsContext (property: additionalRequiredFields, updateValue: string): void {
+        updateRequiredFields({
+            ...requiredFields, minor2AdditionalRequiredFields: {
+                ...requiredFields.minor2AdditionalRequiredFields, [property]: updateValue
+            }
+        });
+    }
 };

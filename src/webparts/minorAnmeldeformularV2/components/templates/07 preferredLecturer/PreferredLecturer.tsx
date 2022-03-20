@@ -3,11 +3,8 @@ import {IPersonaProps, TextField} from 'office-ui-fabric-react';
 import * as React from 'react';
 import {IPreferredLecturerState} from './IPreferredLecturerState';
 import {labelStyle} from "../../../styles/styles";
-import {
-    additionalRequiredFields,
-    updateMinor1RequiredFieldsContext,
-    updateMinor2RequiredFieldsContext
-} from "../../../helper/RequiredFieldsHelper";
+import {RequiredFieldsContext, RequiredFieldsContextType} from "../../../context/RequiredFieldsContext";
+import {additionalRequiredFields} from "../../../helper/RequiredFieldsHelper";
 
 export interface IPreferredLecturerProps {
     context: any;
@@ -15,6 +12,9 @@ export interface IPreferredLecturerProps {
 }
 
 export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps> = (props: React.PropsWithChildren<IPreferredLecturerProps>) => {
+
+    // Managing RequiredFieldsContext
+    const { requiredFields, updateRequiredFields } = React.useContext(RequiredFieldsContext) as RequiredFieldsContextType;
 
     // Managing FC-State
     const [preferredLecturerData, setPreferredLecturerData] = React.useState<IPreferredLecturerState>({
@@ -78,11 +78,21 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         if (selectedPerson !== null && selectedPerson.length > 0) {setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: selectedPerson[0].id, preferredLecturer1Name: ""});}
         else {setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: ""});}
         // Context
-        setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Id: selectedPerson[0].id});
         if (props.minor == 1) {
-            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
+            if (selectedPerson !== null && selectedPerson.length > 0) {
+                removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name);
+                updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
+            }
+            else {
+                removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id);
+            }
         } else {
-            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
+            if (selectedPerson !== null && selectedPerson.length > 0) {
+                removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name);
+                updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id, selectedPerson[0].id);
+            } else {
+                removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Id);
+            }
         }
     }
 
@@ -90,11 +100,18 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // State
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Name: lecturerName});
         // Context
-        setPreferredLecturerData({...preferredLecturerData, preferredLecturer1Name: lecturerName});
         if (props.minor == 1) {
-            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
+            if (lecturerName !== null && lecturerName.length > 0) {
+                updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
+            } else {
+                removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name);
+            }
         } else {
-            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
+            if (lecturerName !== null && lecturerName.length > 0) {
+                updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name, lecturerName);
+            } else {
+                removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer1Name);
+            }
         }
     }
 
@@ -102,12 +119,21 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         // State
         if (selectedPerson !== null && selectedPerson.length > 0) {setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: selectedPerson[0].id, preferredLecturer2Name: ""});}
         else {setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: ""});}
-        setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Id: selectedPerson[0].id});
         // Context
         if (props.minor == 1) {
-            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
+            if (selectedPerson !== null && selectedPerson.length > 0) {
+                removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name);
+                updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
+            } else {
+                removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id);
+            }
         } else {
-            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
+            if (selectedPerson !== null && selectedPerson.length > 0) {
+                removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name);
+                updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id, selectedPerson[0].id);
+            } else {
+                removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Id);
+            }
         }
     }
 
@@ -116,9 +142,47 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
         setPreferredLecturerData({...preferredLecturerData, preferredLecturer2Name: lecturerName});
         // Context
         if (props.minor == 1) {
-            updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
+            if (lecturerName !== null && lecturerName.length > 0) {
+                updateMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
+            } else {
+                removePropFromMinor1RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name);
+            }
         } else {
-            updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
+            if (lecturerName !== null && lecturerName.length > 0) {
+                updateMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name, lecturerName);
+            } else {
+                removePropFromMinor2RequiredFieldsContext(additionalRequiredFields.preferredLecturer2Name);
+            }
+        }
+    }
+
+    function updateMinor1RequiredFieldsContext (property: additionalRequiredFields, updateValue: string): void {
+        updateRequiredFields({
+            ...requiredFields, minor1AdditionalRequiredFields: {
+                ...requiredFields.minor1AdditionalRequiredFields, [property]: updateValue
+            }
+        });
+    }
+
+    function updateMinor2RequiredFieldsContext (property: additionalRequiredFields, updateValue: string): void {
+        updateRequiredFields({
+            ...requiredFields, minor2AdditionalRequiredFields: {
+                ...requiredFields.minor2AdditionalRequiredFields, [property]: updateValue
+            }
+        });
+    }
+
+    function removePropFromMinor1RequiredFieldsContext(property: additionalRequiredFields): void {
+        if (requiredFields.minor1AdditionalRequiredFields.hasOwnProperty(property)){
+            delete requiredFields.minor1AdditionalRequiredFields[property];
+            updateRequiredFields(requiredFields);
+        }
+    }
+
+    function removePropFromMinor2RequiredFieldsContext(property: additionalRequiredFields): void {
+        if (requiredFields.minor2AdditionalRequiredFields.hasOwnProperty(property)){
+            delete requiredFields.minor2AdditionalRequiredFields[property];
+            updateRequiredFields(requiredFields);
         }
     }
 };

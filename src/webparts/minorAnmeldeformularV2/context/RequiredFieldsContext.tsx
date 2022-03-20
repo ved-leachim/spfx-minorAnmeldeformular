@@ -22,7 +22,9 @@ export const RequiredFieldsContext = React.createContext<RequiredFieldsContextTy
             mainInstrument: "",
             minor1: "",
             minor2: ""
-        }
+        },
+        minor1AdditionalRequiredFields: {},
+        minor2AdditionalRequiredFields: {}
     },
     updateRequiredFields: () => {}
 });
@@ -44,6 +46,8 @@ const RequiredFieldsProvider: React.FC<React.ReactNode> = ({children}) => {
             minor1: "",
             minor2: ""
         },
+        minor1AdditionalRequiredFields: {},
+        minor2AdditionalRequiredFields: {}
     });
 
     const updateRequiredFields = (updatedRequiredFields: IMinorAnmeldeformularV2RequiredDataState) => {

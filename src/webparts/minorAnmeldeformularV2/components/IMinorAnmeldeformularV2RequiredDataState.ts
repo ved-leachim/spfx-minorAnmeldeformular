@@ -4,7 +4,7 @@ import {IGeneralDataRequiredFields} from "./generalData/IGeneralDataRequiredFiel
 export interface IMinorAnmeldeformularV2RequiredDataState {
     contactDataState: IContactDataState;
     generalDataRequiredFields: IGeneralDataRequiredFields;
-    minor1AdditionalRequiredFields?: {
+    minor1AdditionalRequiredFields: {
         preferredLecturer1Id?: string;
         preferredLecturer1Name?: string;
         preferredLecturer2Id?: string;
@@ -14,7 +14,7 @@ export interface IMinorAnmeldeformularV2RequiredDataState {
         preferredSecondaryInstrument2?: string;
         preferredSecondaryInstrument2Special?: string;
     };
-    minor2AdditionalRequiredFields?: {
+    minor2AdditionalRequiredFields: {
         preferredLecturer1Id?: string;
         preferredLecturer1Name?: string;
         preferredLecturer2Id?: string;

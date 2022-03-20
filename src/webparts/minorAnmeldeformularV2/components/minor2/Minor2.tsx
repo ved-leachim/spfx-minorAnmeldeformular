@@ -49,19 +49,8 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
                         templateId: options.id,
                     });
                     updateRequiredFields({
-                        contactDataState: {
-                            givenName: requiredFields.contactDataState.givenName,
-                            surname: requiredFields.contactDataState.surname,
-                            contactEMail: requiredFields.contactDataState.contactEMail
-                        },
-                        generalDataRequiredFields: {
-                            isTheFirstMaster: requiredFields.generalDataRequiredFields.isTheFirstMaster,
-                            studyProgram: requiredFields.generalDataRequiredFields.studyProgram,
-                            studyYear: requiredFields.generalDataRequiredFields.studyYear,
-                            jazzOrClassic: requiredFields.generalDataRequiredFields.jazzOrClassic,
-                            mainInstrument: requiredFields.generalDataRequiredFields.mainInstrument,
-                            minor1: requiredFields.generalDataRequiredFields.minor1,
-                            minor2: options.text
+                        ...requiredFields, generalDataRequiredFields: {
+                            ...requiredFields.generalDataRequiredFields, minor2: options.text
                         }
                     });
                 }}

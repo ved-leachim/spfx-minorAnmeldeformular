@@ -14,9 +14,6 @@ export enum additionalRequiredFields {
     preferredSecondaryInstrument2Special = "preferredSecondaryInstrument2Special"
 }
 
-// Managing RequiredFieldsContext
-const { requiredFields, updateRequiredFields } = React.useContext(RequiredFieldsContext) as RequiredFieldsContextType;
-
 export const hasAllRequiredFields = (requiredDataState: IMinorAnmeldeformularV2RequiredDataState): boolean => {
     // REFACTOR - MAKE THIS LOGIC AVAILABLE INDEPENDENT FROM NESTING-LEVEL!
     for (const key in requiredDataState) {
@@ -27,20 +24,4 @@ export const hasAllRequiredFields = (requiredDataState: IMinorAnmeldeformularV2R
         }
     }
     return true;
-};
-
-export const updateMinor1RequiredFieldsContext = (property: additionalRequiredFields, updateValue: string): void => {
-    updateRequiredFields({
-        ...requiredFields, minor1AdditionalRequiredFields: {
-            ...requiredFields.minor1AdditionalRequiredFields, [property]: updateValue
-        }
-    });
-};
-
-export const updateMinor2RequiredFieldsContext = (property: additionalRequiredFields, updateValue: string): void => {
-    updateRequiredFields({
-        ...requiredFields, minor2AdditionalRequiredFields: {
-            ...requiredFields.minor2AdditionalRequiredFields, [property]: updateValue
-        }
-    });
 };

@@ -51,13 +51,18 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
                 }
             });
         }
+        // Cleanup
+        return() => {
+            const resetAdditionalFieldsContexte = {};
+            if (props.minor == 1) {
+                requiredFields.minor1AdditionalRequiredFields = resetAdditionalFieldsContexte;
+                updateRequiredFields(requiredFields);
+            } else {
+                requiredFields.minor2AdditionalRequiredFields = resetAdditionalFieldsContexte;
+                updateRequiredFields(requiredFields);
+            }
+        };
     }, []);
-
-
-/*    React.useEffect(() => {
-        props.handleUpdateSecondaryInstrumentsData(SecondaryInstrumentsData);
-        // the function the effect callback function returns is used for cleanup
-    },[SecondaryInstrumentsData]);*/
 
   return (
     <div>

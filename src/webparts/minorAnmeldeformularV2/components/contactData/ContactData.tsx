@@ -33,47 +33,32 @@ export const ContactData: React.FunctionComponent<IContactDataProps> = (props: R
         <br></br><br></br>
         <Stack horizontal tokens={stackTokens} styles={stackStyles}>
             <Stack {...columnProps}>
-                <TextField 
+                <TextField
                 label='Vorname Studierende*r'
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setContactData({
-                        ...contactData, givenName: e.target.value
-                    });
-                    updateRequiredFields({
-                        ...requiredFields, contactDataState: {
-                            ...contactData, givenName: e.target.value
-                        }
-                    });
+                    setContactData({...contactData, givenName: e.target.value});
+                    requiredFields.contactDataState.givenName = e.target.value;
+                    updateRequiredFields(requiredFields);
                 }}
                 required>
                 </TextField>
-                <TextField 
+                <TextField
                 label='Kontakt E-Mail Studierende*r'
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setContactData({
-                        ...contactData, contactEMail: e.target.value
-                    });
-                    updateRequiredFields({
-                        ...requiredFields, contactDataState: {
-                            ...contactData, contactEMail: e.target.value
-                        }
-                    });
+                    setContactData({...contactData, contactEMail: e.target.value});
+                    requiredFields.contactDataState.contactEMail = e.target.value;
+                    updateRequiredFields(requiredFields);
                 }}
                 required>
                 </TextField>
             </Stack>
             <Stack {...columnProps}>
-            <TextField 
+            <TextField
                 label='Nachname Studierende*r'
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setContactData({
-                        ...contactData, surname: e.target.value
-                    });
-                    updateRequiredFields({
-                        ...requiredFields, contactDataState: {
-                            ...contactData, surname: e.target.value
-                        }
-                    });
+                    setContactData({...contactData, surname: e.target.value});
+                    requiredFields.contactDataState.surname = e.target.value;
+                    updateRequiredFields(requiredFields);
                 }}
                 required>
                 </TextField>

@@ -7,7 +7,7 @@ export type RequiredFieldsContextType = {
 };
 
 // The default value for creating the context is null
-export const RequiredFieldsContext = React.createContext<RequiredFieldsContextType>({
+export const RequiredFieldsContext = React.createContext<RequiredFieldsContextType | null>({
     requiredFields: {
         contactDataState: {
             givenName: "",

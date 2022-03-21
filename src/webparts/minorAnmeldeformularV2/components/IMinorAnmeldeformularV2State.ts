@@ -11,4 +11,5 @@ export interface IMinorAnmeldeformularV2State {
     minor2DataState: IMinor2State;
     // requiredDataState: IMinorAnmeldeformularV2RequiredDataState;
     dataLoaded: boolean;
+    resetCounter: number;
 }

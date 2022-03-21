@@ -43,9 +43,18 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
                 }
             });
         }
+        // Cleanup
+        return() => {
+            const resetAdditionalFieldsContext = {};
+            if (props.minor == 1) {
+                requiredFields.minor1AdditionalRequiredFields = resetAdditionalFieldsContext;
+                updateRequiredFields(requiredFields);
+            } else {
+                requiredFields.minor2AdditionalRequiredFields = resetAdditionalFieldsContext;
+                updateRequiredFields(requiredFields);
+            }
+        };
     }, []);
-
-
 
     return (
         <div>

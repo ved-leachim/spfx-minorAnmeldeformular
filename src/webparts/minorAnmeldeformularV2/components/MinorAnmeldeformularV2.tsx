@@ -16,6 +16,39 @@ import { IMinor1State } from './minor1/IMinor1State';
 import { IMinor2State } from './minor2/IMinor2State';
 import RequiredFieldsProvider from "../context/RequiredFieldsContext";
 
+const resetFormState: IMinorAnmeldeformularV2State = {
+  contactDataState: {
+    givenName: "",
+    surname: "",
+    contactEMail: ""
+  },
+  generalDataState: {
+    isTheFirstMaster: "",
+    studyProgram: "",
+    jazzOrClassic: "",
+    studyYear: "",
+    mainInstrument: "",
+    favoriteLecturerId: "",
+    favoriteLecturerName: ""
+  },
+  minor1DataState: {
+    templateId: "",
+    proofOfExperience: "",
+    jazzOrClassic: "",
+    hasOrchestraInternship: "",
+    desiredNumberOfSemesters: "",
+  },
+  minor2DataState: {
+    templateId: "",
+    proofOfExperience: "",
+    jazzOrClassic: "",
+    hasOrchestraInternship: "",
+    desiredNumberOfSemesters: "",
+  },
+  dataLoaded: true,
+  resetCounter: 0
+};
+
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
 
   private SPServices: SPServices;
@@ -56,6 +89,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         desiredNumberOfSemesters: "",
       },
       dataLoaded: false,
+      resetCounter: 0
     };
 
     // Instantiate SPServices to interact with SP-APIS
@@ -95,12 +129,14 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
       !this.state.dataLoaded ? <Spinner label='Wait, wait...' ariaLive='assertive' labelPosition='right'></Spinner> :
       <section>
         <div>
+          <RequiredFieldsProvider>
           <ContactData
           handleUpdateContactData={(updatedContactData: IContactDataState) => {
             this.setState({
               contactDataState: updatedContactData
             });
-            }}>
+            }}
+          >
           </ContactData>
           <br></br>
           <GeneralData
@@ -115,7 +151,6 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           >
           </GeneralData>
           <br></br>
-          <RequiredFieldsProvider>
             <Minor1
             context={this.props.context}
             minorData={this.minorData}
@@ -139,6 +174,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             </Minor2>
             <br></br>
             <FormInteraction
+                handleClearForm={() => { this.setState({...resetFormState, resetCounter: this.state.resetCounter + 1});}}
             >
             </FormInteraction>
           </RequiredFieldsProvider>

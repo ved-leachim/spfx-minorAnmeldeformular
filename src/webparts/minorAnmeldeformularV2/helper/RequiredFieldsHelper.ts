@@ -1,7 +1,4 @@
 import {IMinorAnmeldeformularV2RequiredDataState} from "../components/IMinorAnmeldeformularV2RequiredDataState";
-import {IPersonaProps} from "office-ui-fabric-react";
-import * as React from "react";
-import {RequiredFieldsContext, RequiredFieldsContextType} from "../context/RequiredFieldsContext";
 
 export enum additionalRequiredFields {
     preferredLecturer1Id = "preferredLecturer1Id",

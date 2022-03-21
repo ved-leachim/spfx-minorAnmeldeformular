@@ -23,7 +23,6 @@ export const AdvancedPerformanceJazz: React.FunctionComponent<IAdvancedPerforman
     // Update Parent Component & Unmount Cleanup
     React.useEffect(() => {
         props.handleUpdateAdvancedPerformanceJazzData(advancedPerformanceJazzData);
-        // the function the effect callback function returns is used for cleanup
     },[advancedPerformanceJazzData]);
 
   return (

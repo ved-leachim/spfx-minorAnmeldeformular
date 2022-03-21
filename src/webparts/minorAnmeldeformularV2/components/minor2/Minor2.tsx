@@ -47,6 +47,10 @@ export const Minor2: React.FunctionComponent<IMinor2Props> = (props: React.Props
                     setMinor2Data({
                         ...minor2Data,
                         templateId: options.id,
+                        proofOfExperience: "",
+                        jazzOrClassic: "",
+                        hasOrchestraInternship: "",
+                        desiredNumberOfSemesters: "",
                     });
                     updateRequiredFields({
                         ...requiredFields, generalDataRequiredFields: {

@@ -1,11 +1,10 @@
-import { IMessageBarStyles, IStackItemStyles, IStackProps, MessageBar, MessageBarType, PrimaryButton, Stack } from 'office-ui-fabric-react';
+import { MessageBar, MessageBarType, PrimaryButton, Stack } from 'office-ui-fabric-react';
 import * as React from 'react';
 import {columnProps, messageBarStyles, stackStyles, stackTokens} from "../../styles/styles";
 import {IFormInteractionState} from "./IFormInteractionState";
-import {useContext, useEffect, useState} from "react";
+import {useEffect} from "react";
 import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
 import {hasAllRequiredFields} from "../../helper/RequiredFieldsHelper";
-
 
 export interface IFormInteractionProps {
     handleClearForm(): void;

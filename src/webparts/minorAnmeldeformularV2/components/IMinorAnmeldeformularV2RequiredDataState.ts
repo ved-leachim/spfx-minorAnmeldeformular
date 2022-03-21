@@ -24,4 +24,5 @@ export interface IMinorAnmeldeformularV2RequiredDataState {
         preferredSecondaryInstrument2?: string;
         preferredSecondaryInstrument2Special?: string;
     };
+    hasCorrectEmail: boolean;
 }

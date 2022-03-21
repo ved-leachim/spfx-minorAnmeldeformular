@@ -27,6 +27,8 @@ export const ContactData: React.FunctionComponent<IContactDataProps> = (props: R
       props.handleUpdateContactData(contactData);
   },[contactData]);
 
+  const eMailRegEx = new RegExp( /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+
   return (
     <div>
         <span style={{fontSize: FontSizes.size20}}>Kontaktinformationen</span>
@@ -49,7 +51,10 @@ export const ContactData: React.FunctionComponent<IContactDataProps> = (props: R
                     requiredFields.contactDataState.contactEMail = e.target.value;
                     updateRequiredFields(requiredFields);
                 }}
-                required>
+                required
+                validateOnLoad
+                onGetErrorMessage={validateEMail}
+                >
                 </TextField>
             </Stack>
             <Stack {...columnProps}>
@@ -68,4 +73,17 @@ export const ContactData: React.FunctionComponent<IContactDataProps> = (props: R
         <hr></hr>
     </div>
   );
+
+  function validateEMail(): string {
+      if (!eMailRegEx.test(requiredFields.contactDataState.contactEMail)) {
+          if (requiredFields.hasCorrectEmail) {
+              requiredFields.hasCorrectEmail = false;
+              updateRequiredFields(requiredFields);
+          }
+          return "Bitte geben Sie eine korrekte E-Mail Adresse ein!";
+      } else {
+          requiredFields.hasCorrectEmail = true;
+          updateRequiredFields(requiredFields);
+      }
+  }
 };

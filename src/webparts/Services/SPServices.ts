@@ -1,9 +1,9 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
-import { SPHttpClient, SPHttpClientResponse, SPHttpClientConfiguration } from '@microsoft/sp-http';
+import { SPHttpClient, SPHttpClientResponse, ISPHttpClientOptions } from '@microsoft/sp-http';
 import { ISPList } from "./ISPList";
 import { IDropdownOption } from "office-ui-fabric-react";
-import { ISPListItems } from "./ISPListItems";
 import { reject } from "lodash";
+import {ISPItemMinoranmeldung} from "./ISPItemMinoranmeldung";
 
 export class SPServices {
 
@@ -30,8 +30,32 @@ export class SPServices {
                 });
             },
             (customError: any) => {
-                reject("An Error occured during the fetching process of " + listName + " !");
+                reject("An Error occurred during the fetching process of " + listName + " ! | Error-Message: " + customError.message);
             });
         });
+    }
+
+    public sendFormData (listName: string, payload: ISPItemMinoranmeldung) {
+        let restAPIUrl: string = this.context.pageContext.web.absoluteUrl + "/_api/web/lists/GetByTitle('" + listName + "')/items";
+        const body: string = JSON.stringify(payload);
+        const options: ISPHttpClientOptions = {
+            headers: {
+                Accepts: 'application/json;odata=nometadata',
+                'content-type': 'application/json;odata=nometadata',
+                'OData-Version': '3.0'
+            },
+            body: body
+        };
+        this.context.spHttpClient.post(restAPIUrl, SPHttpClient.configurations.v1, options)
+            .then((response: SPHttpClientResponse) => {
+                if(response.ok)
+                    alert("Registrierung erfolgreich abgeschlossen, Sie erhalten in Kürze eine Bestätigungsmail.");
+                else
+                    alert("Beim Absenden des Formulars ist ein Fehler aufgetaucht. Versuchen Sie es in ein paar Minuten nochmals oder wenden Sie sich an den servicedesk. | Status-Message: " + response.status);
+            })
+            .catch((error) => {
+                alert("Beim Absenden des Formulars ist ein Fehler aufgetaucht. Versuchen Sie es in ein paar Minuten nochmals oder wenden Sie sich an den servicedesk. | Error-Message: " + error.message);
+            });
+        alert("2. Beim Absenden des Formulars ist ein Fehler aufgetaucht. Versuchen Sie es in ein paar Minuten nochmals oder wenden Sie sich an den Servicedesk.");
     }
 }

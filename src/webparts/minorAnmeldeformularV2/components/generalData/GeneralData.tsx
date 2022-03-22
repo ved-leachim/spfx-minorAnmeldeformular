@@ -65,7 +65,8 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                 label='Studienjahr'
                 options={[
                     {key: '1. studienjahr', text: '1. Studienjahr'},
-                    {key: '2. studienjahr', text: '2. Studienjahr'}
+                    {key: '2. studienjahr', text: '2. Studienjahr'},
+                    {key: 'mehr als zwei studienjahre', text: 'mehr als zwei Studienjahre'}
                 ]}
                 onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
                     // State

@@ -45,8 +45,7 @@ const resetFormState: IMinorAnmeldeformularV2State = {
     hasOrchestraInternship: "",
     desiredNumberOfSemesters: "",
   },
-  dataLoaded: true,
-  resetCounter: 0
+  dataLoaded: true
 };
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
@@ -88,8 +87,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         hasOrchestraInternship: "",
         desiredNumberOfSemesters: "",
       },
-      dataLoaded: false,
-      resetCounter: 0
+      dataLoaded: false
     };
 
     // Instantiate SPServices to interact with SP-APIS
@@ -107,7 +105,7 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
           this.mainInstrumentData = allNeededFormDataResponse[1],
           // Minor 1 & 2: Minor Data
           this.minorData = allNeededFormDataResponse[2];
-        })
+        }).catch(error => {alert(error);})
           .then(() => {
             this.setState({
               dataLoaded: true
@@ -174,7 +172,10 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             </Minor2>
             <br></br>
             <FormInteraction
-                handleClearForm={() => { this.setState({...resetFormState, resetCounter: this.state.resetCounter + 1});}}
+                formState={this.state}
+                handleSubmitForm={(payload) => {
+                  this.SPServices.sendFormData(this.props.configSaveToList, payload);
+                }}
             >
             </FormInteraction>
           </RequiredFieldsProvider>

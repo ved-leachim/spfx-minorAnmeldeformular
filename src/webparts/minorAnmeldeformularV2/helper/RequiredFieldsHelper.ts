@@ -12,7 +12,6 @@ export enum additionalRequiredFields {
 }
 
 export const hasAllRequiredFields = (requiredDataState: IMinorAnmeldeformularV2RequiredDataState): boolean => {
-    // REFACTOR - MAKE THIS LOGIC AVAILABLE INDEPENDENT FROM NESTING-LEVEL!
     for (const key in requiredDataState) {
         if (requiredDataState[key] == "" || requiredDataState[key] == false) {return false;}
         if (typeof requiredDataState[key] === 'object') {

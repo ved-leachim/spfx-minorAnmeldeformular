@@ -1,17 +1,18 @@
-import { Dropdown, FontSizes, IDropdownOption, IStackProps, IStackStyles, rgb2hex, Stack, TextField } from 'office-ui-fabric-react';
+import { Dropdown, FontSizes, rgb2hex, Stack, TextField } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { IGeneralDataState } from './IGeneralDataState';
 import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
 import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
 import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
+import {IMinorDropdownOption} from "../../extensions/ComponentWrapper";
 
 
 
 export interface IGeneralDataProps {
     context: any;
     handleUpdateGeneralData(updatedGeneralData: IGeneralDataState): void;
-    studyProgramData: IDropdownOption[];
-    mainInstrumentData: IDropdownOption[];
+    studyProgramData: IMinorDropdownOption[];
+    mainInstrumentData: IMinorDropdownOption[];
 }
 
 export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: React.PropsWithChildren<IGeneralDataProps>) => {
@@ -93,7 +94,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                     // Context
                     updateRequiredFields({
                         ...requiredFields, generalDataRequiredFields: {
-                            ...requiredFields.generalDataRequiredFields, mainInstrument: options.text
+                            ...requiredFields.generalDataRequiredFields, mainInstrumentId: options.id
                         }
                     });
                 }}
@@ -118,7 +119,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                     // Context
                     updateRequiredFields({
                         ...requiredFields, generalDataRequiredFields: {
-                            ...requiredFields.generalDataRequiredFields, studyProgram: options.text
+                            ...requiredFields.generalDataRequiredFields, studyProgramId: options.id
                         }
                     });
                 }}

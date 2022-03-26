@@ -1,9 +1,9 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { SPHttpClient, SPHttpClientResponse, ISPHttpClientOptions } from '@microsoft/sp-http';
 import { ISPList } from "./ISPList";
-import { IDropdownOption } from "office-ui-fabric-react";
 import { reject } from "lodash";
 import {ISPItemMinoranmeldung} from "./ISPItemMinoranmeldung";
+import {IMinorDropdownOption} from "../minorAnmeldeformularV2/extensions/ComponentWrapper";
 
 export class SPServices {
 
@@ -13,17 +13,17 @@ export class SPServices {
         this.context = context;
     }
 
-    public getFormData(listName: string): Promise<IDropdownOption[]> {
+    public getFormData(listName: string): Promise<IMinorDropdownOption[]> {
         let restAPIUrl: string = this.context.pageContext.web.absoluteUrl + "/_api/web/lists/GetByTitle('" + listName + "')/items";
-        let listOfSPListItems: IDropdownOption[] = [];
-        return new Promise<IDropdownOption[]> (async (resolve) => {
+        let listOfSPListItems: IMinorDropdownOption[] = [];
+        return new Promise<IMinorDropdownOption[]> (async (resolve) => {
             this.context.spHttpClient.get(restAPIUrl, SPHttpClient.configurations.v1)
             .then((spResponse: SPHttpClientResponse) => {
                 spResponse.json()
                 .then((spResponseJson: ISPList) => {
                     spResponseJson.value.map((spListItem) => {
                         listOfSPListItems.push({
-                            key: spListItem.Title.toLowerCase(), text: spListItem.Title, id: spListItem.TemplateID
+                            key: spListItem.Title.toLowerCase(), text: spListItem.Title, id: spListItem.Id, templateId: spListItem.TemplateID
                         });
                     });
                     resolve(listOfSPListItems);

@@ -1,9 +1,9 @@
 export interface IGeneralDataRequiredFields {
     isTheFirstMaster: string;
-    studyProgram: string;
+    studyProgramId: string;
     studyYear: string;
     jazzOrClassic: string;
-    mainInstrument: string;
-    minor1: string;
-    minor2: string;
+    mainInstrumentId: string;
+    minor1Id: string;
+    minor2Id: string;
 }

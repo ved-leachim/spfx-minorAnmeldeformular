@@ -100,7 +100,7 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
         >
         </TextField>
         <br />
-        <label style={labelStyle}>1. Wahl Dozierende</label>
+        <label style={labelStyle}>1. Wahl Dozierende *</label>
         <PeoplePicker
             context={props.context}
             ensureUser
@@ -123,7 +123,7 @@ export const SecondaryInstruments: React.FunctionComponent<ISecondaryInstruments
         >
         </TextField>
         <br />
-        <label style={labelStyle}>2. Wahl Dozierende</label>
+        <label style={labelStyle}>2. Wahl Dozierende *</label>
         <PeoplePicker
             context={props.context}
             ensureUser

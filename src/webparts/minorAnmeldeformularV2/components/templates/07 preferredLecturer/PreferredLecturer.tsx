@@ -59,7 +59,7 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
     return (
         <div>
             <br/>
-            <label style={labelStyle}>1. Wahl Dozierende Einzelunterricht</label>
+            <label style={labelStyle}>1. Wahl Dozierende Einzelunterricht *</label>
             <PeoplePicker
                 context={props.context}
                 ensureUser
@@ -75,10 +75,12 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handlePreferredLecturer1NameChange(e.target.value);}}
                 disabled={preferredLecturerData.preferredLecturer1Id != ""}
                 hidden={preferredLecturerData.preferredLecturer1Id != ""}
-                value={preferredLecturerData.preferredLecturer1Name}>
+                value={preferredLecturerData.preferredLecturer1Name}
+                required
+            >
             </TextField>
             <br/>
-            <label style={labelStyle}>2. Wahl Dozierende Einzelunterricht</label>
+            <label style={labelStyle}>2. Wahl Dozierende Einzelunterricht *</label>
             <PeoplePicker
                 context={props.context}
                 ensureUser
@@ -94,7 +96,9 @@ export const PreferredLecturer: React.FunctionComponent<IPreferredLecturerProps>
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handlePreferredLecturer2NameChange(e.target.value);}}
                 disabled={preferredLecturerData.preferredLecturer2Id != ""}
                 hidden={preferredLecturerData.preferredLecturer2Id != ""}
-                value={preferredLecturerData.preferredLecturer2Name}>
+                value={preferredLecturerData.preferredLecturer2Name}
+                required
+            >
             </TextField>
         </div>
     );

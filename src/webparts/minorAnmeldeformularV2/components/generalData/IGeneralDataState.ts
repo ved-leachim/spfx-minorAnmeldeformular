@@ -6,6 +6,6 @@ export interface IGeneralDataState {
     jazzOrClassic: string;
     studyYear: string;
     mainInstrument: string;
-    favoriteLecturerId: string;
+    favoriteLecturerId: string | null;
     favoriteLecturerName: string;
 }

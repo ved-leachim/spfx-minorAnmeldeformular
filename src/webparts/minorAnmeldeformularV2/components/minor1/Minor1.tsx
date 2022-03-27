@@ -13,6 +13,7 @@ import {SecondaryInstruments} from "../templates/06 secondaryInstruments/Seconda
 import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
 import {useContext} from "react";
 import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
+import {MinorDropdown} from "../../extensions/ComponentWrapper";
 
 export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.PropsWithChildren<IMinor1Props>) => {
 
@@ -39,27 +40,27 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
         <br></br><br></br>
         <Stack horizontal tokens={stackTokens} styles={stackStyles}>
             <Stack {...columnProps}>
-                <Dropdown
-                label='Auswahl Minor 1. Priorität'
-                options={props.minorData}
-                onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
-                    setMinor1Data({
-                        ...minor1Data,
-                        templateId: options.id,
-                        proofOfExperience: "",
-                        jazzOrClassic: "",
-                        hasOrchestraInternship: "",
-                        desiredNumberOfSemesters: "",
-                    });
-                    // Setting RequiredFieldsContext
-                    updateRequiredFields({
-                        ...requiredFields, generalDataRequiredFields: {
-                            ...requiredFields.generalDataRequiredFields, minor1: options.text
-                        }
-                    });
-                }}
-                required>
-                </Dropdown>
+                <MinorDropdown
+                    label='Auswahl Minor 1. Priorität'
+                    options={props.minorData}
+                    onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
+                        setMinor1Data({
+                            ...minor1Data,
+                            templateId: options.templateId,
+                            proofOfExperience: "",
+                            jazzOrClassic: "",
+                            hasOrchestraInternship: "",
+                            desiredNumberOfSemesters: "",
+                        });
+                        // Setting RequiredFieldsContext
+                        updateRequiredFields({
+                            ...requiredFields, generalDataRequiredFields: {
+                                ...requiredFields.generalDataRequiredFields, minor1Id: options.id
+                            }
+                        });
+                    }}
+                    required>
+                </MinorDropdown>
             </Stack>
             <Stack {...columnProps}>
                 {

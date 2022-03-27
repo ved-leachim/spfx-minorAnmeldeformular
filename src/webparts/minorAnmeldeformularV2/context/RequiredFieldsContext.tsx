@@ -16,12 +16,12 @@ export const RequiredFieldsContext = React.createContext<RequiredFieldsContextTy
         },
         generalDataRequiredFields: {
             isTheFirstMaster: "",
-            studyProgram: "",
+            studyProgramId: "",
             studyYear: "",
             jazzOrClassic: "",
-            mainInstrument: "",
-            minor1: "",
-            minor2: ""
+            mainInstrumentId: "",
+            minor1Id: "",
+            minor2Id: ""
         },
         minor1AdditionalRequiredFields: {},
         minor2AdditionalRequiredFields: {},
@@ -40,12 +40,12 @@ const RequiredFieldsProvider: React.FC<React.ReactNode> = ({children}) => {
         },
         generalDataRequiredFields: {
             isTheFirstMaster: "",
-            studyProgram: "",
+            studyProgramId: "",
             studyYear: "",
             jazzOrClassic: "",
-            mainInstrument: "",
-            minor1: "",
-            minor2: ""
+            mainInstrumentId: "",
+            minor1Id: "",
+            minor2Id: ""
         },
         minor1AdditionalRequiredFields: {},
         minor2AdditionalRequiredFields: {},

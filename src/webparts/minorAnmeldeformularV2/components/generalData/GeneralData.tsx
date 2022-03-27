@@ -27,7 +27,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
     studyYear: "",
     jazzOrClassic: "",
     mainInstrument: "",
-    favoriteLecturerId: "",
+    favoriteLecturerId: null,
     favoriteLecturerName: ""
   });
 
@@ -103,7 +103,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                 <TextField
                 label='Dozierende*r - Tastatureingabe, falls nicht im Verzeichnis gefunden'
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {setGeneralData({...generalData, favoriteLecturerName: e.target.value});}}
-                disabled={generalData.favoriteLecturerId != ""}
+                disabled={generalData.favoriteLecturerId != "" && generalData.favoriteLecturerId != null}
                 value={generalData.favoriteLecturerName}>
                 </TextField>
             </Stack>
@@ -150,7 +150,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                 principalTypes={[PrincipalType.User]}
                 onChange={(selectedPerson) => {
                     if (selectedPerson !== null && selectedPerson.length > 0) {setGeneralData({...generalData, favoriteLecturerId: selectedPerson[0].id, favoriteLecturerName: ""});}
-                    else {setGeneralData({...generalData, favoriteLecturerId: ""});}
+                    else {setGeneralData({...generalData, favoriteLecturerId: null});}
                 }}
                 placeholder={"Im Verzeichnis suchen..."}
                 personSelectionLimit={1}

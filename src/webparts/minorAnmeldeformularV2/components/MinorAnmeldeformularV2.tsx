@@ -1,52 +1,18 @@
 import * as React from 'react';
-import { IMinorAnmeldeformularV2Props } from './IMinorAnmeldeformularV2Props';
-import { ContactData } from './contactData/ContactData';
-import { escape } from '@microsoft/sp-lodash-subset';
-import { GeneralData } from './generalData/GeneralData';
-import { Minor1 } from './minor1/Minor1';
-import { Minor2 } from './minor2/Minor2';
-import { FormInteraction } from './formInteraction/FormInteraction';
-import { IContactDataState } from './contactData/IContactDataState';
-import { IMinorAnmeldeformularV2State } from './IMinorAnmeldeformularV2State';
-import * as strings from 'MinorAnmeldeformularV2WebPartStrings';
-import { IGeneralDataState } from './generalData/IGeneralDataState';
-import { SPServices } from '../../Services/SPServices';
-import { IDropdownOption, Spinner } from 'office-ui-fabric-react';
-import { IMinor1State } from './minor1/IMinor1State';
-import { IMinor2State } from './minor2/IMinor2State';
+import {IMinorAnmeldeformularV2Props} from './IMinorAnmeldeformularV2Props';
+import {ContactData} from './contactData/ContactData';
+import {GeneralData} from './generalData/GeneralData';
+import {Minor1} from './minor1/Minor1';
+import {Minor2} from './minor2/Minor2';
+import {FormInteraction} from './formInteraction/FormInteraction';
+import {IContactDataState} from './contactData/IContactDataState';
+import {IMinorAnmeldeformularV2State} from './IMinorAnmeldeformularV2State';
+import {IGeneralDataState} from './generalData/IGeneralDataState';
+import {SPServices} from '../../Services/SPServices';
+import {IDropdownOption, MessageBarType, Spinner} from 'office-ui-fabric-react';
+import {IMinor1State} from './minor1/IMinor1State';
+import {IMinor2State} from './minor2/IMinor2State';
 import RequiredFieldsProvider from "../context/RequiredFieldsContext";
-
-const resetFormState: IMinorAnmeldeformularV2State = {
-  contactDataState: {
-    givenName: "",
-    surname: "",
-    contactEMail: ""
-  },
-  generalDataState: {
-    isTheFirstMaster: "",
-    studyProgram: "",
-    jazzOrClassic: "",
-    studyYear: "",
-    mainInstrument: "",
-    favoriteLecturerId: "",
-    favoriteLecturerName: ""
-  },
-  minor1DataState: {
-    templateId: "",
-    proofOfExperience: "",
-    jazzOrClassic: "",
-    hasOrchestraInternship: "",
-    desiredNumberOfSemesters: "",
-  },
-  minor2DataState: {
-    templateId: "",
-    proofOfExperience: "",
-    jazzOrClassic: "",
-    hasOrchestraInternship: "",
-    desiredNumberOfSemesters: "",
-  },
-  dataLoaded: true
-};
 
 export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeldeformularV2Props, IMinorAnmeldeformularV2State> {
 
@@ -87,7 +53,10 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
         hasOrchestraInternship: "",
         desiredNumberOfSemesters: "",
       },
-      dataLoaded: false
+      dataLoaded: false,
+      formMessage: "Bitte füllen Sie alle benötigten Informationen aus.",
+      messageBarType: MessageBarType.info,
+      sendEnabled: false
     };
 
     // Instantiate SPServices to interact with SP-APIS
@@ -174,8 +143,14 @@ export default class MinorAnmeldeformularV2 extends React.Component<IMinorAnmeld
             <FormInteraction
                 formState={this.state}
                 handleSubmitForm={(payload) => {
-                  this.SPServices.sendFormData(this.props.configSaveToList, payload);
+                  this.SPServices.sendFormData(this.props.configSaveToList, payload)
+                      .then((responseMessage) => {this.setState({formMessage: responseMessage, messageBarType: MessageBarType.success, sendEnabled: false});},
+                          (error) => {this.setState({formMessage: error, messageBarType: MessageBarType.error, sendEnabled: true});
+                      });
                 }}
+                formMessage={this.state.formMessage}
+                messageBarType={this.state.messageBarType}
+                sendEnabled={this.state.sendEnabled}
             >
             </FormInteraction>
           </RequiredFieldsProvider>

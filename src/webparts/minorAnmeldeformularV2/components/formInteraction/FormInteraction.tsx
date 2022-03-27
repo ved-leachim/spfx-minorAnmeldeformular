@@ -1,8 +1,8 @@
-import { MessageBar, MessageBarType, PrimaryButton, Stack } from 'office-ui-fabric-react';
+import {MessageBar, MessageBarType, PrimaryButton, Stack} from 'office-ui-fabric-react';
 import * as React from 'react';
+import {useEffect} from 'react';
 import {columnProps, messageBarStyles, stackStyles, stackTokens} from "../../styles/styles";
 import {IFormInteractionState} from "./IFormInteractionState";
-import {useEffect} from "react";
 import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
 import {hasAllRequiredFields} from "../../helper/RequiredFieldsHelper";
 import {IMinorAnmeldeformularV2State} from "../IMinorAnmeldeformularV2State";
@@ -10,6 +10,9 @@ import {ISPItemMinoranmeldung} from "../../../Services/ISPItemMinoranmeldung";
 
 export interface IFormInteractionProps {
     formState: IMinorAnmeldeformularV2State;
+    formMessage: string;
+    messageBarType: MessageBarType;
+    sendEnabled: boolean;
     handleSubmitForm(payload: ISPItemMinoranmeldung): void;
 }
 
@@ -18,7 +21,9 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
     // Managing FC State
     const [formInteractionData, setFormInteractionData] = React.useState<IFormInteractionState>({
         hasAllRequiredFields: false,
-        responseMessage: "Bitte füllen Sie alle benötigten Informationen aus."
+        responseMessage: props.formMessage,
+        messageBarType: MessageBarType.info,
+        sendEnabled: false
     });
 
     // Managing RequiredFieldsContext
@@ -27,16 +32,20 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
     // Handle Button-Send State
     useEffect(() => {
         if (hasAllRequiredFields(requiredFields)){
-            setFormInteractionData({...formInteractionData, hasAllRequiredFields: true});
+            setFormInteractionData({...formInteractionData, hasAllRequiredFields: true, responseMessage: "Sie können das Formular absenden.", messageBarType: MessageBarType.info, sendEnabled: true});
         } else {
-            setFormInteractionData({...formInteractionData, hasAllRequiredFields: false});
+            setFormInteractionData({...formInteractionData, hasAllRequiredFields: false, responseMessage: "Bitte füllen Sie alle benötigten Informationen aus.", messageBarType: MessageBarType.info, sendEnabled: false});
         }
     }, [requiredFields]);
+
+    useEffect(() => {
+       setFormInteractionData({...formInteractionData, responseMessage: props.formMessage, messageBarType: props.messageBarType, sendEnabled: props.sendEnabled});
+    }, [props.formMessage || props.sendEnabled]);
 
   return (
       <div>
           <MessageBar
-            messageBarType={MessageBarType.info}
+            messageBarType={formInteractionData.messageBarType}
             isMultiline={true}
             dismissButtonAriaLabel="Schliessen"
             styles={messageBarStyles}>
@@ -47,7 +56,7 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
               <Stack {...columnProps}>
                 <PrimaryButton
                 text='Absenden'
-                disabled={!formInteractionData.hasAllRequiredFields}
+                disabled={!formInteractionData.sendEnabled}
                 onClick={() => {handleSubmitForm();}}
                 >
                 </PrimaryButton>
@@ -65,18 +74,18 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
 
   function handleSubmitForm(): void {
       const payload: ISPItemMinoranmeldung = {
-          InstrumentId: props.formState.generalDataState.mainInstrument,
+          InstrumentId: requiredFields.generalDataRequiredFields.mainInstrumentId,
           DozentId: props.formState.generalDataState.favoriteLecturerId,
           DozentManuell: props.formState.generalDataState.favoriteLecturerName,
           ErsterMaster: props.formState.generalDataState.isTheFirstMaster,
-          StudiengangId: props.formState.generalDataState.studyProgram,
+          StudiengangId: requiredFields.generalDataRequiredFields.studyProgramId,
           Studienjahr: props.formState.generalDataState.studyYear,
           JazzOderKlassik: props.formState.generalDataState.jazzOrClassic,
           VornameStudierende: props.formState.contactDataState.givenName,
           NachnameStudierende: props.formState.contactDataState.surname,
           EMailStudierende: props.formState.contactDataState.contactEMail,
-          Minor1Id: requiredFields.generalDataRequiredFields.minor1,
-          Minor2Id: requiredFields.generalDataRequiredFields.minor2,
+          Minor1Id: requiredFields.generalDataRequiredFields.minor1Id,
+          Minor2Id: requiredFields.generalDataRequiredFields.minor2Id,
           min1Erfahrungsnachweis: props.formState.minor1DataState.proofOfExperience,
           min1FavDoz1Id: requiredFields.minor1AdditionalRequiredFields.preferredLecturer1Id,
           min1FavDoz1Manuell: requiredFields.minor1AdditionalRequiredFields.preferredLecturer1Name,

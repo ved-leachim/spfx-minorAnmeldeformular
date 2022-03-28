@@ -36,7 +36,7 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
         } else {
             setFormInteractionData({...formInteractionData, hasAllRequiredFields: false, responseMessage: "Bitte füllen Sie alle benötigten Informationen aus.", messageBarType: MessageBarType.info, sendEnabled: false});
         }
-    }, [requiredFields]);
+    }, [requiredFields || props.formState]);
 
     useEffect(() => {
        setFormInteractionData({...formInteractionData, responseMessage: props.formMessage, messageBarType: props.messageBarType, sendEnabled: props.sendEnabled});

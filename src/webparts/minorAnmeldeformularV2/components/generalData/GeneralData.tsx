@@ -143,7 +143,7 @@ export const GeneralData: React.FunctionComponent<IGeneralDataProps> = (props: R
                 }}
                 required>
                 </Dropdown>
-                <label style={{marginBottom: -10, fontSize: FontSizes.size14, fontWeight: 600, color: rgb2hex(50, 49, 48), paddingTop: 5}}>Favorisierter Dozierender</label>
+                <label style={{marginBottom: -10, fontSize: FontSizes.size14, fontWeight: 600, color: rgb2hex(50, 49, 48), paddingTop: 5}}>Kernfachdozierender</label>
                 <PeoplePicker
                 context={props.context}
                 ensureUser

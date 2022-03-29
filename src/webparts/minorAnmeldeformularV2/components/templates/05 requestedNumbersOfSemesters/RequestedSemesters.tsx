@@ -24,10 +24,10 @@ export const RequestedSemesters: React.FunctionComponent<IRequestedSemestersProp
   return (
     <div>
         <Dropdown
-            label='Hat bereits einen Praktikumsplatz in einem prof. Orchester'
+            label='Gewünschte Anzahl Semester'
             options={[
-                {key: 'ja', text: 'Ja'},
-                {key: 'nein', text: 'Nein'}
+                {key: '2 semester', text: '2 Semester'},
+                {key: '3 semester', text: '3 Semester'}
             ]}
             onChange={(e: React.ChangeEvent<HTMLDivElement>, options) => {
                 setRequestedSemestersData({

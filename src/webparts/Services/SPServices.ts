@@ -13,7 +13,7 @@ export class SPServices {
     }
 
     public getFormData(listName: string) {
-        let restAPIUrl: string = this.context.pageContext.web.absoluteUrl + "/_api/web/lists/GetByTitle('" + listName + "')/items";
+        let restAPIUrl: string = this.context.pageContext.web.absoluteUrl + "/_api/web/lists/GetByTitle('" + listName + "')/items?$orderby=Title asc";
         let listOfSPListItems: IMinorDropdownOption[] = [];
         return new Promise<IMinorDropdownOption[]> (async (resolve, reject) => {
             this.context.spHttpClient.get(restAPIUrl, SPHttpClient.configurations.v1)

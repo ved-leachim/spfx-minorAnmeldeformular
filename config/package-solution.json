@@ -3,7 +3,7 @@
   "solution": {
     "name": "minorform-anmeldung-2-client-side-solution",
     "id": "06359793-3723-40fc-a032-521564da15d6",
-    "version": "1.0.0.0",
+    "version": "1.0.0.1",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,

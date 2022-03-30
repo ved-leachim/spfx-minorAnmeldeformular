@@ -14,6 +14,7 @@ import {columnProps, stackStyles, stackTokens} from "../../styles/styles";
 import {useContext} from "react";
 import {RequiredFieldsContext, RequiredFieldsContextType} from "../../context/RequiredFieldsContext";
 import {MinorDropdown} from "../../extensions/ComponentWrapper";
+import {JazzClassicAdvanced} from "../templates/08 jazzClassicAdvanced/JazzClassicAdvanced";
 
 export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.PropsWithChildren<IMinor1Props>) => {
 
@@ -126,6 +127,16 @@ export const Minor1: React.FunctionComponent<IMinor1Props> = (props: React.Props
                             minor={1}
                         >
                         </PreferredLecturer> :
+                        <></>
+                }
+                {
+                    (minor1Data.templateId == "8") ?
+                        <JazzClassicAdvanced
+                            context={props.context}
+                            minor={1}
+                            secondaryInstrumentData={props.secondaryInstrumentData}
+                        >
+                        </JazzClassicAdvanced> :
                         <></>
                 }
 

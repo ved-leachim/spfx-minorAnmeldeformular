@@ -1,6 +1,7 @@
 import {IMinorAnmeldeformularV2RequiredDataState} from "../components/IMinorAnmeldeformularV2RequiredDataState";
 
 export enum additionalRequiredFields {
+    jazzOrClassic = "jazzOrClassic",
     preferredLecturer1Id = "preferredLecturer1Id",
     preferredLecturer1Name = "preferredLecturer1Name",
     preferredLecturer2Id = "preferredLecturer2Id",

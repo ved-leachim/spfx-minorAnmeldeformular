@@ -5,6 +5,7 @@ export interface IMinorAnmeldeformularV2RequiredDataState {
     contactDataState: IContactDataState;
     generalDataRequiredFields: IGeneralDataRequiredFields;
     minor1AdditionalRequiredFields: {
+        jazzOrClassic?: string;
         preferredLecturer1Id?: string;
         preferredLecturer1Name?: string;
         preferredLecturer2Id?: string;
@@ -15,6 +16,7 @@ export interface IMinorAnmeldeformularV2RequiredDataState {
         preferredSecondaryInstrument2Special?: string;
     };
     minor2AdditionalRequiredFields: {
+        jazzOrClassic?: string;
         preferredLecturer1Id?: string;
         preferredLecturer1Name?: string;
         preferredLecturer2Id?: string;

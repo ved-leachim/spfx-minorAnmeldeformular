@@ -73,6 +73,15 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
   );
 
   function handleSubmitForm(): void {
+
+      // Check from which source it should take the value
+      let min1JazzOrClassic: string;
+      if (props.formState.minor1DataState.jazzOrClassic != "") { min1JazzOrClassic = props.formState.minor1DataState.jazzOrClassic;}
+      else {min1JazzOrClassic = requiredFields.minor1AdditionalRequiredFields.jazzOrClassic;}
+      let min2JazzOrClassic: string;
+      if (props.formState.minor2DataState.jazzOrClassic != "") {min2JazzOrClassic = props.formState.minor2DataState.jazzOrClassic;}
+      else {min2JazzOrClassic = requiredFields.minor2AdditionalRequiredFields.jazzOrClassic;}
+
       const payload: ISPItemMinoranmeldung = {
           InstrumentId: requiredFields.generalDataRequiredFields.mainInstrumentId,
           DozentId: props.formState.generalDataState.favoriteLecturerId,
@@ -91,7 +100,7 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
           min1FavDoz1Manuell: requiredFields.minor1AdditionalRequiredFields.preferredLecturer1Name,
           min1FavDoz2Id: requiredFields.minor1AdditionalRequiredFields.preferredLecturer2Id,
           min1FavDoz2Manuell: requiredFields.minor1AdditionalRequiredFields.preferredLecturer2Name,
-          min1JazzOderKlassik: props.formState.minor1DataState.jazzOrClassic,
+          min1JazzOderKlassik: min1JazzOrClassic,
           min1HatPraktiumsplatz: props.formState.minor1DataState.hasOrchestraInternship,
           min1FavInstrument1: requiredFields.minor1AdditionalRequiredFields.preferredSecondaryInstrument1,
           min1FavInstrument1Spezial: requiredFields.minor1AdditionalRequiredFields.preferredSecondaryInstrument1Special,
@@ -102,7 +111,7 @@ export const FormInteraction: React.FunctionComponent<IFormInteractionProps> = (
           min2FavDoz1Manuell: requiredFields.minor2AdditionalRequiredFields.preferredLecturer1Name,
           min2FavDoz2Id: requiredFields.minor2AdditionalRequiredFields.preferredLecturer2Id,
           min2FavDoz2Manuell: requiredFields.minor2AdditionalRequiredFields.preferredLecturer2Name,
-          min2JazzOderKlassik: props.formState.minor2DataState.jazzOrClassic,
+          min2JazzOderKlassik: min2JazzOrClassic,
           min2HatPraktiumsplatz: props.formState.minor2DataState.hasOrchestraInternship,
           min2FavInstrument1: requiredFields.minor2AdditionalRequiredFields.preferredSecondaryInstrument1,
           min2FavInstrument1Spezial: requiredFields.minor2AdditionalRequiredFields.preferredSecondaryInstrument1Special,
